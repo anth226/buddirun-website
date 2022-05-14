@@ -20,17 +20,10 @@
         "userPoolGroups": {}
       },
       "function": {
-        "buddirunv166e6c49aCustomMessage": {
-          "REDIRECTURL": "https://buddirun.com/welcome/",
-          "EMAILSUBJECT": "Welcome to Buddirun",
-          "EMAILMESSAGE": "Click to confirm your account.",
-          "deploymentBucketName": "amplify-buddirunv1-dev-132825-deployment",
-          "s3Key": "amplify-builds/buddirunv166e6c49aCustomMessage-6b5a376b312f4665714e-build.zip"
-        },
         "buddirunv166e6c49aPostConfirmation": {
           "GROUP": "user",
           "deploymentBucketName": "amplify-buddirunv1-dev-132825-deployment",
-          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-6d464e3035587478386f-build.zip"
+          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-6c52687738624461306f-build.zip"
         }
       },
       "storage": {

@@ -1,11 +1,5 @@
 export type AmplifyDependentResourcesAttributes = {
     "function": {
-        "buddirunv166e6c49aCustomMessage": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
         "buddirunv166e6c49aPostConfirmation": {
             "Name": "string",
             "Arn": "string",

@@ -1,10 +1,5 @@
 {
   "function": {
-    "buddirunv166e6c49aCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "buddirunv166e6c49aPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -16,15 +11,6 @@
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "buddirunv166e6c49aCustomMessage",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
         {
           "category": "function",
           "resourceName": "buddirunv166e6c49aPostConfirmation",

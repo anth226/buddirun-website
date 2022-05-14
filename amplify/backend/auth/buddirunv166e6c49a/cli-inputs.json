@@ -43,9 +43,6 @@
       "email, phone_number"
     ],
     "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ],
       "PostConfirmation": [
         "add-to-group"
       ]
@@ -79,15 +76,6 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "buddirunv166e6c49aCustomMessage",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
         "resourceName": "buddirunv166e6c49aPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
@@ -99,16 +87,16 @@
     "permissions": [
       "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
     ],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"buddirunv166e6c49aCustomMessage\"\n  },\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"buddirunv166e6c49aPostConfirmation\"\n  }\n]",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"buddirunv166e6c49aPostConfirmation\"\n  }\n]",
     "thirdPartyAuth": true,
     "authProviders": [
       "accounts.google.com"
     ],
     "userPoolGroups": true,
     "adminQueries": false,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://buddirun.com/welcome/\"],\"LogoutURLs\":[\"https://buddirun.com/goodbye/\"]}",
     "parentStack": {
       "Ref": "AWS::StackId"
-    }
+    },
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://buddirun.com/welcome/\"],\"LogoutURLs\":[\"https://buddirun.com/goodbye/\"]}"
   }
 }
