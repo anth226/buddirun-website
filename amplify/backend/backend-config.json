@@ -96,7 +96,7 @@
     }
   },
   "storage": {
-    "buddirunv1e3e632e8": {
+    "buddirunv168b3b992": {
       "service": "S3",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
