@@ -14,19 +14,26 @@
     },
     "categories": {
       "auth": {
-        "buddirunv166e6c49a": {},
+        "buddirunv166e6c49a": {
+          "googleClientId": "519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com"
+        },
         "userPoolGroups": {}
       },
       "storage": {
         "buddirunv1e3e632e8": {
           "bucketName": "buddirun-dev-v1-public-bucket",
           "region": "us-west-1"
+        },
+        "buddirunv168b3b992": {
+          "bucketName": "buddirun-prod-v1-public-bucket",
+          "region": "us-west-1"
         }
       },
       "function": {
         "buddirunv166e6c49aPostConfirmation": {
           "deploymentBucketName": "amplify-buddirunv1-prod-220025-deployment",
-          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-5854724f2f3461334557-build.zip"
+          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-5854724f2f3461334557-build.zip",
+          "GROUP": "user"
         }
       }
     }
