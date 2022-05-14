@@ -6,6 +6,6 @@ import {schema} from './schema';
 const {Task, PrivateNote} = initSchema(schema);
 
 export {
-    Task,
-    PrivateNote
+  Task,
+  PrivateNote
 };

@@ -14,5 +14,6 @@
   "roleName": "buddirunv166e6c49aPostConfirmation",
   "skipEdit": true,
   "GROUP": "user",
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {}
 }

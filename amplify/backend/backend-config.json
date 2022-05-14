@@ -3,7 +3,8 @@
     "buddirunv166e6c49aPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": []
     }
   },
   "auth": {

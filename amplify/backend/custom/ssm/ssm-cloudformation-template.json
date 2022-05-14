@@ -65,6 +65,14 @@
       "Description": "Input parameter describing GraphQLAPIEndpointOutput attribute for api/buddirunv1 resource"
     }
   },
+  "Mappings": {
+    "Environment": {
+      "Names": {
+        "dev": "/Dev-V1/",
+        "prod": "/Prod-V1/"
+      }
+    }
+  },
   "Resources": {
     "ssmgraphqlendpoint": {
       "Type": "AWS::SSM::Parameter",
@@ -73,11 +81,16 @@
           "Fn::Join": [
             "",
             [
-              "/",
               {
-                "Ref": "env"
+                "Fn::FindInMap": [
+                  "Environment",
+                  "Names",
+                  {
+                    "Ref": "env"
+                  }
+                ]
               },
-              "-V1/GRAPHQL_ENDPOINT"
+              "GRAPHQL_ENDPOINT"
             ]
           ]
         },
@@ -94,17 +107,48 @@
           "Fn::Join": [
             "",
             [
-              "/",
               {
-                "Ref": "env"
+                "Fn::FindInMap": [
+                  "Environment",
+                  "Names",
+                  {
+                    "Ref": "env"
+                  }
+                ]
               },
-              "-V1/GRAPHQL_ID"
+              "GRAPHQL_ID"
             ]
           ]
         },
         "Type": "String",
         "Value": {
           "Ref": "apibuddirunv1GraphQLAPIIdOutput"
+        }
+      }
+    },
+    "ssmpoolid": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Fn::FindInMap": [
+                  "Environment",
+                  "Names",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              },
+              "COGNITO_USER_POOL"
+            ]
+          ]
+        },
+        "Type": "String",
+        "Value": {
+          "Ref": "authbuddirunv166e6c49aUserPoolId"
         }
       }
     }
