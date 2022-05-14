@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "buddirunv1",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authbuddirunv166e6c49a",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
