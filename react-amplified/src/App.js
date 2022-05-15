@@ -1,8 +1,8 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import Amplify, {DataStore, Predicates} from "aws-amplify";
+import Amplify, {DataStore, Hub, Predicates} from "aws-amplify";
 import {Post, PostStatus} from "./models";
 import {withAuthenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -36,23 +36,33 @@ async function onQuery() {
 }
 
 function App({signOut, user}) {
+    const [isDisabled, setDisabled] = useState(true);
+
     useEffect(() => {
         const subscription = DataStore.observe(Post).subscribe((msg) => {
             console.log(msg.model, msg.opType, msg.element);
         });
+        const listener = Hub.listen("datastore", async hubData => {
+            const {event, data} = hubData.payload;
+            if (event === "ready") {
+                setDisabled(false);
+            }
+        })
 
-        return () => subscription.unsubscribe();
+        return () => {
+            subscription.unsubscribe();
+            listener();
+        }
     }, []);
-
 
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
                 <div>
-                    <input type="button" value="NEW" onClick={onCreate}/>
-                    <input type="button" value="DELETE ALL" onClick={onDeleteAll}/>
-                    <input type="button" value="QUERY rating > 4" onClick={onQuery}/>
+                    <input type="button" value="NEW" onClick={onCreate} disabled={isDisabled}/>
+                    <input type="button" value="DELETE ALL" onClick={onDeleteAll} disabled={isDisabled}/>
+                    <input type="button" value="QUERY rating > 4" onClick={onQuery} disabled={isDisabled}/>
                 </div>
                 <p>
                     Edit <code>src/App.js</code> and save to reload.
