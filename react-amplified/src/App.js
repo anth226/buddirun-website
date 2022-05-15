@@ -2,14 +2,15 @@ import {useEffect, useState} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import Amplify, {DataStore, Hub, Predicates} from "aws-amplify";
+import {DataStore, Hub, Predicates} from "aws-amplify";
 import {Post, PostStatus} from "./models";
 import {withAuthenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 //Use next two lines only if syncing with the cloud
-import awsconfig from "./aws-exports";
+// import awsconfig from "./aws-exports";
+//
+// Amplify.configure(awsconfig);
 
-Amplify.configure(awsconfig);
 
 function onCreate() {
     DataStore.save(
