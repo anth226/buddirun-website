@@ -7,7 +7,7 @@ import {Amplify} from 'aws-amplify';
 import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
-awsExports.oauth.domain = process.env.AUTH_DOMAIN;
+awsExports.oauth.domain = process.env.REACT_APP_AUTH_DOMAIN;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
