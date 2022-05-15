@@ -68,6 +68,79 @@ export const syncTasks = /* GraphQL */ `
         }
     }
 `;
+export const getPost = /* GraphQL */ `
+    query GetPost($id: ID!) {
+        getPost(id: $id) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const listPosts = /* GraphQL */ `
+    query ListPosts(
+        $filter: ModelPostFilterInput
+        $limit: Int
+        $nextToken: String
+    ) {
+        listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+            items {
+                id
+                title
+                status
+                rating
+                content
+                createdAt
+                updatedAt
+                _version
+                _deleted
+                _lastChangedAt
+                owner
+            }
+            nextToken
+            startedAt
+        }
+    }
+`;
+export const syncPosts = /* GraphQL */ `
+    query SyncPosts(
+        $filter: ModelPostFilterInput
+        $limit: Int
+        $nextToken: String
+        $lastSync: AWSTimestamp
+    ) {
+        syncPosts(
+            filter: $filter
+            limit: $limit
+            nextToken: $nextToken
+            lastSync: $lastSync
+        ) {
+            items {
+                id
+                title
+                status
+                rating
+                content
+                createdAt
+                updatedAt
+                _version
+                _deleted
+                _lastChangedAt
+                owner
+            }
+            nextToken
+            startedAt
+        }
+    }
+`;
 export const getPrivateNote = /* GraphQL */ `
     query GetPrivateNote($id: ID!) {
         getPrivateNote(id: $id) {

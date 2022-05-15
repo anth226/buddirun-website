@@ -46,6 +46,57 @@ export const onDeleteTask = /* GraphQL */ `
         }
     }
 `;
+export const onCreatePost = /* GraphQL */ `
+    subscription OnCreatePost($owner: String) {
+        onCreatePost(owner: $owner) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const onUpdatePost = /* GraphQL */ `
+    subscription OnUpdatePost($owner: String) {
+        onUpdatePost(owner: $owner) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const onDeletePost = /* GraphQL */ `
+    subscription OnDeletePost($owner: String) {
+        onDeletePost(owner: $owner) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
 export const onCreatePrivateNote = /* GraphQL */ `
     subscription OnCreatePrivateNote($owner: String) {
         onCreatePrivateNote(owner: $owner) {

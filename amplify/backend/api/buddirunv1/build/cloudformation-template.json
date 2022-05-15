@@ -384,7 +384,7 @@
         "GraphQLAPITransformerSchema3CB2AE18"
       ]
     },
-    "PrivateNote": {
+    "Post": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
@@ -407,7 +407,7 @@
               {
                 "Ref": "S3DeploymentRootKey"
               },
-              "/stacks/PrivateNote.json"
+              "/stacks/Post.json"
             ]
           ]
         },
@@ -484,6 +484,124 @@
         "GraphQLAPITransformerSchema3CB2AE18"
       ]
     },
+    "PrivateNote": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Ref": "S3DeploymentBucket"
+              },
+              "/",
+              {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "/stacks/PrivateNote.json"
+            ]
+          ]
+        },
+        "Parameters": {
+          "DynamoDBModelTableReadIOPS": {
+            "Ref": "DynamoDBModelTableReadIOPS"
+          },
+          "DynamoDBModelTableWriteIOPS": {
+            "Ref": "DynamoDBModelTableWriteIOPS"
+          },
+          "DynamoDBBillingMode": {
+            "Ref": "DynamoDBBillingMode"
+          },
+          "DynamoDBEnablePointInTimeRecovery": {
+            "Ref": "DynamoDBEnablePointInTimeRecovery"
+          },
+          "DynamoDBEnableServerSideEncryption": {
+            "Ref": "DynamoDBEnableServerSideEncryption"
+          },
+          "referencetotransformerrootstackenv10C5A902Ref": {
+            "Ref": "env"
+          },
+          "referencetotransformerrootstackGraphQLAPI20497F53ApiId": {
+            "Fn::GetAtt": [
+              "GraphQLAPI",
+              "ApiId"
+            ]
+          },
+          "referencetotransformerrootstackS3DeploymentBucket7592718ARef": {
+            "Ref": "S3DeploymentBucket"
+          },
+          "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref": {
+            "Ref": "S3DeploymentRootKey"
+          },
+          "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId": {
+            "Fn::GetAtt": [
+              "Post",
+              "Outputs.transformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId"
+            ]
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
+            ]
+          },
+          "referencetotransformerrootstackauthRoleNameFB872D50Ref": {
+            "Ref": "authRoleName"
+          },
+          "referencetotransformerrootstackunauthRoleName49F3C1FERef": {
+            "Ref": "unauthRoleName"
+          },
+          "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name": {
+            "Fn::GetAtt": [
+              "GraphQLAPINONEDS95A13CF0",
+              "Name"
+            ]
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskMutationcreateTaskinit0FunctionMutationcreateTaskinit0FunctionAppSyncFunctionC9BED0FAFunctionId": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskMutationcreateTaskinit0FunctionMutationcreateTaskinit0FunctionAppSyncFunctionC9BED0FAFunctionId"
+            ]
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskMutationupdateTaskinit0FunctionMutationupdateTaskinit0FunctionAppSyncFunction585C0964FunctionId": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskMutationupdateTaskinit0FunctionMutationupdateTaskinit0FunctionAppSyncFunction585C0964FunctionId"
+            ]
+          },
+          "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId": {
+            "Fn::GetAtt": [
+              "Post",
+              "Outputs.transformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId"
+            ]
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskSubscriptionOnCreateTaskDataResolverFnSubscriptionOnCreateTaskDataResolverFnAppSyncFunctionE6E36642FunctionId": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskSubscriptionOnCreateTaskDataResolverFnSubscriptionOnCreateTaskDataResolverFnAppSyncFunctionE6E36642FunctionId"
+            ]
+          },
+          "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostPostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionE22D4F40FunctionId": {
+            "Fn::GetAtt": [
+              "Post",
+              "Outputs.transformerrootstackPostPostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionE22D4F40FunctionId"
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "GraphQLAPITransformerSchema3CB2AE18"
+      ]
+    },
     "CustomResourcesjson": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
@@ -528,6 +646,7 @@
         "GraphQLAPI",
         "GraphQLAPITransformerSchema3CB2AE18",
         "Task",
+        "Post",
         "PrivateNote"
       ]
     }

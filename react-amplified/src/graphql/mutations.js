@@ -55,6 +55,66 @@ export const deleteTask = /* GraphQL */ `
         }
     }
 `;
+export const createPost = /* GraphQL */ `
+    mutation CreatePost(
+        $input: CreatePostInput!
+        $condition: ModelPostConditionInput
+    ) {
+        createPost(input: $input, condition: $condition) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const updatePost = /* GraphQL */ `
+    mutation UpdatePost(
+        $input: UpdatePostInput!
+        $condition: ModelPostConditionInput
+    ) {
+        updatePost(input: $input, condition: $condition) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const deletePost = /* GraphQL */ `
+    mutation DeletePost(
+        $input: DeletePostInput!
+        $condition: ModelPostConditionInput
+    ) {
+        deletePost(input: $input, condition: $condition) {
+            id
+            title
+            status
+            rating
+            content
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
 export const createPrivateNote = /* GraphQL */ `
     mutation CreatePrivateNote(
         $input: CreatePrivateNoteInput!

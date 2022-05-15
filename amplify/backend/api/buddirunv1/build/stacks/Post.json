@@ -43,13 +43,13 @@
     "referencetotransformerrootstackGraphQLAPI20497F53ApiId": {
       "Type": "String"
     },
+    "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name": {
+      "Type": "String"
+    },
     "referencetotransformerrootstackS3DeploymentBucket7592718ARef": {
       "Type": "String"
     },
     "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref": {
-      "Type": "String"
-    },
-    "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId": {
       "Type": "String"
     },
     "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId": {
@@ -61,22 +61,13 @@
     "referencetotransformerrootstackunauthRoleName49F3C1FERef": {
       "Type": "String"
     },
-    "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name": {
-      "Type": "String"
-    },
     "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskMutationcreateTaskinit0FunctionMutationcreateTaskinit0FunctionAppSyncFunctionC9BED0FAFunctionId": {
       "Type": "String"
     },
     "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskMutationupdateTaskinit0FunctionMutationupdateTaskinit0FunctionAppSyncFunction585C0964FunctionId": {
       "Type": "String"
     },
-    "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId": {
-      "Type": "String"
-    },
     "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskSubscriptionOnCreateTaskDataResolverFnSubscriptionOnCreateTaskDataResolverFnAppSyncFunctionE6E36642FunctionId": {
-      "Type": "String"
-    },
-    "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostPostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionE22D4F40FunctionId": {
       "Type": "String"
     }
   },
@@ -119,7 +110,7 @@
     }
   },
   "Resources": {
-    "PrivateNoteTable": {
+    "PostTable": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -186,7 +177,7 @@
           "Fn::Join": [
             "",
             [
-              "PrivateNote-",
+              "Post-",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -205,7 +196,7 @@
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"
     },
-    "PrivateNoteIAMRoleF6D5814B": {
+    "PostIAMRole83BF708F": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -224,7 +215,7 @@
           "Fn::Join": [
             "",
             [
-              "PrivateNoteIAMRole5487c8-",
+              "PostIAMRolebbce9b-",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -237,7 +228,7 @@
         }
       }
     },
-    "PrivateNoteIAMRoleDefaultPolicy3FDBB80C": {
+    "PostIAMRoleDefaultPolicy04190CA0": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -260,7 +251,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "PrivateNoteTable",
+                    "PostTable",
                     "Arn"
                   ]
                 },
@@ -272,10 +263,10 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PrivateNoteIAMRoleDefaultPolicy3FDBB80C",
+        "PolicyName": "PostIAMRoleDefaultPolicy04190CA0",
         "Roles": [
           {
-            "Ref": "PrivateNoteIAMRoleF6D5814B"
+            "Ref": "PostIAMRole83BF708F"
           }
         ]
       }
@@ -306,7 +297,7 @@
                         "Fn::Join": [
                           "",
                           [
-                            "PrivateNote-",
+                            "Post-",
                             {
                               "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
                             },
@@ -328,7 +319,7 @@
                         "Fn::Join": [
                           "",
                           [
-                            "PrivateNote-",
+                            "Post-",
                             {
                               "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
                             },
@@ -394,18 +385,18 @@
         "PolicyName": "DynamoDBAccess71ABE5AE",
         "Roles": [
           {
-            "Ref": "PrivateNoteIAMRoleF6D5814B"
+            "Ref": "PostIAMRole83BF708F"
           }
         ]
       }
     },
-    "PrivateNoteDataSource": {
+    "PostDataSource": {
       "Type": "AWS::AppSync::DataSource",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "Name": "PrivateNoteTable",
+        "Name": "PostTable",
         "Type": "AMAZON_DYNAMODB",
         "DynamoDBConfig": {
           "AwsRegion": {
@@ -431,367 +422,22 @@
             "DeltaSyncTableTTL": "30"
           },
           "TableName": {
-            "Ref": "PrivateNoteTable"
+            "Ref": "PostTable"
           },
           "Versioned": true
         },
         "ServiceRoleArn": {
           "Fn::GetAtt": [
-            "PrivateNoteIAMRoleF6D5814B",
+            "PostIAMRole83BF708F",
             "Arn"
           ]
         }
       },
       "DependsOn": [
-        "PrivateNoteIAMRoleF6D5814B"
+        "PostIAMRole83BF708F"
       ]
     },
-    "QueryGetPrivateNoteDataResolverFnQueryGetPrivateNoteDataResolverFnAppSyncFunction7D9892DC": {
-      "Type": "AWS::AppSync::FunctionConfiguration",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "DataSourceName": {
-          "Fn::GetAtt": [
-            "PrivateNoteDataSource",
-            "Name"
-          ]
-        },
-        "FunctionVersion": "2018-05-29",
-        "Name": "QueryGetPrivateNoteDataResolverFn",
-        "RequestMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.getPrivateNote.req.vtl"
-            ]
-          ]
-        },
-        "ResponseMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.getPrivateNote.res.vtl"
-            ]
-          ]
-        },
-        "SyncConfig": {
-          "ConflictDetection": "VERSION",
-          "ConflictHandler": "AUTOMERGE"
-        }
-      },
-      "DependsOn": [
-        "PrivateNoteDataSource"
-      ]
-    },
-    "GetPrivateNoteResolver": {
-      "Type": "AWS::AppSync::Resolver",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "FieldName": "getPrivateNote",
-        "TypeName": "Query",
-        "Kind": "PIPELINE",
-        "PipelineConfig": {
-          "Functions": [
-            {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId"
-            },
-            {
-              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
-            },
-            {
-              "Fn::GetAtt": [
-                "QueryGetPrivateNoteDataResolverFnQueryGetPrivateNoteDataResolverFnAppSyncFunction7D9892DC",
-                "FunctionId"
-              ]
-            }
-          ]
-        },
-        "RequestMappingTemplate": {
-          "Fn::Join": [
-            "",
-            [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"getPrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
-              {
-                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
-              {
-                "Ref": "PrivateNoteTable"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
-            ]
-          ]
-        },
-        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
-      }
-    },
-    "QueryListPrivateNotesDataResolverFnQueryListPrivateNotesDataResolverFnAppSyncFunctionFD6CF672": {
-      "Type": "AWS::AppSync::FunctionConfiguration",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "DataSourceName": {
-          "Fn::GetAtt": [
-            "PrivateNoteDataSource",
-            "Name"
-          ]
-        },
-        "FunctionVersion": "2018-05-29",
-        "Name": "QueryListPrivateNotesDataResolverFn",
-        "RequestMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.listPrivateNotes.req.vtl"
-            ]
-          ]
-        },
-        "ResponseMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.listPrivateNotes.res.vtl"
-            ]
-          ]
-        },
-        "SyncConfig": {
-          "ConflictDetection": "VERSION",
-          "ConflictHandler": "AUTOMERGE"
-        }
-      },
-      "DependsOn": [
-        "PrivateNoteDataSource"
-      ]
-    },
-    "ListPrivateNoteResolver": {
-      "Type": "AWS::AppSync::Resolver",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "FieldName": "listPrivateNotes",
-        "TypeName": "Query",
-        "Kind": "PIPELINE",
-        "PipelineConfig": {
-          "Functions": [
-            {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId"
-            },
-            {
-              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
-            },
-            {
-              "Fn::GetAtt": [
-                "QueryListPrivateNotesDataResolverFnQueryListPrivateNotesDataResolverFnAppSyncFunctionFD6CF672",
-                "FunctionId"
-              ]
-            }
-          ]
-        },
-        "RequestMappingTemplate": {
-          "Fn::Join": [
-            "",
-            [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"listPrivateNotes\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
-              {
-                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
-              {
-                "Ref": "PrivateNoteTable"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
-            ]
-          ]
-        },
-        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
-      }
-    },
-    "QuerySyncPrivateNotesDataResolverFnQuerySyncPrivateNotesDataResolverFnAppSyncFunction5D6EC6DB": {
-      "Type": "AWS::AppSync::FunctionConfiguration",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "DataSourceName": {
-          "Fn::GetAtt": [
-            "PrivateNoteDataSource",
-            "Name"
-          ]
-        },
-        "FunctionVersion": "2018-05-29",
-        "Name": "QuerySyncPrivateNotesDataResolverFn",
-        "RequestMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.syncPrivateNotes.req.vtl"
-            ]
-          ]
-        },
-        "ResponseMappingTemplateS3Location": {
-          "Fn::Join": [
-            "",
-            [
-              "s3://",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
-              },
-              "/",
-              {
-                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
-              },
-              "/resolvers/Query.syncPrivateNotes.res.vtl"
-            ]
-          ]
-        },
-        "SyncConfig": {
-          "ConflictDetection": "VERSION",
-          "ConflictHandler": "AUTOMERGE"
-        }
-      },
-      "DependsOn": [
-        "PrivateNoteDataSource"
-      ]
-    },
-    "SyncPrivateNoteResolver": {
-      "Type": "AWS::AppSync::Resolver",
-      "Properties": {
-        "ApiId": {
-          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-        },
-        "FieldName": "syncPrivateNotes",
-        "TypeName": "Query",
-        "Kind": "PIPELINE",
-        "PipelineConfig": {
-          "Functions": [
-            {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId"
-            },
-            {
-              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
-            },
-            {
-              "Fn::GetAtt": [
-                "QuerySyncPrivateNotesDataResolverFnQuerySyncPrivateNotesDataResolverFnAppSyncFunction5D6EC6DB",
-                "FunctionId"
-              ]
-            }
-          ]
-        },
-        "RequestMappingTemplate": {
-          "Fn::Join": [
-            "",
-            [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"syncPrivateNotes\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
-              {
-                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
-              {
-                "Ref": "PrivateNoteTable"
-              },
-              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":assumed-role/",
-              {
-                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
-              },
-              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
-            ]
-          ]
-        },
-        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
-      }
-    },
-    "MutationcreatePrivateNoteauth0FunctionMutationcreatePrivateNoteauth0FunctionAppSyncFunctionABD0AF4B": {
+    "QuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunctionB1D588DF": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -801,7 +447,7 @@
           "Ref": "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name"
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationcreatePrivateNoteauth0Function",
+        "Name": "QuerygetPostauth0Function",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -814,14 +460,14 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.createPrivateNote.auth.1.req.vtl"
+              "/resolvers/Query.getPost.auth.1.req.vtl"
             ]
           ]
         },
         "ResponseMappingTemplate": "$util.toJson({})"
       }
     },
-    "MutationCreatePrivateNoteDataResolverFnMutationCreatePrivateNoteDataResolverFnAppSyncFunction1F8CC928": {
+    "QueryGetPostDataResolverFnQueryGetPostDataResolverFnAppSyncFunction06724190": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -829,12 +475,12 @@
         },
         "DataSourceName": {
           "Fn::GetAtt": [
-            "PrivateNoteDataSource",
+            "PostDataSource",
             "Name"
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationCreatePrivateNoteDataResolverFn",
+        "Name": "QueryGetPostDataResolverFn",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -847,7 +493,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.createPrivateNote.req.vtl"
+              "/resolvers/Query.getPost.req.vtl"
             ]
           ]
         },
@@ -863,7 +509,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.createPrivateNote.res.vtl"
+              "/resolvers/Query.getPost.res.vtl"
             ]
           ]
         },
@@ -873,16 +519,400 @@
         }
       },
       "DependsOn": [
-        "PrivateNoteDataSource"
+        "PostDataSource"
       ]
     },
-    "CreatePrivateNoteResolver": {
+    "GetPostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "createPrivateNote",
+        "FieldName": "getPost",
+        "TypeName": "Query",
+        "Kind": "PIPELINE",
+        "PipelineConfig": {
+          "Functions": [
+            {
+              "Fn::GetAtt": [
+                "QuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunctionB1D588DF",
+                "FunctionId"
+              ]
+            },
+            {
+              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
+            },
+            {
+              "Fn::GetAtt": [
+                "QueryGetPostDataResolverFnQueryGetPostDataResolverFnAppSyncFunction06724190",
+                "FunctionId"
+              ]
+            }
+          ]
+        },
+        "RequestMappingTemplate": {
+          "Fn::Join": [
+            "",
+            [
+              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"getPost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              {
+                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+              {
+                "Ref": "PostTable"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
+            ]
+          ]
+        },
+        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
+      }
+    },
+    "QueryListPostsDataResolverFnQueryListPostsDataResolverFnAppSyncFunction3D526AB7": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "PostDataSource",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "QueryListPostsDataResolverFn",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Query.listPosts.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Query.listPosts.res.vtl"
+            ]
+          ]
+        },
+        "SyncConfig": {
+          "ConflictDetection": "VERSION",
+          "ConflictHandler": "AUTOMERGE"
+        }
+      },
+      "DependsOn": [
+        "PostDataSource"
+      ]
+    },
+    "ListPostResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "FieldName": "listPosts",
+        "TypeName": "Query",
+        "Kind": "PIPELINE",
+        "PipelineConfig": {
+          "Functions": [
+            {
+              "Fn::GetAtt": [
+                "QuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunctionB1D588DF",
+                "FunctionId"
+              ]
+            },
+            {
+              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
+            },
+            {
+              "Fn::GetAtt": [
+                "QueryListPostsDataResolverFnQueryListPostsDataResolverFnAppSyncFunction3D526AB7",
+                "FunctionId"
+              ]
+            }
+          ]
+        },
+        "RequestMappingTemplate": {
+          "Fn::Join": [
+            "",
+            [
+              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"listPosts\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              {
+                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+              {
+                "Ref": "PostTable"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
+            ]
+          ]
+        },
+        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
+      }
+    },
+    "QuerySyncPostsDataResolverFnQuerySyncPostsDataResolverFnAppSyncFunction886E59C3": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "PostDataSource",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "QuerySyncPostsDataResolverFn",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Query.syncPosts.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Query.syncPosts.res.vtl"
+            ]
+          ]
+        },
+        "SyncConfig": {
+          "ConflictDetection": "VERSION",
+          "ConflictHandler": "AUTOMERGE"
+        }
+      },
+      "DependsOn": [
+        "PostDataSource"
+      ]
+    },
+    "SyncPostResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "FieldName": "syncPosts",
+        "TypeName": "Query",
+        "Kind": "PIPELINE",
+        "PipelineConfig": {
+          "Functions": [
+            {
+              "Fn::GetAtt": [
+                "QuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunctionB1D588DF",
+                "FunctionId"
+              ]
+            },
+            {
+              "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
+            },
+            {
+              "Fn::GetAtt": [
+                "QuerySyncPostsDataResolverFnQuerySyncPostsDataResolverFnAppSyncFunction886E59C3",
+                "FunctionId"
+              ]
+            }
+          ]
+        },
+        "RequestMappingTemplate": {
+          "Fn::Join": [
+            "",
+            [
+              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"syncPosts\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              {
+                "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+              {
+                "Ref": "PostTable"
+              },
+              "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackauthRoleNameFB872D50Ref"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":assumed-role/",
+              {
+                "Ref": "referencetotransformerrootstackunauthRoleName49F3C1FERef"
+              },
+              "/CognitoIdentityCredentials\"))\n$util.toJson({})"
+            ]
+          ]
+        },
+        "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
+      }
+    },
+    "MutationcreatePostauth0FunctionMutationcreatePostauth0FunctionAppSyncFunctionF347AB28": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Ref": "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name"
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "MutationcreatePostauth0Function",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Mutation.createPost.auth.1.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplate": "$util.toJson({})"
+      }
+    },
+    "MutationCreatePostDataResolverFnMutationCreatePostDataResolverFnAppSyncFunctionE45E2000": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "PostDataSource",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "MutationCreatePostDataResolverFn",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Mutation.createPost.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Mutation.createPost.res.vtl"
+            ]
+          ]
+        },
+        "SyncConfig": {
+          "ConflictDetection": "VERSION",
+          "ConflictHandler": "AUTOMERGE"
+        }
+      },
+      "DependsOn": [
+        "PostDataSource"
+      ]
+    },
+    "CreatePostResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "FieldName": "createPost",
         "TypeName": "Mutation",
         "Kind": "PIPELINE",
         "PipelineConfig": {
@@ -892,7 +922,7 @@
             },
             {
               "Fn::GetAtt": [
-                "MutationcreatePrivateNoteauth0FunctionMutationcreatePrivateNoteauth0FunctionAppSyncFunctionABD0AF4B",
+                "MutationcreatePostauth0FunctionMutationcreatePostauth0FunctionAppSyncFunctionF347AB28",
                 "FunctionId"
               ]
             },
@@ -901,7 +931,7 @@
             },
             {
               "Fn::GetAtt": [
-                "MutationCreatePrivateNoteDataResolverFnMutationCreatePrivateNoteDataResolverFnAppSyncFunction1F8CC928",
+                "MutationCreatePostDataResolverFnMutationCreatePostDataResolverFnAppSyncFunctionE45E2000",
                 "FunctionId"
               ]
             }
@@ -911,13 +941,13 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"createPrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"createPost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
               "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
               {
-                "Ref": "PrivateNoteTable"
+                "Ref": "PostTable"
               },
               "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
               {
@@ -942,7 +972,7 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "MutationupdatePrivateNoteauth0FunctionMutationupdatePrivateNoteauth0FunctionAppSyncFunctionD6F6AFD5": {
+    "MutationupdatePostauth0FunctionMutationupdatePostauth0FunctionAppSyncFunction3E057835": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -950,12 +980,12 @@
         },
         "DataSourceName": {
           "Fn::GetAtt": [
-            "PrivateNoteDataSource",
+            "PostDataSource",
             "Name"
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationupdatePrivateNoteauth0Function",
+        "Name": "MutationupdatePostauth0Function",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -968,7 +998,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.updatePrivateNote.auth.1.req.vtl"
+              "/resolvers/Mutation.updatePost.auth.1.req.vtl"
             ]
           ]
         },
@@ -984,16 +1014,16 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.updatePrivateNote.auth.1.res.vtl"
+              "/resolvers/Mutation.updatePost.auth.1.res.vtl"
             ]
           ]
         }
       },
       "DependsOn": [
-        "PrivateNoteDataSource"
+        "PostDataSource"
       ]
     },
-    "MutationUpdatePrivateNoteDataResolverFnMutationUpdatePrivateNoteDataResolverFnAppSyncFunction1BFE1800": {
+    "MutationUpdatePostDataResolverFnMutationUpdatePostDataResolverFnAppSyncFunctionBF7D410D": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -1001,12 +1031,12 @@
         },
         "DataSourceName": {
           "Fn::GetAtt": [
-            "PrivateNoteDataSource",
+            "PostDataSource",
             "Name"
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationUpdatePrivateNoteDataResolverFn",
+        "Name": "MutationUpdatePostDataResolverFn",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -1019,7 +1049,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.updatePrivateNote.req.vtl"
+              "/resolvers/Mutation.updatePost.req.vtl"
             ]
           ]
         },
@@ -1035,7 +1065,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.updatePrivateNote.res.vtl"
+              "/resolvers/Mutation.updatePost.res.vtl"
             ]
           ]
         },
@@ -1045,16 +1075,16 @@
         }
       },
       "DependsOn": [
-        "PrivateNoteDataSource"
+        "PostDataSource"
       ]
     },
-    "UpdatePrivateNoteResolver": {
+    "UpdatePostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "updatePrivateNote",
+        "FieldName": "updatePost",
         "TypeName": "Mutation",
         "Kind": "PIPELINE",
         "PipelineConfig": {
@@ -1064,7 +1094,7 @@
             },
             {
               "Fn::GetAtt": [
-                "MutationupdatePrivateNoteauth0FunctionMutationupdatePrivateNoteauth0FunctionAppSyncFunctionD6F6AFD5",
+                "MutationupdatePostauth0FunctionMutationupdatePostauth0FunctionAppSyncFunction3E057835",
                 "FunctionId"
               ]
             },
@@ -1073,7 +1103,7 @@
             },
             {
               "Fn::GetAtt": [
-                "MutationUpdatePrivateNoteDataResolverFnMutationUpdatePrivateNoteDataResolverFnAppSyncFunction1BFE1800",
+                "MutationUpdatePostDataResolverFnMutationUpdatePostDataResolverFnAppSyncFunctionBF7D410D",
                 "FunctionId"
               ]
             }
@@ -1083,13 +1113,13 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"updatePrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"updatePost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
               "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
               {
-                "Ref": "PrivateNoteTable"
+                "Ref": "PostTable"
               },
               "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
               {
@@ -1114,7 +1144,7 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "MutationdeletePrivateNoteauth0FunctionMutationdeletePrivateNoteauth0FunctionAppSyncFunction6F5B1A9F": {
+    "MutationdeletePostauth0FunctionMutationdeletePostauth0FunctionAppSyncFunctionFBE21CB7": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -1122,12 +1152,12 @@
         },
         "DataSourceName": {
           "Fn::GetAtt": [
-            "PrivateNoteDataSource",
+            "PostDataSource",
             "Name"
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationdeletePrivateNoteauth0Function",
+        "Name": "MutationdeletePostauth0Function",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -1140,7 +1170,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.deletePrivateNote.auth.1.req.vtl"
+              "/resolvers/Mutation.deletePost.auth.1.req.vtl"
             ]
           ]
         },
@@ -1156,16 +1186,16 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.deletePrivateNote.auth.1.res.vtl"
+              "/resolvers/Mutation.deletePost.auth.1.res.vtl"
             ]
           ]
         }
       },
       "DependsOn": [
-        "PrivateNoteDataSource"
+        "PostDataSource"
       ]
     },
-    "MutationDeletePrivateNoteDataResolverFnMutationDeletePrivateNoteDataResolverFnAppSyncFunctionC31C0F8A": {
+    "MutationDeletePostDataResolverFnMutationDeletePostDataResolverFnAppSyncFunction45B37C12": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -1173,12 +1203,12 @@
         },
         "DataSourceName": {
           "Fn::GetAtt": [
-            "PrivateNoteDataSource",
+            "PostDataSource",
             "Name"
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "MutationDeletePrivateNoteDataResolverFn",
+        "Name": "MutationDeletePostDataResolverFn",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -1191,7 +1221,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.deletePrivateNote.req.vtl"
+              "/resolvers/Mutation.deletePost.req.vtl"
             ]
           ]
         },
@@ -1207,7 +1237,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Mutation.deletePrivateNote.res.vtl"
+              "/resolvers/Mutation.deletePost.res.vtl"
             ]
           ]
         },
@@ -1217,23 +1247,23 @@
         }
       },
       "DependsOn": [
-        "PrivateNoteDataSource"
+        "PostDataSource"
       ]
     },
-    "DeletePrivateNoteResolver": {
+    "DeletePostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "deletePrivateNote",
+        "FieldName": "deletePost",
         "TypeName": "Mutation",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
             {
               "Fn::GetAtt": [
-                "MutationdeletePrivateNoteauth0FunctionMutationdeletePrivateNoteauth0FunctionAppSyncFunction6F5B1A9F",
+                "MutationdeletePostauth0FunctionMutationdeletePostauth0FunctionAppSyncFunctionFBE21CB7",
                 "FunctionId"
               ]
             },
@@ -1242,7 +1272,7 @@
             },
             {
               "Fn::GetAtt": [
-                "MutationDeletePrivateNoteDataResolverFnMutationDeletePrivateNoteDataResolverFnAppSyncFunctionC31C0F8A",
+                "MutationDeletePostDataResolverFnMutationDeletePostDataResolverFnAppSyncFunction45B37C12",
                 "FunctionId"
               ]
             }
@@ -1252,13 +1282,13 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"deletePrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"deletePost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
               "\"))\n$util.qr($ctx.stash.put(\"tableName\", \"",
               {
-                "Ref": "PrivateNoteTable"
+                "Ref": "PostTable"
               },
               "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
               {
@@ -1283,19 +1313,52 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "SubscriptiononCreatePrivateNoteResolver": {
+    "SubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction24934FF1": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Ref": "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name"
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "SubscriptiononCreatePostauth0Function",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Subscription.onCreatePost.auth.1.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplate": "$util.toJson({})"
+      }
+    },
+    "SubscriptiononCreatePostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "onCreatePrivateNote",
+        "FieldName": "onCreatePost",
         "TypeName": "Subscription",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
             {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId"
+              "Fn::GetAtt": [
+                "SubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction24934FF1",
+                "FunctionId"
+              ]
             },
             {
               "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
@@ -1309,7 +1372,7 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onCreatePrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onCreatePost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -1336,19 +1399,22 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "SubscriptiononUpdatePrivateNoteResolver": {
+    "SubscriptiononUpdatePostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "onUpdatePrivateNote",
+        "FieldName": "onUpdatePost",
         "TypeName": "Subscription",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
             {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId"
+              "Fn::GetAtt": [
+                "SubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction24934FF1",
+                "FunctionId"
+              ]
             },
             {
               "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
@@ -1362,7 +1428,7 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onUpdatePrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onUpdatePost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -1389,19 +1455,22 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "SubscriptiononDeletePrivateNoteResolver": {
+    "SubscriptiononDeletePostResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "onDeletePrivateNote",
+        "FieldName": "onDeletePost",
         "TypeName": "Subscription",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
             {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId"
+              "Fn::GetAtt": [
+                "SubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction24934FF1",
+                "FunctionId"
+              ]
             },
             {
               "Ref": "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskQuerygetTaskpostAuth0FunctionQuerygetTaskpostAuth0FunctionAppSyncFunction6037A9AEFunctionId"
@@ -1415,7 +1484,7 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onDeletePrivateNote\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onDeletePost\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -1442,19 +1511,67 @@
         "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)"
       }
     },
-    "PrivateNoteownerResolver": {
+    "PostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionEA5B2A7C": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
+        },
+        "DataSourceName": {
+          "Ref": "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name"
+        },
+        "FunctionVersion": "2018-05-29",
+        "Name": "PostOwnerDataResolverFn",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Post.owner.req.vtl"
+            ]
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Join": [
+            "",
+            [
+              "s3://",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentBucket7592718ARef"
+              },
+              "/",
+              {
+                "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
+              },
+              "/resolvers/Post.owner.res.vtl"
+            ]
+          ]
+        }
+      }
+    },
+    "PostownerResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
         "FieldName": "owner",
-        "TypeName": "PrivateNote",
+        "TypeName": "Post",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
             {
-              "Ref": "referencetotransformerrootstackPostNestedStackPostNestedStackResource45FCAC5EOutputstransformerrootstackPostPostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionE22D4F40FunctionId"
+              "Fn::GetAtt": [
+                "PostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionEA5B2A7C",
+                "FunctionId"
+              ]
             }
           ]
         },
@@ -1462,7 +1579,7 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"PrivateNote\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"owner\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Post\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"owner\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
@@ -1491,11 +1608,11 @@
     }
   },
   "Outputs": {
-    "GetAttPrivateNoteTableStreamArn": {
+    "GetAttPostTableStreamArn": {
       "Description": "Your DynamoDB table StreamArn.",
       "Value": {
         "Fn::GetAtt": [
-          "PrivateNoteTable",
+          "PostTable",
           "StreamArn"
         ]
       },
@@ -1507,16 +1624,16 @@
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
-              "GetAtt:PrivateNoteTable:StreamArn"
+              "GetAtt:PostTable:StreamArn"
             ]
           ]
         }
       }
     },
-    "GetAttPrivateNoteTableName": {
+    "GetAttPostTableName": {
       "Description": "Your DynamoDB table name.",
       "Value": {
-        "Ref": "PrivateNoteTable"
+        "Ref": "PostTable"
       },
       "Export": {
         "Name": {
@@ -1526,17 +1643,17 @@
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
-              "GetAtt:PrivateNoteTable:Name"
+              "GetAtt:PostTable:Name"
             ]
           ]
         }
       }
     },
-    "GetAttPrivateNoteDataSourceName": {
+    "GetAttPostDataSourceName": {
       "Description": "Your model DataSource name.",
       "Value": {
         "Fn::GetAtt": [
-          "PrivateNoteDataSource",
+          "PostDataSource",
           "Name"
         ]
       },
@@ -1548,10 +1665,34 @@
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },
-              "GetAtt:PrivateNoteDataSource:Name"
+              "GetAtt:PostDataSource:Name"
             ]
           ]
         }
+      }
+    },
+    "transformerrootstackPostQuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunction6E76B015FunctionId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "QuerygetPostauth0FunctionQuerygetPostauth0FunctionAppSyncFunctionB1D588DF",
+          "FunctionId"
+        ]
+      }
+    },
+    "transformerrootstackPostSubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction0A6BA9C1FunctionId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "SubscriptiononCreatePostauth0FunctionSubscriptiononCreatePostauth0FunctionAppSyncFunction24934FF1",
+          "FunctionId"
+        ]
+      }
+    },
+    "transformerrootstackPostPostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionE22D4F40FunctionId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "PostOwnerDataResolverFnPostOwnerDataResolverFnAppSyncFunctionEA5B2A7C",
+          "FunctionId"
+        ]
       }
     }
   }

@@ -1,3 +1,4 @@
+
 type Task @aws_iam @aws_cognito_user_pools {
     id: ID!
     title: String!
@@ -8,6 +9,25 @@ type Task @aws_iam @aws_cognito_user_pools {
     _version: Int!
     _deleted: Boolean
     _lastChangedAt: AWSTimestamp!
+}
+
+type Post @aws_iam @aws_cognito_user_pools {
+    id: ID!
+    title: String!
+    status: PostStatus!
+    rating: Int
+    content: String
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    _version: Int!
+    _deleted: Boolean
+    _lastChangedAt: AWSTimestamp!
+    owner: String
+}
+
+enum PostStatus {
+    DRAFT
+    PUBLISHED
 }
 
 type PrivateNote @aws_iam @aws_cognito_user_pools {
@@ -132,6 +152,9 @@ type Query {
     getTask(id: ID!): Task @aws_iam @aws_cognito_user_pools
     listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection @aws_iam @aws_cognito_user_pools
     syncTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTaskConnection @aws_iam @aws_cognito_user_pools
+    getPost(id: ID!): Post @aws_iam @aws_cognito_user_pools
+    listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection @aws_iam @aws_cognito_user_pools
+    syncPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPostConnection @aws_iam @aws_cognito_user_pools
     getPrivateNote(id: ID!): PrivateNote @aws_iam @aws_cognito_user_pools
     listPrivateNotes(filter: ModelPrivateNoteFilterInput, limit: Int, nextToken: String): ModelPrivateNoteConnection @aws_iam @aws_cognito_user_pools
     syncPrivateNotes(filter: ModelPrivateNoteFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPrivateNoteConnection @aws_iam @aws_cognito_user_pools
@@ -171,6 +194,9 @@ type Mutation {
     createTask(input: CreateTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
     updateTask(input: UpdateTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
     deleteTask(input: DeleteTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
+    createPost(input: CreatePostInput!, condition: ModelPostConditionInput): Post @aws_iam @aws_cognito_user_pools
+    updatePost(input: UpdatePostInput!, condition: ModelPostConditionInput): Post @aws_iam @aws_cognito_user_pools
+    deletePost(input: DeletePostInput!, condition: ModelPostConditionInput): Post @aws_iam @aws_cognito_user_pools
     createPrivateNote(input: CreatePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote @aws_iam @aws_cognito_user_pools
     updatePrivateNote(input: UpdatePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote @aws_iam @aws_cognito_user_pools
     deletePrivateNote(input: DeletePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote @aws_iam @aws_cognito_user_pools
@@ -180,9 +206,67 @@ type Subscription {
     onCreateTask: Task @aws_subscribe(mutations: ["createTask"]) @aws_iam @aws_cognito_user_pools
     onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"]) @aws_iam @aws_cognito_user_pools
     onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"]) @aws_iam @aws_cognito_user_pools
+    onCreatePost(owner: String): Post @aws_subscribe(mutations: ["createPost"]) @aws_iam @aws_cognito_user_pools
+    onUpdatePost(owner: String): Post @aws_subscribe(mutations: ["updatePost"]) @aws_iam @aws_cognito_user_pools
+    onDeletePost(owner: String): Post @aws_subscribe(mutations: ["deletePost"]) @aws_iam @aws_cognito_user_pools
     onCreatePrivateNote(owner: String): PrivateNote @aws_subscribe(mutations: ["createPrivateNote"]) @aws_iam @aws_cognito_user_pools
     onUpdatePrivateNote(owner: String): PrivateNote @aws_subscribe(mutations: ["updatePrivateNote"]) @aws_iam @aws_cognito_user_pools
     onDeletePrivateNote(owner: String): PrivateNote @aws_subscribe(mutations: ["deletePrivateNote"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ModelPostConnection @aws_iam @aws_cognito_user_pools {
+    items: [Post]!
+    nextToken: String
+    startedAt: AWSTimestamp
+}
+
+input ModelPostStatusInput {
+    eq: PostStatus
+    ne: PostStatus
+}
+
+input ModelPostFilterInput {
+    id: ModelIDInput
+    title: ModelStringInput
+    status: ModelPostStatusInput
+    rating: ModelIntInput
+    content: ModelStringInput
+    and: [ModelPostFilterInput]
+    or: [ModelPostFilterInput]
+    not: ModelPostFilterInput
+}
+
+input ModelPostConditionInput {
+    title: ModelStringInput
+    status: ModelPostStatusInput
+    rating: ModelIntInput
+    content: ModelStringInput
+    and: [ModelPostConditionInput]
+    or: [ModelPostConditionInput]
+    not: ModelPostConditionInput
+}
+
+input CreatePostInput {
+    id: ID
+    title: String!
+    status: PostStatus!
+    rating: Int
+    content: String
+    _version: Int
+}
+
+input UpdatePostInput {
+    id: ID!
+    title: String
+    status: PostStatus
+    rating: Int
+    content: String
+    _version: Int
+}
+
+input DeletePostInput {
+    id: ID!
+    _version: Int
 }
 
 type ModelPrivateNoteConnection @aws_iam @aws_cognito_user_pools {
