@@ -9,7 +9,7 @@ projects:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: react-amplified/src
+        docsFilePath: react-amplified/src/graphql
 extensions:
   amplify:
     version: 3

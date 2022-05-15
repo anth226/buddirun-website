@@ -1,13 +1,14 @@
 {
-  "name": "react-amplified",
+  "name": "Buddirun-Website",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^2.17.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.2.0",
     "aws-amplify": "^4.3.22",
+    "mapbox-gl": "^2.8.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -21,7 +22,6 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
       "react-app/jest"
     ]
   },

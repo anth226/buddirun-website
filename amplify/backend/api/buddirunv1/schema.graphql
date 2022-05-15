@@ -16,6 +16,19 @@ type Task
   status: String
 }
 
+type Post @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  title: String!
+  status: PostStatus!
+  rating: Int
+  content: String
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
 type PrivateNote @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   content: String!
