@@ -1,12 +1,17 @@
 // @ts-check
-import { initSchema } from '@aws-amplify/datastore';
-import { schema } from './schema';
+import {initSchema} from '@aws-amplify/datastore';
+import {schema} from './schema';
 
+const PostStatus = {
+    "DRAFT": "DRAFT",
+    "PUBLISHED": "PUBLISHED"
+};
 
-
-const { Task, PrivateNote } = initSchema(schema);
+const {Task, Post, PrivateNote} = initSchema(schema);
 
 export {
-  Task,
-  PrivateNote
+    Task,
+    Post,
+    PrivateNote,
+    PostStatus
 };
