@@ -15,7 +15,7 @@ function onCreate() {
     DataStore.save(
         new Post({
             title: `New title ${Date.now()}`,
-            status: PostStatus.ACTIVE,
+            status: PostStatus.PUBLISHED,
             rating: (function getRandomInt(min, max) {
                 min = Math.ceil(min);
                 max = Math.floor(max);
