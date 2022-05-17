@@ -97,6 +97,8 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://buddirun.com/welcome/\"],\"LogoutURLs\":[\"https://buddirun.com/goodbye/\"]}"
+    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com\",\"client_secret\":\"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\"}]",
+    "googleClientId": "519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://buddirun.com/\"],\"LogoutURLs\":[\"https://buddirun.com/\"]}"
   }
 }
