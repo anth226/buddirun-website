@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {Amplify} from 'aws-amplify';
 import awsExports from './aws-exports';
 
+awsExports.oauth.domain = process.env.REACT_APP_AUTH_DOMAIN;
+awsExports.oauth.redirectSignIn = `${window.location.origin}/`;
+awsExports.oauth.redirectSignOut = `${window.location.origin}/`;
 Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
