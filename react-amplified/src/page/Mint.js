@@ -90,7 +90,7 @@ export default function Mint() {
               </div>
             </div>
             <div className="total ms-auto container-fluid">
-              Total "Buddis": <span>005</span>
+              Total Buddis: <span>005</span>
             </div>
           </div>
         </div>
