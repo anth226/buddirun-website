@@ -144,5 +144,11 @@
         }
       ]
     }
+  },
+  "analytics": {
+    "buddirunv1": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

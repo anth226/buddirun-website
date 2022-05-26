@@ -23,7 +23,7 @@
         "buddirunv166e6c49aPostConfirmation": {
           "GROUP": "user",
           "deploymentBucketName": "amplify-buddirunv1-dev-132825-deployment",
-          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-433555555a674755694e-build.zip"
+          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-6a6a6d4d737a712b6b6d-build.zip"
         }
       },
       "storage": {

@@ -97,7 +97,6 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\"}]",
     "googleClientId": "519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.buddirun.com/\",\"https://buddirun.dev/\"],\"LogoutURLs\":[\"https://dev.buddirun.com/\",\"https://buddirun.dev/\"]}"
   }
