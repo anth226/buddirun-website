@@ -15,7 +15,8 @@
     "categories": {
       "auth": {
         "buddirunv166e6c49a": {
-          "googleClientId": "519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com"
+          "googleClientId": "519363959522-2f4si53p9q6suq5jg8adakq5ngb87k90.apps.googleusercontent.com",
+          "oAuthSecretsPathAmplifyAppId": "djcv2r1grofe8"
         },
         "userPoolGroups": {}
       },
