@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../modules/Layout/FooterLayout";
-import Header from "../modules/Layout/HeaderLayout";
+import Footer from "../modules/layout/FooterLayout";
+import Header from "../modules/layout/HeaderLayout";
 
 export default function Demo() {
   return (
@@ -29,8 +29,8 @@ export default function Demo() {
               <div className="col-6 col-xxl-4">
                 <div className="box active">
                   <div className="info">
-                    <div className="row">
-                      <div className="col-5">
+                    <div className="row h-100 align-items-center">
+                      <div className="col-5 details">
                         <div className="row row-cols-2">
                           <div className="col key">Speed</div>
                           <div className="col para">0.1</div>
@@ -57,8 +57,8 @@ export default function Demo() {
               <div className="col-6 col-xxl-4">
                 <div className="box">
                   <div className="info">
-                    <div className="row">
-                      <div className="col-5">
+                    <div className="row h-100 align-items-center">
+                      <div className="col-5 details">
                         <div className="row row-cols-2">
                           <div className="col key">Speed</div>
                           <div className="col para">0.1</div>
@@ -87,8 +87,8 @@ export default function Demo() {
               <div className="col-6 col-xxl-4">
                 <div className="box">
                   <div className="info">
-                    <div className="row">
-                      <div className="col-5">
+                    <div className="row h-100 align-items-center">
+                      <div className="col-5 details">
                         <div className="row row-cols-2">
                           <div className="col key">Speed</div>
                           <div className="col para">0.1</div>
@@ -115,8 +115,8 @@ export default function Demo() {
               <div className="col-6 col-xxl-4">
                 <div className="box">
                   <div className="info">
-                    <div className="row">
-                      <div className="col-5">
+                    <div className="row h-100 align-items-center">
+                      <div className="col-5 details">
                         <div className="row row-cols-2">
                           <div className="col key">Speed</div>
                           <div className="col para">0.1</div>
@@ -143,8 +143,8 @@ export default function Demo() {
               <div className="col-6 col-xxl-4">
                 <div className="box">
                   <div className="info">
-                    <div className="row">
-                      <div className="col-5">
+                    <div className="row h-100 align-items-center">
+                      <div className="col-5 details">
                         <div className="row row-cols-2">
                           <div className="col key">Speed</div>
                           <div className="col para">0.1</div>
@@ -180,14 +180,22 @@ export default function Demo() {
             <hr />
           </div>
           <div className="content">
-            <table class="table d-none d-sm-table">
+            <table class="table d-none d-sm-table w-100">
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">Race name</th>
-                  <th scope="col">Course name</th>
-                  <th scope="col">Prize Pool</th>
-                  <th scope="col">Entrants</th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Race name
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Course name
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Prize Pool
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Entrants
+                  </th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
@@ -203,11 +211,11 @@ export default function Demo() {
                       <td>Course name</td>
                       <td>10</td>
                       <td>9/10</td>
-                      <td>
-                        <button className="table-btn btn">Enter</button>
+                      <td style={{ textAlign: "center" }}>
+                        <button className="primary-btn">Enter</button>
                       </td>
-                      <td>
-                        <button className="table-btn btn">Confirm</button>
+                      <td style={{ textAlign: "center" }}>
+                        <button className="primary-btn">Confirm</button>
                       </td>
                     </tr>
                   );
@@ -234,10 +242,10 @@ export default function Demo() {
                   </div>
                   <div className="row">
                     <div className="col-6">
-                      <button className="table-btn btn">Enter</button>
+                      <button className="primary-btn">Enter</button>
                     </div>
                     <div className="col-6">
-                      <button className="table-btn btn">Confirm</button>
+                      <button className="primary-btn">Confirm</button>
                     </div>
                   </div>
                 </div>
@@ -263,7 +271,7 @@ export default function Demo() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

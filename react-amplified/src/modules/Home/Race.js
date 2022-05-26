@@ -25,7 +25,18 @@ export default function Race() {
             <img src="img/Asset 2 1.png" />
           </div>
           <div className="play-btn">
-            <img src="img/Vector 1.png" />
+            <svg
+              width="87"
+              height="106"
+              viewBox="0 0 87 106"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
+                fill="white"
+              />
+            </svg>
           </div>
         </div>
         <div className="slider-responsive d-block d-sm-none">
@@ -34,7 +45,18 @@ export default function Race() {
               <img src="img/spinning wheels obstacles 1.png" />
             </div>
             <div className="play-btn">
-              <img src="img/Vector 1.png" />
+              <svg
+                width="87"
+                height="106"
+                viewBox="0 0 87 106"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
+                  fill="white"
+                />
+              </svg>
             </div>
           </div>
           <div className="slide-bar d-flex">

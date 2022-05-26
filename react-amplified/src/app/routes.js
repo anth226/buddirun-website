@@ -1,6 +1,7 @@
 import Demo from "../page/Demo";
 import Home from "../page/Home";
 import Mint from "../page/Mint";
+import Profile from "../page/Profile";
 
 export const APP_ROUTES = {
   Dashboard: {
@@ -14,5 +15,9 @@ export const APP_ROUTES = {
   Mint: {
     path: "/mint",
     Component: Mint,
+  },
+  Profile: {
+    path: "/profile",
+    Component: Profile,
   },
 };

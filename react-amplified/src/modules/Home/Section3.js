@@ -41,7 +41,20 @@ export default function Section3() {
                 <div className="model">
                   <img src="img/Asset 2.png" />
                 </div>
-                <img src="img/Vector 8.png" className="vector" />
+                <div className="vector">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 1L1 15.5M1 15.5V1M1 15.5H15.5"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
                 <div className="type first">SP</div>
               </div>
             </div>
@@ -79,7 +92,20 @@ export default function Section3() {
                 <div className="model">
                   <img src="img/Asset 3.png" />
                 </div>
-                <img src="img/Vector 8.png" className="vector" />
+                <div className="vector">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 1L1 15.5M1 15.5V1M1 15.5H15.5"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
                 <div className="type second">AR</div>
               </div>
             </div>
@@ -119,7 +145,20 @@ export default function Section3() {
                 <div className="model">
                   <img src="img/Asset 1.png" />
                 </div>
-                <img src="img/Vector 8.png" className="vector" />
+                <div className="vector">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 1L1 15.5M1 15.5V1M1 15.5H15.5"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
                 <div className="type third">WH</div>
               </div>
             </div>
@@ -157,7 +196,20 @@ export default function Section3() {
                 <div className="model">
                   <img src="img/Asset 5.png" />
                 </div>
-                <img src="img/Vector 8.png" className="vector" />
+                <div className="vector">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 1L1 15.5M1 15.5V1M1 15.5H15.5"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
                 <div className="type fourth">CR</div>
               </div>
             </div>
@@ -195,7 +247,20 @@ export default function Section3() {
                 <div className="model">
                   <img src="img/furboy_item_31_32_quarter 1.png" />
                 </div>
-                <img src="img/Vector 8.png" className="vector" />
+                <div className="vector">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 1L1 15.5M1 15.5V1M1 15.5H15.5"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
                 <div className="type fifth">SL</div>
               </div>
             </div>
