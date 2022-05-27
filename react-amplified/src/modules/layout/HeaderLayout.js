@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
+import RecoverPasswordForm from "../auth/RecoverPasswordForm";
+import RegisterForm from "../auth/RegisterForm";
 
 export default function Header() {
   const active = window.location.pathname;
   const [open, setOpen] = useState(false);
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
+  const [formType, setFormType] = React.useState("login");
 
   const handleOpen = () => {
     if (!open) {
@@ -32,6 +35,7 @@ export default function Header() {
     } else {
       const p = document.getElementById("filter-backdrop");
       p?.parentNode?.removeChild(p);
+      setFormType("login");
     }
 
     setOpenAuth(!openAuth);
@@ -45,7 +49,16 @@ export default function Header() {
     }
   };
 
-  console.log(open);
+  const handleFormType = () => {
+    switch (formType) {
+      case "register":
+        return <RegisterForm />;
+      case "recover":
+        return <RecoverPasswordForm />;
+      default:
+        return <LoginForm setFormType={setFormType} />;
+    }
+  };
 
   return (
     <header>
@@ -155,7 +168,7 @@ export default function Header() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clip-path="url(#clip0_419_772)">
+                  <g clipPath="url(#clip0_419_772)">
                     <path
                       d="M57.2874 12.6358C52.9307 10.6362 48.333 9.21028 43.6094 8.39384C43.5663 8.38544 43.5217 8.39096 43.4819 8.40958C43.4421 8.42819 43.4093 8.45896 43.3882 8.49744C42.8002 9.54744 42.145 10.9166 41.6858 11.9974C36.5938 11.224 31.4142 11.224 26.3222 11.9974C25.8111 10.7999 25.2344 9.63144 24.5946 8.49744C24.5725 8.45982 24.5396 8.42979 24.5001 8.41129C24.4606 8.39279 24.4164 8.38671 24.3734 8.39384C19.6494 9.20858 15.0514 10.6346 10.6954 12.6358C10.6585 12.6513 10.6272 12.6777 10.6058 12.7114C1.89218 25.7286 -0.496217 38.4238 0.676983 50.9594C0.679833 50.9905 0.689001 51.0207 0.703926 51.0482C0.718851 51.0756 0.739219 51.0997 0.763783 51.119C5.83625 54.8772 11.5105 57.746 17.5442 59.603C17.5867 59.6153 17.632 59.6144 17.674 59.6004C17.716 59.5864 17.7527 59.56 17.7794 59.5246C19.0765 57.762 20.2248 55.8945 21.2122 53.9414C21.226 53.9147 21.2339 53.8854 21.2355 53.8553C21.2371 53.8253 21.2323 53.7953 21.2215 53.7672C21.2106 53.7392 21.194 53.7138 21.1726 53.6926C21.1512 53.6715 21.1256 53.6551 21.0974 53.6446C19.287 52.9518 17.5343 52.1167 15.8558 51.147C15.825 51.1292 15.7991 51.1041 15.7804 51.0739C15.7617 51.0437 15.7507 51.0093 15.7485 50.9738C15.7463 50.9384 15.7529 50.9029 15.7677 50.8706C15.7825 50.8383 15.8051 50.8101 15.8334 50.7886C16.1869 50.5242 16.5341 50.2516 16.875 49.971C16.9048 49.9469 16.9407 49.9314 16.9788 49.9265C17.0169 49.9215 17.0556 49.9273 17.0906 49.943C28.089 54.9634 39.9946 54.9634 50.8642 49.943C50.8995 49.9267 50.9388 49.9207 50.9774 49.9256C51.016 49.9306 51.0525 49.9463 51.0826 49.971C51.4186 50.2454 51.7714 50.5254 52.127 50.7886C52.155 50.8098 52.1774 50.8374 52.1923 50.8692C52.2072 50.9009 52.2141 50.9358 52.2124 50.9709C52.2108 51.0059 52.2006 51.04 52.1828 51.0702C52.165 51.1004 52.14 51.1258 52.1102 51.1442C50.4355 52.123 48.6811 52.9585 46.8658 53.6418C46.8375 53.6527 46.8119 53.6693 46.7905 53.6907C46.7691 53.7121 46.7524 53.7378 46.7416 53.766C46.7307 53.7943 46.726 53.8245 46.7276 53.8547C46.7292 53.885 46.7372 53.9145 46.751 53.9414C47.759 55.8958 48.9126 57.755 50.181 59.5218C50.2071 59.5578 50.2438 59.5848 50.286 59.5988C50.3282 59.6129 50.3737 59.6134 50.4162 59.6002C56.46 57.749 62.1434 54.8798 67.2218 51.1162C67.2465 51.0987 67.2673 51.0762 67.2827 51.0502C67.2981 51.0241 67.3079 50.9951 67.3114 50.965C68.7114 36.4694 64.965 23.8778 57.3742 12.717C57.3564 12.6794 57.3256 12.6495 57.2874 12.633V12.6358ZM22.8558 43.3238C19.5434 43.3238 16.8162 40.2858 16.8162 36.5506C16.8162 32.8182 19.493 29.7774 22.8558 29.7774C26.2438 29.7774 28.9486 32.8462 28.8954 36.5534C28.8954 40.2858 26.2186 43.3238 22.8558 43.3238V43.3238ZM45.1858 43.3238C41.8734 43.3238 39.1462 40.2858 39.1462 36.5506C39.1462 32.8182 41.8202 29.7774 45.1858 29.7774C48.5738 29.7774 51.2786 32.8462 51.2254 36.5534C51.2254 40.2858 48.5766 43.3238 45.1858 43.3238V43.3238Z"
                       fill="url(#paint0_linear_419_772)"
@@ -170,8 +183,8 @@ export default function Header() {
                       y2="59.6117"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#D1D3E9" />
-                      <stop offset="1" stop-color="#D9DCED" />
+                      <stop stopColor="#D1D3E9" />
+                      <stop offset="1" stopColor="#D9DCED" />
                     </linearGradient>
                     <clipPath id="clip0_419_772">
                       <rect
@@ -207,8 +220,8 @@ export default function Header() {
                       y2="59.7765"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#D1D3E9" />
-                      <stop offset="1" stop-color="#D9DCED" />
+                      <stop stopColor="#D1D3E9" />
+                      <stop offset="1" stopColor="#D9DCED" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -219,11 +232,6 @@ export default function Header() {
                 <button
                   className={`btn-signin btn collapsed`}
                   type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarAuth"
-                  aria-controls="navbarAuth"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
                   onClick={() => handleOpenAuth()}
                 >
                   SIGN IN
@@ -291,8 +299,13 @@ export default function Header() {
               )}
             </li>
           </ul>
-          <div className="collapse navbar-collapse navbarAuth" id="navbarAuth">
-            <LoginForm />
+          <div
+            className={`collapse navbar-collapse navbarAuth ${
+              openAuth ? "show" : ""
+            }`}
+            id="navbarAuth"
+          >
+            {handleFormType()}
           </div>
           <button
             className={`navbar-toggler ${open && "close-toggle"} collapsed`}
@@ -330,6 +343,29 @@ export default function Header() {
                 d="M5 24H27"
                 stroke="white"
                 strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            className={`navbar-toggle close-auth-toggle ${
+              openAuth && "active"
+            } collapsed`}
+            type="button"
+            onClick={() => handleOpenAuth()}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L13 13M25 25L13 13M13 13L25 1L1 25"
+                stroke="white"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

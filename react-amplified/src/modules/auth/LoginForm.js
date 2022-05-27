@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import * as Yup from "yup";
 
 const LoginFormValidateSchema = Yup.object({
@@ -12,7 +12,7 @@ const LoginFormValidateSchema = Yup.object({
     .min(6, "Your password must be at least 6 characters long."),
 });
 
-export default function LoginForm() {
+export default function LoginForm({ setFormType }) {
   const formHandlers = useFormik({
     initialValues: {
       email: "",
@@ -32,7 +32,8 @@ export default function LoginForm() {
           <input
             type="email"
             name="email"
-            placeholder="Email adddress"
+            id="emailInput"
+            placeholder="Email address"
             className="form-control"
             onChange={formHandlers.handleChange}
             onBlur={formHandlers.handleBlur}
@@ -56,9 +57,9 @@ export default function LoginForm() {
             <label className="error">{formHandlers.errors.password}</label>
           ) : null}
         </div>
-        <Link to="" className="forgot-pwd">
+        <span className="forgot-pwd" onClick={() => setFormType("recover")}>
           Forgot your password?
-        </Link>
+        </span>
         <div>
           <button type="submit" className="primary-btn">
             Submit
@@ -67,9 +68,13 @@ export default function LoginForm() {
       </form>
       <p>
         Don't have a account?{" "}
-        <Link to="" className="register-link">
+        <span
+          to=""
+          className="register-link"
+          onClick={() => setFormType("register")}
+        >
           Sign UP
-        </Link>
+        </span>
       </p>
     </div>
   );

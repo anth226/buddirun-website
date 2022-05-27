@@ -33,7 +33,7 @@ export default function Section1() {
                   cy="26"
                   r="20.28"
                   stroke="url(#paint0_linear_0_1)"
-                  stroke-width="11.44"
+                  strokeWidth="11.44"
                 />
                 <circle
                   cx="26.0001"
@@ -50,8 +50,8 @@ export default function Section1() {
                     y2="52"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#76DDFA" />
-                    <stop offset="1" stop-color="#7166DB" />
+                    <stop stopColor="#76DDFA" />
+                    <stop offset="1" stopColor="#7166DB" />
                   </linearGradient>
                   <linearGradient
                     id="paint1_linear_0_1"
@@ -61,8 +61,8 @@ export default function Section1() {
                     y2="36.4001"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#76DCFA" />
-                    <stop offset="1" stop-color="#7068DC" />
+                    <stop stopColor="#76DCFA" />
+                    <stop offset="1" stopColor="#7068DC" />
                   </linearGradient>
                 </defs>
               </svg>
