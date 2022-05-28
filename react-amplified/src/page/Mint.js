@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../modules/layout/FooterLayout";
-import Header from "../modules/layout/HeaderLayout";
+import Footer from "../modules/Layout/FooterLayout";
+import Header from "../modules/Layout/HeaderLayout";
 
 export default function Mint() {
   const [address] = React.useState("0x245v...984tb9adv");

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../modules/layout/HeaderLayout";
+import Header from "../modules/Layout/HeaderLayout";
 
 export default function Profile() {
   const [address] = React.useState("0x245v...984tb9adv");

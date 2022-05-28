@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../modules/layout/FooterLayout";
-import Header from "../modules/layout/HeaderLayout";
+import Footer from "../modules/Layout/FooterLayout";
+import Header from "../modules/Layout/HeaderLayout";
 
 export default function Demo() {
   return (
@@ -180,7 +180,7 @@ export default function Demo() {
             <hr />
           </div>
           <div className="content">
-            <table class="table d-none d-sm-table w-100">
+            <table className="table d-none d-sm-table w-100">
               <thead>
                 <tr>
                   <th scope="col"></th>
