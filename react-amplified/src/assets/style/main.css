@@ -489,6 +489,10 @@ select.form-control {
   bottom: 0;
   z-index: 99;
 }
+
+.amplify-phonenumberfield {
+  display: none !important; /* hide Amplify's phone number field */
+}
 /* EO GREG FIX */
 
 @media (max-width: 1800px) {
