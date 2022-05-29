@@ -18,6 +18,8 @@ export default function Header() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
+  let userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
+
   const handleOpen = () => {
     if (!open) {
       const p = document.createElement("div");
@@ -257,7 +259,7 @@ export default function Header() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Ivan Likeab
+                      [User full name]
                     </a>
                     <ul
                       className="dropdown-menu"
