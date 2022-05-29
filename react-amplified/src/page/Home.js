@@ -1,13 +1,13 @@
 import React from "react";
-import Community from "../modules/Home/Community";
-import Footer from "../modules/Layout/FooterLayout";
-import Roadmap from "../modules/Home/Roadmap";
-import Section1 from "../modules/Home/Section1";
-import Section2 from "../modules/Home/Section2";
-import Section3 from "../modules/Home/Section3";
-import Race from "../modules/Home/Race";
-import Team from "../modules/Home/Team";
-import Header from "../modules/Layout/HeaderLayout";
+import Community from "../modules/home/Community";
+import Footer from "../modules/layout/FooterLayout";
+import Roadmap from "../modules/home/Roadmap";
+import Section1 from "../modules/home/Section1";
+import Section2 from "../modules/home/Section2";
+import Section3 from "../modules/home/Section3";
+import Race from "../modules/home/Race";
+import Team from "../modules/home/Team";
+import Header from "../modules/layout/HeaderLayout";
 
 export default function Home() {
   return (

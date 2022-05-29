@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../modules/Layout/FooterLayout";
-import Header from "../modules/Layout/HeaderLayout";
+import Footer from "../modules/layout/FooterLayout";
+import Header from "../modules/layout/HeaderLayout";
 
 export default function Demo() {
   return (
