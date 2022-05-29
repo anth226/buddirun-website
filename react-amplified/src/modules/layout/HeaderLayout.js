@@ -6,14 +6,17 @@ import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
 import { DatastoreReadyContext } from "../../app/DatastoreReadyContext";
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 export default function Header() {
   const active = window.location.pathname;
   const [open, setOpen] = useState(false);
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
-  const [formType, setFormType] = React.useState("login");
+  const [formType, setFormType] = React.useState("");
   const datastoreReady = useContext(DatastoreReadyContext);
+
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
 
   const handleOpen = () => {
     if (!open) {
@@ -39,7 +42,7 @@ export default function Header() {
     } else {
       const p = document.getElementById("filter-backdrop");
       p?.parentNode?.removeChild(p);
-      setFormType("login");
+      setFormType("");
     }
 
     setOpenAuth(!openAuth);
@@ -55,12 +58,14 @@ export default function Header() {
 
   const handleFormType = () => {
     switch (formType) {
-      case "register":
-        return <RegisterForm />;
-      case "recover":
-        return <RecoverPasswordForm />;
+      // case "register":
+      //   return <RegisterForm />;
+      // case "recover":
+      //   return <RecoverPasswordForm />;
+      // default:
+      //   return <LoginForm setFormType={setFormType} />;
       default:
-        return <LoginForm setFormType={setFormType} />;
+        return <CognitoAuthForm formType={formType} setFormType={setFormType} />
     }
   };
 
@@ -72,12 +77,12 @@ export default function Header() {
             <img src="img/top nav.png" alt="ocmp.svg" className="img-fluid" />
           </a>
           <div className="collapse navbar-collapse" id="navbarList">
-            {hasLogin && (
+            {user && (
               <div className="modal-profile text-center d-sm-block d-sm-none">
                 <div className="avatar">
                   <img src="img/Avatar.png" />
                 </div>
-                <div className="name">Ivan Likeab</div>
+                <div className="name">{userFullName}</div>
                 <div className="row">
                   <div className="col-6">
                     <Link
@@ -232,7 +237,7 @@ export default function Header() {
               </div>
             </li>
             <li className="nav-item">
-              {!hasLogin ? (
+              {!user ? (
                 <button
                   className={`btn-signin btn collapsed`}
                   type="button"
@@ -411,10 +416,7 @@ export default function Header() {
             />
           </svg>
         </button>
-        {
-          // handleFormType()
-          CognitoAuthForm()
-        }
+        { handleFormType() }
       </div>
     </header>
   );

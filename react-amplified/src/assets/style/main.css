@@ -474,7 +474,8 @@ select.form-control {
   right: 0;
   width: 100%;
   padding: 0 15px;
-  max-width: 520px;
+  max-width: 590px;
+  overflow-y: auto;
 }
 #navbarAuth .close {
   position: absolute;
@@ -489,7 +490,13 @@ select.form-control {
   bottom: 0;
   z-index: 99;
 }
-
+/* AMPLIFY UI: REACT */
+/* TODO: Fix display of Authenticator based on form type
+         Once the HTML is fixed, continue fixing the CSS
+.amplify-tabs {
+  display: none !important;
+}
+*/
 .amplify-phonenumberfield {
   display: none !important; /* hide Amplify's phone number field */
 }
