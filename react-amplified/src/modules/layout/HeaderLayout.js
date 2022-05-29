@@ -18,7 +18,8 @@ export default function Header() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
-  let userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
+  // TODO: Retrieve user details
+  // let userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
 
   const handleOpen = () => {
     if (!open) {
@@ -84,7 +85,7 @@ export default function Header() {
                 <div className="avatar">
                   <img src="img/Avatar.png" />
                 </div>
-                <div className="name">{userFullName}</div>
+                <div className="name">[User full name]</div>
                 <div className="row">
                   <div className="col-6">
                     <Link
