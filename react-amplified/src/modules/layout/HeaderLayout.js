@@ -4,6 +4,7 @@ import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
+import CognitoAuthForm from "../auth/CognitoForm";
 import { DatastoreReadyContext } from "../../app/DatastoreReadyContext";
 
 export default function Header() {
@@ -12,6 +13,7 @@ export default function Header() {
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("login");
+  const datastoreReady = useContext(DatastoreReadyContext);
 
   const handleOpen = () => {
     if (!open) {
@@ -235,6 +237,7 @@ export default function Header() {
                   className={`btn-signin btn collapsed`}
                   type="button"
                   onClick={() => handleOpenAuth()}
+                  disabled={!datastoreReady}
                 >
                   SIGN IN
                 </button>
@@ -409,7 +412,8 @@ export default function Header() {
           </svg>
         </button>
         {
-          handleFormType()
+          // handleFormType()
+          CognitoAuthForm()
         }
       </div>
     </header>
