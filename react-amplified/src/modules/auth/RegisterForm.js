@@ -37,7 +37,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="authentication-box d-md-block d-lg-none">
+    // TODO: Remove as it blocks the display of LoginForm
+    // <div className="authentication-box d-md-block d-lg-none">
+    <div className="authentication-box d-md-block">
       <h4>Sign UP</h4>
       <form id="register-form" noValidate onSubmit={formHandlers.handleSubmit}>
         <div className="row">

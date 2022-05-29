@@ -22,7 +22,9 @@ export default function RecoverPasswordForm() {
   });
 
   return (
-    <div className="authentication-box d-md-block d-lg-none">
+    // TODO: Remove as it blocks the display of LoginForm
+    // <div className="authentication-box d-md-block d-lg-none">
+    <div className="authentication-box d-md-block">
       {recoverSuccess ? (
         <>
           <h4>Recover password</h4>

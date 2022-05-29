@@ -25,7 +25,9 @@ export default function LoginForm({ setFormType }) {
   });
 
   return (
-    <div className="authentication-box d-md-block d-lg-none">
+    // TODO: Remove as it blocks the display of LoginForm
+    // <div className="authentication-box d-md-block d-lg-none">
+    <div className="authentication-box d-md-block">
       <h4>Sign IN</h4>
       <form id="login-form" noValidate onSubmit={formHandlers.handleSubmit}>
         <div className="form-group">

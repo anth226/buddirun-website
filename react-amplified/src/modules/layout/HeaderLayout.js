@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
+import { DatastoreReadyContext } from "../../app/DatastoreReadyContext";
 
 export default function Header() {
   const active = window.location.pathname;
@@ -27,6 +28,7 @@ export default function Header() {
   };
 
   const handleOpenAuth = () => {
+    console.log('OPENING AUTH', openAuth);
     if (!openAuth) {
       const p = document.createElement("div");
       p.className = "filter-backdrop";
@@ -299,6 +301,7 @@ export default function Header() {
               )}
             </li>
           </ul>
+          {/*<!-- TODO: Remove as it blocks the display of LoginForm
           <div
             className={`collapse navbar-collapse navbarAuth ${
               openAuth ? "show" : ""
@@ -307,6 +310,7 @@ export default function Header() {
           >
             {handleFormType()}
           </div>
+          -->*/}
           <button
             className={`navbar-toggler ${open && "close-toggle"} collapsed`}
             type="button"
@@ -348,6 +352,7 @@ export default function Header() {
               />
             </svg>
           </button>
+          {/*<!-- TODO: Remove as it blocks the display of LoginForm
           <button
             className={`navbar-toggle close-auth-toggle ${
               openAuth && "active"
@@ -371,8 +376,42 @@ export default function Header() {
               />
             </svg>
           </button>
+          -->*/}
         </div>
       </nav>
+      <div
+        className={`collapse navbar-collapse navbarAuth ${
+          openAuth ? "show" : ""
+        }`}
+        id="navbarAuth"
+      >
+        <button
+          className={`navbar-toggle close-auth-toggle ${
+            openAuth && "active"
+          } collapsed`}
+          type="button"
+          onClick={() => handleOpenAuth()}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L13 13M25 25L13 13M13 13L25 1L1 25"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        {
+          handleFormType()
+        }
+      </div>
     </header>
   );
 }
