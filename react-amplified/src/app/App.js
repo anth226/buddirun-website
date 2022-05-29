@@ -10,7 +10,7 @@ import { DatastoreReadyContext } from "./DatastoreReadyContext";
 import { User } from "../models";
 
 function App() {
-  const [isReady, setReady] = useState(true);
+  const [isReady, setReady] = useState(false);
 
   useEffect(() => {
     const subscription = DataStore.observe(User).subscribe((msg) => {
