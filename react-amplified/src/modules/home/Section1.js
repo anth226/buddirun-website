@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../Layout/HeaderLayout";
+import Header from "../layout/HeaderLayout";
 
 export default function Section1() {
   return (
