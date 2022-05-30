@@ -22,6 +22,11 @@ const formFields = {
       labelHidden: false,
       isRequired: true,
     },
+    phone_number: {
+      order: 3,
+      labelHidden: false,
+      isRequired: false,
+    },
     password: {
       order: 4,
       labelHidden: false,
@@ -39,7 +44,7 @@ export default function CognitoAuthForm({setFormType, formType}) {
   return (
   <div className="authentication-box d-md-block">
     <h4>Sign IN</h4>
-    <Authenticator formFields={formFields}></Authenticator>
+    <Authenticator formFields={formFields} loginMechanisms={['email']} signUpAttributes={['family_name', 'given_name']}></Authenticator>
     <p>
       Don't have a account?{" "}
       <span
