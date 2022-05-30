@@ -348,7 +348,7 @@ select.form-control {
   display: unset !important;
   background: transparent;
   border: none;
-  left: -39px;
+  /* left: -39px; TODO: close button is not visible when outside of parent */
   top: 10px;
   right: auto;
 }
@@ -501,7 +501,7 @@ select.form-control {
     This forces us to apply the same margins again on the show/hide buttons at the end of
     the password inputs (`amplify-field-group__outer-end`)
 */
-
+fieldset.amplify-flex,
 fieldset.amplify-flex > div {
   gap: unset !important;
 }
