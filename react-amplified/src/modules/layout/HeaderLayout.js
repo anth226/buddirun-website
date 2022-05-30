@@ -18,8 +18,11 @@ export default function Header() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
-  // TODO: Retrieve user details
-  // let userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
+  let userFullName = '';
+  if (user) {
+    userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
+  };
+  console.log('GOT USER FULL NAME', userFullName);
 
   const handleOpen = () => {
     if (!open) {
@@ -85,7 +88,7 @@ export default function Header() {
                 <div className="avatar">
                   <img src="img/Avatar.png" />
                 </div>
-                <div className="name">[User full name]</div>
+                <div className="name">{userFullName}</div>
                 <div className="row">
                   <div className="col-6">
                     <Link
@@ -264,7 +267,7 @@ export default function Header() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      [User full name]
+                      {userFullName}
                     </a>
                     <ul
                       className="dropdown-menu"
