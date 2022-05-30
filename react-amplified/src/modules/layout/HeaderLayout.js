@@ -104,7 +104,9 @@ export default function Header() {
                       to="/logout"
                       className="d-flex"
                       onClick={() => {
-                        active !== "/logout" && handleClose();
+                        // TODO: Fix usage of `handleClose`
+                        // active !== "/logout" && handleClose();
+                        active != "/logout" && signOut();
                       }}
                     >
                       <img src="img/mdi_exit-to-app.svg" />
