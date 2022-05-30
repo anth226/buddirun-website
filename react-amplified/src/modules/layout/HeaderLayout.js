@@ -101,7 +101,9 @@ export default function Header() {
                   </div>
                   <div className="col-6">
                     <Link
-                      to="/logout"
+                      // TODO: Cleanup usage of `to`
+                      // to="/logout"
+                      to=""
                       className="d-flex"
                       onClick={() => {
                         // TODO: Fix usage of `handleClose`
@@ -289,7 +291,17 @@ export default function Header() {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/logout" className="dropdown-item d-flex">
+                        <Link
+                          // TODO: Cleanup usage of `to`
+                          // to="/logout"
+                          to=""
+                          className="dropdown-item d-flex"
+                          onClick={() => {
+                            // TODO: Fix usage of `handleClose`
+                            // active !== "/logout" && handleClose();
+                            active != "/logout" && signOut();
+                          }}
+                        >
                           <svg
                             width="24"
                             height="24"
