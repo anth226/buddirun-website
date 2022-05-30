@@ -16,18 +16,39 @@ function App() {
     const subscription = DataStore.observe(User).subscribe((msg) => {
       console.log('GOT USER MODEL', msg.model, msg.opType, msg.element);
     });
-    const listener = Hub.listen("datastore", async hubData => {
+    const datastoreListener = Hub.listen("datastore", async hubData => {
       const {event, data} = hubData.payload;
-      console.log('GOT DATASTORE EVENT', event);
       if (event === "ready") {
-        console.log('DATASTORE IS READY');
+        // console.log('DATASTORE IS READY');
         setReady(true);
       }
-    })
+    });
+    const authListener = Hub.listen("auth", async hubData => {
+      const {event, data} = hubData.payload;
+      switch (event) {
+        case "signUp":
+        case "signIn":
+          console.log('USER IS SIGNED IN');
+          // do call to backend
+          break;
+        case "signOut":
+          console.log('USER IS SIGNED OUT');
+          // do call to backend
+          break;
+        case "configured":
+          console.log('AUTH IS CONFIGURED');
+          break;
+      }
+      // TODO: How should we handle the following
+      // - 'signIn_failure'
+      // - 'tokenRefresh'
+      // - 'tokenRefresh_failure'
+    });
 
     return () => {
       subscription.unsubscribe();
-      listener();
+      datastoreListener();
+      authListener();
     }
   }, []);
 
