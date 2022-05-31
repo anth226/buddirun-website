@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Race() {
+  const [element, setElement] = useState("breed");
+
   return (
     <section className="race">
       <div className=" container-fluid">
@@ -8,7 +10,7 @@ export default function Race() {
         <div className="race-img text-center">
           <img src="img/RACE.png" />
         </div>
-        <div className="slider d-none d-sm-flex">
+        <div className="slider d-none d-sm-flex position-relative align-items-center justify-content-center">
           <div className="pre-btn">
             <img src="img/Asset 3 1.png" />
           </div>
@@ -74,13 +76,79 @@ export default function Race() {
         </p>
         <h1>GAME PLAY ELEMENTS</h1>
         <div className="row mx-auto">
-          <div className="col-12 col-lg-5">
-            <div className="gameplay-img">
-              <img src="img/Asset 3 3.png" />
+          <div
+            className="col-12 col-lg-5 position-relative"
+          >
+            <div className="gameplay-box mx-auto">
+              <div className="row row-cols-2 w-100 h-100 mx-0">
+                <div
+                  className="gameplay-item"
+                  onMouseOver={() => {
+                    setElement("generate");
+                  }}
+                ></div>
+                <div
+                  className="gameplay-item"
+                  onMouseOver={() => {
+                    setElement("breed");
+                  }}
+                ></div>
+                <div
+                  className="gameplay-item"
+                  onMouseOver={() => {
+                    setElement("bond");
+                  }}
+                ></div>
+                <div
+                  className="gameplay-item"
+                  onMouseOver={() => {
+                    setElement("wearables");
+                  }}
+                ></div>
+              </div>
+            </div>
+            <div
+              className={`gameplay-element ${
+                element === "generate" && "active"
+              }`}
+            >
+              <div className="gameplay-img">
+                <img
+                  src="img/Frame 72.png"
+                  className="elementImage"
+                />
+              </div>
+            </div>
+            <div
+              className={`gameplay-element ${element === "breed" && "active"}`}
+            >
+              <div className="gameplay-img">
+                <img src="img/Frame 3613.png" />
+              </div>
+            </div>
+            <div
+              className={`gameplay-element ${element === "bond" && "active"}`}
+            >
+              <div className="gameplay-img element-3">
+                <img src="img/Frame 3611.png" />
+              </div>
+            </div>
+            <div
+              className={`gameplay-element ${
+                element === "wearables" && "active"
+              }`}
+            >
+              <div className="gameplay-img">
+                <img src="img/Frame 3612.png" />
+              </div>
             </div>
           </div>
-          <div className="col-12 col-lg-7">
-            <div className="race-box">
+          <div className="col-12 col-lg-7 position-relative">
+            <div
+              className={`race-box d-flex flex-column ${
+                element === "generate" && "active"
+              }`}
+            >
               <div className="title">
                 <h4>GENERATE ENERGY</h4>
               </div>
@@ -92,6 +160,61 @@ export default function Race() {
                 </p>
               </div>
               <img src="img/Asset 2 3.png" />
+            </div>
+            <div
+              className={`race-box d-flex flex-column ${
+                element === "breed" && "active"
+              }`}
+            >
+              <div className="title">
+                <h4>BREED</h4>
+              </div>
+              <div className="content">
+                <p>
+                  Players are able to breed new BuddiNFTs by splicing together 2
+                  unique GeneticFragmentNFTs using a SpliceAgent NFT. Owners are
+                  able to extract GeneticFragmentNFTs from their Buddis to use
+                  or sell on the market.
+                </p>
+              </div>
+              <img src="img/Asset 4 1.png" />
+            </div>
+            <div
+              className={`race-box d-flex flex-column ${
+                element === "bond" && "active"
+              }`}
+            >
+              <div className="title">
+                <h4>BOND</h4>
+              </div>
+              <div className="content">
+                <p>
+                  The bond between an Owner and their Buddi begins when it is
+                  born and is sealed the first time the Buddi finishes in a
+                  race. Owners can nurture their Buddis through petting,
+                  feeding, and extending their lives by generating energy and
+                  racing.
+                </p>
+              </div>
+              <img src="img/Asset 7.png" />
+            </div>
+            <div
+              className={`race-box d-flex flex-column ${
+                element === "wearables" && "active"
+              }`}
+            >
+              <div className="title">
+                <h4>WEARABLES</h4>
+              </div>
+              <div className="content">
+                <p>
+                  Wearable NFT items add or enhance a skill of the Buddi wearing
+                  it. Items can be bought in the shop, traded on the market and
+                  crafted when a player's Buddi(s) have collected enough
+                  materials.
+                </p>
+              </div>
+              <img src="img/Asset 5 1.png" />
             </div>
           </div>
         </div>

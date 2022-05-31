@@ -12,7 +12,11 @@ export default function Community() {
           <h3>JOIN THE BUDDI RUN COMMUNITY</h3>
         </div>
         <div className="community-web d-flex flex-row justify-content-center">
-          <div className="icon">
+          <a
+            href="https://discord.gg/U4tsfjvcWP"
+            target="_blank"
+            className="icon"
+          >
             <svg
               width="68"
               height="68"
@@ -48,8 +52,12 @@ export default function Community() {
                 </clipPath>
               </defs>
             </svg>
-          </div>
-          <div className="icon">
+          </a>
+          <a
+            href="https://twitter.com/BuddiRun"
+            target="_blank"
+            className="icon"
+          >
             <svg
               width="68"
               height="68"
@@ -75,7 +83,7 @@ export default function Community() {
                 </linearGradient>
               </defs>
             </svg>
-          </div>
+          </a>
         </div>
       </div>
     </section>

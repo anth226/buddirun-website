@@ -136,18 +136,56 @@ export default function Header() {
                   ABOUT
                 </Link>
               </li>
-              <li className="nav-item col-lg-3 h-100 p-0">
-                <Link
-                  to="/documents"
-                  className={`nav-link h-100 d-flex align-items-center justify-content-center ${
-                    active === "/documents" && "active"
-                  }`}
-                  onClick={() => {
-                    active !== "/documents" && handleClose();
-                  }}
-                >
-                  DOCUMENTS
-                </Link>
+              <li className="nav-item col-lg-3 h-100 p-0 position-relative">
+                <div className="d-none d-lg-block h-100">
+                  <a
+                    href="/documents"
+                    id="docsDropdown"
+                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center ${
+                      active === "/documents" && "active"
+                    }`}
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    DOCS
+                  </a>
+                  <ul
+                    className="dropdown-menu w-100 mt-2"
+                    aria-labelledby="docsDropdown"
+                  >
+                    <li>
+                      <Link to="/whitepaper" className="dropdown-item d-flex">
+                        <span>Whitepaper</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/pitch-deck" className="dropdown-item d-flex">
+                        <span>Pitch Deck</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="d-block d-lg-none h-100">
+                  <a
+                    href="/documents"
+                    className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
+                  >
+                    DOCS
+                  </a>
+                  <ul className="w-100 list-unstyled">
+                    <li className="mt-2">
+                      <Link to="/whitepaper" className="docs-item">
+                        <span>Whitepaper</span>
+                      </Link>
+                    </li>
+                    <li className="mt-2">
+                      <Link to="/pitch-deck" className="docs-item">
+                        <span>Pitch Deck</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li className="nav-item col-lg-3 h-100 p-0">
                 <Link
@@ -179,7 +217,11 @@ export default function Header() {
           </div>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <div className="nav-logo d-flex align-items-center justify-content-center">
+              <a
+                href="https://discord.gg/U4tsfjvcWP"
+                target="_blank"
+                className="nav-logo d-flex align-items-center justify-content-center"
+              >
                 <svg
                   width="30"
                   height="30"
@@ -215,10 +257,14 @@ export default function Header() {
                     </clipPath>
                   </defs>
                 </svg>
-              </div>
+              </a>
             </li>
-            <li className="nav-item ">
-              <div className="nav-logo d-flex align-items-center justify-content-center">
+            <li className="nav-item">
+              <a
+                href="https://twitter.com/BuddiRun"
+                target="_blank"
+                className="nav-logo d-flex align-items-center justify-content-center"
+              >
                 <svg
                   width="30"
                   height="30"
@@ -244,7 +290,7 @@ export default function Header() {
                     </linearGradient>
                   </defs>
                 </svg>
-              </div>
+              </a>
             </li>
             <li className="nav-item">
               {!user ? (

@@ -21,7 +21,75 @@ a:active {
   text-decoration: none;
 }
 
-input[type="checkbox"] {
+.checkbox-group {
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 18px;
+  color: #00008a;
+  margin: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox-group input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 1px solid #1ce4ff;
+  border-radius: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-group:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-group input:checked ~ .checkmark {
+  background-color: #fff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-group input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-group .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid #00008a;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* input[type="checkbox"] {
   width: 18px;
   height: 18px;
   border-radius: 4px;
@@ -30,11 +98,12 @@ input[type="checkbox"] {
   -webkit-transition: box-shadow 200ms;
   background: #ffffff;
   margin: auto 8px auto 0;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:checked {
   background-color: #ffffff;
-}
+} */
 
 .primary-btn {
   background: linear-gradient(180deg, #f2f9fc 0%, #93d4ed 100%);
@@ -45,7 +114,6 @@ input[type="checkbox"]:checked {
     0px 1.52952px 5.32008px rgba(55, 142, 182, 0.0727007),
     0px 0.636469px 2.21381px rgba(55, 142, 182, 0.0506062);
   border-radius: 8px;
-  font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 22px;
@@ -64,13 +132,25 @@ label {
   margin-bottom: 12px;
   position: relative;
 }
+.form-group .form-label {
+  font-size: 14px !important;
+  line-height: 15px !important;
+  color: #aaaaaa !important;
+  position: absolute;
+  transform-origin: top left;
+  transform: translate(8px, 100%) scale(1);
+  transition: all 0.1s ease-in-out;
+}
+.form-group.active .form-label {
+  transform: translate(8px, 4px) scale(0.8);
+}
 .form-control {
   background: #ffffff;
   border-radius: 8px !important;
   font-size: 14px !important;
   line-height: 15px !important;
   color: #00008a !important;
-  padding: 14px 8px !important;
+  padding: 21px 8px 8px !important;
 }
 .form-control::-moz-placeholder {
   color: #8899a8;
@@ -94,11 +174,19 @@ input:disabled.form-control {
   border-color: #f5f9fc;
 }
 label.error {
-  margin: 0;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 4px;
   font-weight: 400;
-  color: #dc3545;
-  margin-top: 0.25rem;
-  font-size: 14px;
+  color: #ff0000;
+  margin-top: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 12px;
 }
 label.errorCard {
   margin: 0;
@@ -150,7 +238,6 @@ select.form-control {
 
 .heading-wrap h3 {
   margin: 12px 0px;
-  font-style: normal;
   font-weight: 400;
   font-size: 52px;
   line-height: 57px;
@@ -209,7 +296,6 @@ select.form-control {
   font-size: 18px;
   line-height: 20px;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link.active,
@@ -246,7 +332,6 @@ select.form-control {
   border-radius: 40px !important;
   padding: 16px 65px !important;
   color: #fff !important;
-  font-style: normal;
   font-weight: 400 !important;
   font-size: 22px !important;
   line-height: 24px !important;
@@ -270,6 +355,11 @@ select.form-control {
   padding-top: 10vh !important;
 }
 
+#docsDropdown.show {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-top: none;
+}
+
 .navbar-expand-lg .navbar-nav.nav-profile .nav-link:hover {
   background: transparent !important;
   color: #ffffff !important;
@@ -290,6 +380,10 @@ select.form-control {
   background-color: #4cb6d6 !important;
   border: 2px solid #85cffc !important;
   border-radius: 12px !important;
+}
+
+.dropdown-item:active {
+  background-color: #e9ecef !important;
 }
 
 .dropdown-item:hover span {
@@ -342,15 +436,23 @@ select.form-control {
   display: none !important;
   background: transparent;
   border: none;
-  right: 52%;
-  /* FIX: Below we simply override problematic CSS values for now */
-  position: absolute;
-  display: unset !important;
-  background: transparent;
-  border: none;
-  /* left: -39px; TODO: close button is not visible when outside of parent */
-  top: 10px;
-  right: auto;
+  right: 420px;
+}
+
+.close-auth-toggle.active {
+  display: block !important;
+  z-index: 99999;
+}
+
+.filter-backdrop {
+  content: "";
+  background: rgba(0, 9, 26, 0.56);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
 }
 
 /* Section 1 */
@@ -390,7 +492,6 @@ select.form-control {
 
 .section1-box {
   left: 80%;
-  position: relative;
   transform: translateX(-80%);
   margin-top: 7%;
   max-width: 736px;
@@ -399,7 +500,6 @@ select.form-control {
   height: 100%;
   background: url("../img/Asset 14 1.png") no-repeat;
   border-radius: 45px;
-  display: flex;
   background-size: cover;
   background-position: bottom;
   border: 0.88587px solid #c3f9ff;
@@ -407,7 +507,6 @@ select.form-control {
 }
 
 .section1-box h2 {
-  font-style: normal;
   font-weight: 400;
   font-size: 69px;
   line-height: 80px;
@@ -437,12 +536,8 @@ select.form-control {
   padding: 0px 18px !important;
   letter-spacing: 0.12em !important;
   color: #00008a !important;
-  font-style: normal;
-  font-weight: 400 !important;
   font-size: 30px !important;
   line-height: 26px !important;
-  display: flex !important;
-  align-items: center;
 }
 
 .btn-playvideo svg {
@@ -453,74 +548,6 @@ select.form-control {
   width: 25px;
   margin-right: 5px;
 }
-
-/* GREG FIX */
-/* FIX AuthDisplay */
-#navbarAuth {
-  background: linear-gradient(
-          90deg,
-          rgba(35, 140, 255, 0.8) -6.72%,
-          #00c2ff 125.98%
-  );
-  /* FIX: Had to use `z-index: 10000` to be above the collapsed navbar button */
-  z-index: 10000 !important;
-  position: fixed;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  width: 100%;
-  padding: 0 15px;
-  max-width: 590px;
-  overflow-y: auto;
-}
-#navbarAuth .close {
-  position: absolute;
-}
-.filter-backdrop {
-  content: "";
-  background: rgba(0, 9, 26, 0.56);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-}
-
-/* AMPLIFY UI: REACT */
-/* TODO: Fix display of Authenticator based on form type
-         Once the HTML is fixed, continue fixing the CSS
-.amplify-tabs {
-  display: none !important;
-}
-*/
-
-/* FIX AuthHidePhone - Hide phone_number field in Amplify Authenticator
-    Due to the `gap` and the fact that the phone number field parent is not identified properly,
-    I had to unset the gaps and use the same values as margins on the input itself.
-    This forces us to apply the same margins again on the show/hide buttons at the end of
-    the password inputs (`amplify-field-group__outer-end`)
-*/
-fieldset.amplify-flex,
-fieldset.amplify-flex > div {
-  gap: unset !important;
-}
-fieldset.amplify-flex .amplify-field {
-  gap: unset !important;
-}
-fieldset.amplify-flex .amplify-input {
-  margin-bottom: var(--amplify-components-flex-gap);
-  margin-top: var(--amplify-components-field-gap);
-}
-fieldset.amplify-flex .amplify-field-group__outer-end {
-  margin-bottom: var(--amplify-components-flex-gap);
-  margin-top: var(--amplify-components-field-gap);
-}
-.amplify-phonenumberfield,
-.amplify-input[name="phone_number"]{
-  display: none !important; /* hide Amplify's phone number field */
-}
-/* EO GREG FIX */
 
 @media (max-width: 1800px) {
   .container-fluid {
@@ -606,13 +633,38 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
   }
 }
 
-/* TODO: Remove as it blocks the display of LoginForm
 @media (min-width: 992px) {
   #navbarAuth {
     display: none !important;
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+    position: fixed;
+    height: 100% !important;
+    top: 0;
+    max-width: 408px;
+    width: 100%;
+    right: -300px;
+    z-index: 999;
+    transition: all 0.3s linear;
+    background-color: #fff;
+    background: linear-gradient(
+        90deg,
+        rgba(35, 140, 255, 0.8) -6.72%,
+        #00c2ff 125.98%
+      ),
+      rgba(255, 255, 255, 0.5);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(0.2);
+    align-items: flex-start !important;
+  }
+  #navbarAuth.show {
+    display: flex !important;
+    right: 0;
   }
 }
-*/
 
 @media (max-width: 991px) {
   .navbar-collapse {
@@ -641,6 +693,7 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
     padding-top: 20vh;
   }
   .navbar-collapse.show {
+    display: block !important;
     right: 0;
   }
   .navbar-collapse.collapsing {
@@ -689,6 +742,16 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
     font-size: 18px;
     line-height: 20px;
   }
+  .nav-item.col-lg-3:nth-child(3) {
+    margin-top: 100px;
+  }
+  .nav-item .docs-item {
+    text-decoration: none;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 17px !important;
+    text-transform: uppercase;
+  }
   .navbar-brand img {
     width: 127px;
   }
@@ -726,35 +789,15 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
     display: flex;
     flex-direction: row;
   }
-  /* TODO: Remove as it blocks the display of LoginForm
-  .filter-backdrop {
-    content: "";
-    background: rgba(0, 9, 26, 0.56);
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: 99;
-  }
-  */
   .close-auth {
     background: transparent;
     border: none;
     left: 50%;
     display: block !important;
   }
-  /* TODO: Remove as it blocks the display of LoginForm
-  .close-auth-toggle.active {
-    display: block !important;
-    z-index: 99999;
+  .close-auth-toggle {
+    right: 52%;
   }
-  */
-  /* TODO: Remove as it blocks the display of LoginForm
-  .navbar-collapse.show {
-    display: block !important;
-  }
-  */
 }
 
 @media (max-width: 768px) {
@@ -870,13 +913,9 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
   transform: translateY(-20%);
   max-width: 40%;
   border-radius: 45px;
-  display: flex;
-  background-size: contain;
-  background-position: bottom;
 }
 
 .section2-box h2 {
-  font-style: normal;
   font-weight: 100;
   font-size: 70px;
   line-height: 76px;
@@ -908,7 +947,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
 }
 
 .dna div p {
-  font-style: normal;
   font-weight: 400;
   font-size: 56px;
   line-height: 61px;
@@ -1174,7 +1212,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
 }
 
 .section3 .box .content .key {
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
@@ -1183,7 +1220,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
 }
 
 .section3 .box .content .para {
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -1193,7 +1229,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
 .section3 .box .content h3 {
   margin-top: 26px;
   margin-left: 20px;
-  font-style: normal;
   font-weight: 300;
   font-size: 26px;
   line-height: 28px;
@@ -1248,7 +1283,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
 }
 
 .section3 .box .heading h4 {
-  font-style: normal;
   font-weight: 400;
   font-size: 22px;
   line-height: 24px;
@@ -1267,12 +1301,9 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
   width: 77.79px;
   height: 69.73px;
   border-radius: 0px 0px 0px 24px;
-  font-style: normal;
   font-weight: 600;
   font-size: 26px;
   line-height: 28px;
-  display: flex;
-  justify-content: center;
   place-items: center;
 }
 
@@ -1405,7 +1436,6 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
     margin-bottom: 7px;
   }
   .section3 .box .content .para {
-    font-style: normal;
     font-size: 10.7733px;
     line-height: 12px;
   }
@@ -1527,7 +1557,6 @@ section.race {
 }
 
 section.race h3 {
-  font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 33px;
@@ -1557,13 +1586,6 @@ section.race .race-img {
 section.race .race-img img {
   max-height: 100%;
   max-width: 100%;
-}
-
-section.race .slider {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 section.race .slider .previous,
@@ -1618,7 +1640,6 @@ section.race .next-btn {
 
 section.race .paragraph {
   max-width: 753px;
-  font-style: normal;
   font-weight: 400;
   font-size: 17px;
   line-height: 26px;
@@ -1631,7 +1652,6 @@ section.race h1 {
   margin-top: 120px;
   margin-bottom: 59px;
   text-align: center;
-  font-style: normal;
   font-weight: 100;
   font-size: 70px;
   line-height: 76px;
@@ -1639,8 +1659,25 @@ section.race h1 {
   color: #00008a;
 }
 
-section.race .gameplay-img {
+section.race .gameplay-box {
+  height: 544px;
+  max-width: 80%;
+  z-index: 10;
+  position: relative;
+  border-radius: 100%;
+}
+
+section.race .gameplay-element .gameplay-img {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   max-width: 783px;
+  z-index: 1;
+}
+
+section.race .gameplay-element.active .gameplay-img {
+  opacity: 1;
 }
 
 section.race .gameplay-img img {
@@ -1672,8 +1709,7 @@ section.race .slide-bar .slide-item.center {
 }
 
 section.race .race-box {
-  position: sticky;
-  width: 90%;
+  position: absolute;
   min-height: 164px;
   background: linear-gradient(180deg, #effcff 0%, #73bbbf 170.73%);
   box-shadow: 0px 58px 80px rgba(4, 79, 105, 0.14),
@@ -1683,10 +1719,14 @@ section.race .race-box {
     0px 3.85706px 5.32008px rgba(4, 79, 105, 0.056545),
     0px 1.60501px 2.21381px rgba(4, 79, 105, 0.0393604);
   border-radius: 20px;
-  display: flex;
-  flex-direction: column;
   margin-top: 16%;
   margin-left: 10%;
+  opacity: 0;
+}
+
+section.race .race-box.active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
 }
 
 section.race .race-box .title {
@@ -1696,7 +1736,6 @@ section.race .race-box .title {
 }
 
 section.race .race-box h4 {
-  font-style: normal;
   font-weight: 400;
   font-size: 19px;
   line-height: 26px;
@@ -1709,7 +1748,6 @@ section.race .race-box .content {
 }
 
 section.race .race-box p {
-  font-style: normal;
   font-weight: 400;
   font-size: 17px;
   line-height: 26px;
@@ -1721,6 +1759,24 @@ section.race .race-box img {
   bottom: -45%;
   left: -8%;
   transform: translateX(45%, 8%);
+}
+
+@media (max-width: 1800px) {
+  section.race .gameplay-box {
+    height: 498px;
+  }
+}
+
+@media (max-width: 1560px) {
+  section.race .gameplay-box {
+    height: 448px;
+  }
+}
+
+@media (max-width: 1400px) {
+  section.race .gameplay-box {
+    height: 389px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -1746,21 +1802,38 @@ section.race .race-box img {
     bottom: -30%;
     transform: translateX(30%, 8%);
   }
+  section.race .gameplay-box {
+    height: 32vw;
+  }
 }
 
 @media (max-width: 992px) {
+  section.race {
+    height: 1500px;
+  }
   section.race .race-box {
     margin-top: 0;
   }
   section.race h1 {
     font-size: 56px;
     line-height: 64px;
+    margin-bottom: 30px;
+  }
+  section.race .gameplay-element .gameplay-img {
+    max-width: 516px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  section.race .gameplay-box {
+    height: 404px;
+    margin-bottom: 28px;
   }
 }
 
 @media (max-width: 768px) {
   section.race {
-    height: 1400px;
+    height: 1200px;
   }
   section.race h3 {
     font-size: 14px;
@@ -1833,10 +1906,6 @@ section.race .race-box img {
   section.race {
     height: 1800px;
   }
-  section.race .container-fluid {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-  }
   section.race .slider .pre-btn img,
   .next-btn img {
     width: 60px;
@@ -1867,7 +1936,6 @@ section.race .race-box img {
   }
   section.race .race-box {
     margin-left: 0%;
-    width: 100%;
   }
   section.race .race-box .title {
     padding: 22px 16px 12px;
@@ -1879,6 +1947,9 @@ section.race .race-box img {
     bottom: -45%;
     left: -5%;
     transform: translateX(45%, 5%);
+  }
+  section.race .gameplay-box {
+    height: 78vw;
   }
 }
 
@@ -1916,17 +1987,12 @@ section.roadmap .roadmap-heading {
   background: linear-gradient(180deg, #1b389d 0%, #647cc0 100%);
   border: 1px solid #73fbfd;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 120px;
-  position: relative;
   z-index: 10;
 }
 
 section.roadmap .roadmap-heading h3 {
   margin: 0px;
-  font-style: normal;
   font-weight: 100;
   font-size: 30px;
   line-height: 33px;
@@ -2053,7 +2119,6 @@ section.roadmap span.heading {
 section.roadmap .milestones {
   max-width: 420px;
   width: 100%;
-  font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 26px;
@@ -2099,7 +2164,6 @@ section.roadmap .row.right {
   section.roadmap .milestones {
     max-width: 260px;
     width: 100%;
-    font-style: normal;
     font-weight: 700;
     font-size: 12px;
     line-height: 16px;
@@ -2321,7 +2385,6 @@ section.team .team-wrap {
 
 section.team .team-wrap h3 {
   margin: 12px 0px;
-  font-style: normal;
   font-weight: 400;
   font-size: 52px;
   line-height: 57px;
@@ -2345,7 +2408,6 @@ section.team .avatar img {
 
 section.team .team-member h4 {
   margin-top: 24px;
-  font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 33px;
@@ -2354,7 +2416,6 @@ section.team .team-member h4 {
 }
 
 section.team .team-member span {
-  font-style: normal;
   font-weight: 400;
   font-size: 26px;
   line-height: 28px;
@@ -2420,7 +2481,7 @@ section.community .background {
   background-image: url("../img/Rectangle\ 11.png");
   background-position: center;
   background-size: cover;
-  height: 891px;
+  height: 768px;
   filter: blur(20px);
 }
 
@@ -2444,7 +2505,6 @@ section.community .community-box {
 }
 
 section.community .community-box h3 {
-  font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 26px;
@@ -2497,6 +2557,9 @@ section.community .icon:hover {
 }
 
 @media (max-width: 768px) {
+  section.community .background {
+    height: 576px;
+  }
   section.community .community-join {
     max-width: 688px;
   }
@@ -2522,7 +2585,7 @@ section.community .icon:hover {
     margin-top: 60px;
   }
   section.community .background {
-    height: 700px;
+    height: 454px;
   }
   section.community .community-box {
     height: 35px;
@@ -2554,7 +2617,7 @@ section.community .icon:hover {
 /* footer */
 footer {
   position: relative;
-  margin-top: -420px;
+  margin-top: -306px;
   background: linear-gradient(
     180deg,
     #141470 0%,
@@ -2562,7 +2625,6 @@ footer {
     #7424fb 75.47%,
     #8655f5 100.63%
   );
-  min-height: 432px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -2577,7 +2639,6 @@ footer .info div {
 }
 
 footer .info span {
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -2591,7 +2652,6 @@ footer .info span {
 
 footer .link h4 {
   margin-bottom: 32px;
-  font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
@@ -2602,9 +2662,12 @@ footer .link h4 {
   flex-grow: 0;
 }
 
+footer .link a {
+  text-decoration: none;
+}
+
 footer .link h5 {
   margin-bottom: 12px;
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -2615,24 +2678,22 @@ footer .link h5 {
   flex-grow: 0;
 }
 
-@media (max-width: 992px) {
-  footer {
-    padding: 50px;
-  }
-}
-
 @media (max-width: 768px) {
   footer {
-    padding: 40px 10px;
+    margin-top: -206px;
+    padding: 40px 28px;
   }
-  footer .footer-wrap {
-    flex-direction: column-reverse;
+  footer .container-fluid {
+    padding: 0 !important;
   }
 }
 
 @media (max-width: 576px) {
   footer {
     padding: 24px 16px;
+  }
+  footer .footer-wrap {
+    flex-direction: column-reverse;
   }
   footer .link h4 {
     margin-bottom: 12px;
@@ -2642,6 +2703,9 @@ footer .link h5 {
   footer .link h5 {
     font-size: 12px;
     line-height: 26px;
+  }
+  footer .info {
+    margin-top: 18px;
   }
 }
 
@@ -2690,7 +2754,6 @@ section.race-a-buddi .wrap {
 }
 
 section.race-a-buddi .wrap h1 {
-  font-style: normal;
   font-weight: 900;
   font-size: 200px;
   line-height: 218px;
@@ -2779,7 +2842,6 @@ section.select-a-buddi .energy-cell {
 section.select-a-buddi .energy-cell h4 {
   font-family: "MajorMonoDisplay-Regular", monospace;
   -webkit-text-stroke: 2px #01018a;
-  font-style: normal;
   font-weight: bolder;
   font-size: 24px;
   line-height: 24px;
@@ -2801,7 +2863,6 @@ section.select-a-buddi .box {
 }
 
 section.select-a-buddi .box .key {
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
@@ -2811,7 +2872,6 @@ section.select-a-buddi .box .key {
 }
 
 section.select-a-buddi .box .para {
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -2889,7 +2949,6 @@ section.select-a-buddi .box.active .heading {
 }
 
 section.select-a-buddi .box .heading h4 {
-  font-style: normal;
   font-weight: 700;
   font-size: 22px;
   line-height: 24px;
@@ -3115,7 +3174,6 @@ section.enter-a-race table thead {
 }
 
 section.enter-a-race table thead th {
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 15px;
@@ -3143,7 +3201,6 @@ th {
 }
 
 section.enter-a-race table tbody tr td {
-  font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 150%;
@@ -3188,7 +3245,6 @@ section.enter-a-race table tbody tr td.race-name {
     box-shadow: 0px -1px 0px #00008a;
     margin: 0px auto 4px;
     padding: 18px 16px;
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
@@ -3342,7 +3398,6 @@ section.mint .wrap {
 }
 
 section.mint .wrap h1 {
-  font-style: normal;
   font-weight: 900;
   font-size: 200px;
   line-height: 218px;
@@ -3413,7 +3468,6 @@ section.select-to-mint .box {
 }
 
 section.select-to-mint .box .heading h4 {
-  font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 33px;
@@ -3428,7 +3482,6 @@ section.select-to-mint .box .count {
     0px 24.231px 33.4221px rgba(4, 79, 105, 0.10064);
   border-radius: 20px;
   align-items: center;
-  font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 33px;
@@ -3465,7 +3518,6 @@ section.select-to-mint .box .model img {
 
 section.select-to-mint .total {
   margin-top: 80px;
-  font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 26px;
@@ -3477,7 +3529,6 @@ section.select-to-mint .total {
 section.select-to-mint .total span {
   font-family: "Major Mono Display";
   -webkit-text-stroke: 2px #01018a;
-  font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 24px;
@@ -3579,7 +3630,6 @@ section.wallet .box .status .connected {
 }
 
 section.wallet .box .status h5 {
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -3595,7 +3645,6 @@ section.wallet .box .btn-disconnect {
   height: 52px;
   border: 1px solid #bbbbbb;
   border-radius: 69px;
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -3619,7 +3668,6 @@ section.wallet .box .wallet-info .wallet-logo {
 
 section.wallet .box .wallet-info span {
   margin-left: 24px;
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -3644,7 +3692,6 @@ section.wallet .btn-mint {
     0px 1.52952px 5.32008px rgba(55, 142, 182, 0.0727007),
     0px 0.636469px 2.21381px rgba(55, 142, 182, 0.0506062);
   border-radius: 8px;
-  font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 22px;
@@ -3772,7 +3819,6 @@ section.wallet .btn-mint {
   color: #bebebe;
   content: "";
   display: block;
-  margin: 0 auto;
   font-weight: 700;
   height: 32px;
   line-height: 28px;
@@ -3784,15 +3830,42 @@ section.wallet .btn-mint {
   background: #00008a4f;
   content: "";
   height: 2px;
-  left: -35%;
   position: absolute;
   top: 15px;
-  width: 70%;
+  width: calc(100% + (100% - 32px) / 3 - 32px);
   z-index: 1;
+}
+
+.profile .content .progressbar li:first-child::before {
+  margin-left: 0;
+}
+
+.profile .content .progressbar li:nth-child(2)::before {
+  margin-left: calc((100% - 32px) / 3);
+}
+
+.profile .content .progressbar li:nth-child(3)::before {
+  margin-left: calc((100% - 32px) / 3 * 2);
+}
+
+.profile .content .progressbar li:last-child::before {
+  margin-left: auto;
 }
 
 .profile .content .progressbar li:first-child::after {
   content: none;
+}
+
+.profile .content .progressbar li:nth-child(2)::after {
+  left: calc(-100% + 32px);
+}
+
+.profile .content .progressbar li:nth-child(3)::after {
+  left: calc((-100% + 32px) / 3 * 2);
+}
+
+.profile .content .progressbar li:last-child::after {
+  left: calc((-100% + 32px) / 3);
 }
 
 .profile .content .progressbar li.active::after,
@@ -3812,28 +3885,6 @@ section.wallet .btn-mint {
   border: 2px solid #00008a;
   content: url("../img/Ellipse\ radio.svg");
   color: #fff;
-}
-
-.profile .content .info {
-  background: #ffffff;
-  border: 1px solid #18b7ff;
-  border-radius: 8px;
-  margin-bottom: 23px;
-  min-height: 44px;
-  padding: 3px 8px;
-}
-
-.profile .content .info .key {
-  font-size: 11px;
-  line-height: 12px;
-  color: #aaaaaa;
-  margin-bottom: 5px;
-}
-
-.profile .content .info .para {
-  font-size: 14px;
-  line-height: 15px;
-  color: #00008a;
 }
 
 .profile .primary-btn {
@@ -3880,10 +3931,6 @@ section.wallet .btn-mint {
   .profile .content {
     max-width: 334px;
   }
-  .profile .content .progressbar li::after {
-    left: -35%;
-    width: 67%;
-  }
   .profile .box .wallet-info span {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -3910,6 +3957,7 @@ section.wallet .btn-mint {
 
 /* Authentication */
 .authentication-box {
+  width: 100%;
   padding: 0px 40px;
 }
 
@@ -3922,15 +3970,21 @@ section.wallet .btn-mint {
 }
 
 .authentication-box p,
-span {
+.forgot-pwd {
   font-weight: 400;
   font-size: 14px;
   line-height: 15px;
   color: #ffffff;
 }
 
-.authentication-box span {
+.authentication-box .forgot-pwd {
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.authentication-box span:hover {
+  text-decoration: none;
+  color: #0a58ca;
 }
 
 .authentication-box a {
@@ -3940,8 +3994,17 @@ span {
   color: #ffffff;
 }
 
+.authentication-box .terms-and-conditions {
+  line-height: 18px;
+}
+
 .authentication-box .register-link {
   font-weight: 700;
+  font-size: 14px;
+  line-height: 15px;
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .authentication-box .primary-btn {
