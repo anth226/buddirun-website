@@ -8,6 +8,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { DatastoreReadyContext } from "./DatastoreReadyContext";
 import { User } from "../models";
+import { getProfile, updateProfile } from "./Backend";
 
 function App() {
   const [isReady, setReady] = useState(false);
@@ -30,10 +31,12 @@ function App() {
         case "signIn":
           console.log('USER IS SIGNED IN');
           // do call to backend
+          const profile = await getProfile();
+
+          console.log('TEST USER PROFILE', profile);
           break;
         case "signOut":
-          console.log('USER IS SIGNED OUT');
-          // do call to backend
+          // console.log('USER IS SIGNED OUT');
           break;
         case "configured":
           console.log('AUTH IS CONFIGURED');
