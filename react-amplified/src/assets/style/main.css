@@ -631,6 +631,10 @@ select.form-control {
     width: 36px;
     height: 36px;
   }
+  #navbarAuth.show {
+    display: flex !important;
+    right: 0;
+  }
 }
 
 @media (min-width: 992px) {
@@ -3959,6 +3963,7 @@ section.wallet .btn-mint {
 .authentication-box {
   width: 100%;
   padding: 0px 40px;
+  overflow-y: auto;
 }
 
 .authentication-box h4 {
@@ -4015,6 +4020,38 @@ section.wallet .btn-mint {
 .authentication-box p {
   margin-bottom: 0;
 }
+
+/* FIX Amplify Authenticator */
+[data-amplify-authenticator] [data-amplify-container] {
+  width: 100% !important;
+}
+
+/* FIX AuthHidePhone - Hide phone_number field in Amplify Authenticator
+    Due to the `gap` and the fact that the phone number field parent is not identified properly,
+    I had to unset the gaps and use the same values as margins on the input itself.
+    This forces us to apply the same margins again on the show/hide buttons at the end of
+    the password inputs (`amplify-field-group__outer-end`)
+*/
+fieldset.amplify-flex,
+fieldset.amplify-flex > div {
+  gap: unset !important;
+}
+fieldset.amplify-flex .amplify-field {
+  gap: unset !important;
+}
+fieldset.amplify-flex .amplify-input {
+  margin-bottom: var(--amplify-components-flex-gap);
+  margin-top: var(--amplify-components-field-gap);
+}
+fieldset.amplify-flex .amplify-field-group__outer-end {
+  margin-bottom: var(--amplify-components-flex-gap);
+  margin-top: var(--amplify-components-field-gap);
+}
+.amplify-phonenumberfield,
+.amplify-input[name="phone_number"]{
+  display: none !important; /* hide Amplify's phone number field */
+}
+/* EO FIX AuthHidePhone */
 
 .success-box {
   margin-top: 10vh;
