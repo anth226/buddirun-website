@@ -8,7 +8,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { DatastoreReadyContext } from "./DatastoreReadyContext";
 import { User } from "../models";
-import { getProfile, updateProfile } from "./Backend";
+import { getUserInfo, getProfile, updateProfile } from "./Backend";
 
 function App() {
   const [isReady, setReady] = useState(false);
@@ -29,17 +29,34 @@ function App() {
       switch (event) {
         case "signUp":
         case "signIn":
-          console.log('USER IS SIGNED IN');
-          // do call to backend
-          const profile = await getProfile();
-
-          console.log('TEST USER PROFILE', profile);
+          // console.log('USER IS SIGNED IN');
+          // Get profile and update backend with user data if it changed
+          const userAttributes = await getUserInfo(),
+                profile = await getProfile(),
+                userData = {},
+                propertyMap = {
+                  'given_name': 'first_name',
+                  'family_name': 'last_name',
+                  'email': 'email',
+                };
+          for (let attrKey in userAttributes) {
+            const attrVal = userAttributes[attrKey],
+                  profileKey = propertyMap[attrKey];
+            if (profileKey != null && attrVal != profile[profileKey]) {
+              userData[profileKey] = attrVal;
+            }
+          }
+          if (Object.keys(userData).length > 0) {
+            await updateProfile(userData);
+          }
+          // TODO: Close auth navbar
           break;
         case "signOut":
           // console.log('USER IS SIGNED OUT');
           break;
         case "configured":
-          console.log('AUTH IS CONFIGURED');
+          // NOTE: `configured` event is never triggered in Auth
+          // console.log('AUTH IS CONFIGURED');
           break;
       }
       // TODO: How should we handle the following
