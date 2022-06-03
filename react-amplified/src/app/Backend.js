@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const CORS_MODE = '';
+const CORS_MODE = ''; // defaults to 'cors'
 
 async function getUserInfo() {
   const user = await Auth.currentAuthenticatedUser();
