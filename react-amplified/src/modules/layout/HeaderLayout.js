@@ -18,11 +18,14 @@ export default function Header() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
-  let userFullName = '';
-  if (user) {
-    userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
-  };
-  console.log('GOT USER FULL NAME', userFullName);
+  const closeNavbar = (navbarID) => {
+    const navbar = document.getElementById(navbarID);
+    if (navbar.className.indexOf('show') >= 0) {
+      new bootstrap.Collapse(navbar, {
+        hide: true
+      });
+    }
+  }
 
   const handleOpen = () => {
     if (!open) {
@@ -33,6 +36,7 @@ export default function Header() {
     } else {
       const p = document.getElementById("filter-backdrop");
       p?.parentNode?.removeChild(p);
+      closeNavbar('navbarList');
     }
 
     setOpen(!open);
@@ -49,6 +53,7 @@ export default function Header() {
       const p = document.getElementById("filter-backdrop");
       p?.parentNode?.removeChild(p);
       setFormType("");
+      closeNavbar('navbarAuth');
     }
 
     setOpenAuth(!openAuth);
@@ -60,6 +65,7 @@ export default function Header() {
       p?.parentNode?.removeChild(p);
       setOpen(false);
     }
+    closeNavbar('navbarList');
   };
 
   const handleFormType = () => {
@@ -72,6 +78,18 @@ export default function Header() {
       //   return <LoginForm setFormType={setFormType} />;
       default:
         return <CognitoAuthForm formType={formType} setFormType={setFormType} />
+    }
+  };
+
+  // On render
+  let userFullName = '';
+  if (user) {
+    userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
+    // TODO:  Hackish ~ If auth authNavbar is opened after login, close it.
+    //        Unfortunately, if the authNavbar is intentionally opened while this component renders,
+    //        it will force the close which may not be the desired behaviour.
+    if (openAuth) {
+      handleOpenAuth();
     }
   };
 
@@ -104,14 +122,10 @@ export default function Header() {
                   </div>
                   <div className="col-6">
                     <Link
-                      // TODO: Cleanup usage of `to`
-                      // to="/logout"
                       to=""
                       className="d-flex"
                       onClick={() => {
-                        // TODO: Fix usage of `handleClose`
-                        // active !== "/logout" && handleClose();
-                        active != "/logout" && signOut();
+                        active != "/logout" && signOut() && handleClose();
                       }}
                     >
                       <img src="img/mdi_exit-to-app.svg" />
@@ -341,14 +355,10 @@ export default function Header() {
                       </li>
                       <li>
                         <Link
-                          // TODO: Cleanup usage of `to`
-                          // to="/logout"
                           to=""
                           className="dropdown-item d-flex"
                           onClick={() => {
-                            // TODO: Fix usage of `handleClose`
-                            // active !== "/logout" && handleClose();
-                            active != "/logout" && signOut();
+                            active != "/logout" && signOut() && handleClose();
                           }}
                         >
                           <svg
@@ -375,16 +385,6 @@ export default function Header() {
               )}
             </li>
           </ul>
-          {/*<!-- TODO: Remove as it blocks the display of LoginForm
-          <div
-            className={`collapse navbar-collapse navbarAuth ${
-              openAuth ? "show" : ""
-            }`}
-            id="navbarAuth"
-          >
-            {handleFormType()}
-          </div>
-          -->*/}
           <button
             className={`navbar-toggler ${open && "close-toggle"} collapsed`}
             type="button"
@@ -426,31 +426,6 @@ export default function Header() {
               />
             </svg>
           </button>
-          {/*<!-- TODO: Remove as it blocks the display of LoginForm
-          <button
-            className={`navbar-toggle close-auth-toggle ${
-              openAuth && "active"
-            } collapsed`}
-            type="button"
-            onClick={() => handleOpenAuth()}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 26 26"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 1L13 13M25 25L13 13M13 13L25 1L1 25"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          -->*/}
         </div>
       </nav>
       <div
