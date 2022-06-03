@@ -1,7 +1,10 @@
 import React from "react";
 import Header from "../modules/layout/HeaderLayout";
+import {useAuthenticator} from "@aws-amplify/ui-react";
 
 export default function Profile() {
+  const active = window.location.pathname;
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
   const [address] = React.useState("0x245v...984tb9adv");
   const [hasConnect, setHasConnect] = React.useState(true);
 
@@ -85,7 +88,12 @@ export default function Profile() {
                     </div>
                   </div>
                 )}
-                <button className="btn btn-outline profile-btn">Log out</button>
+                <button
+                  className="btn btn-outline profile-btn"
+                  onClick={() => {
+                    active != "/logout" && signOut();
+                  }}
+                >Log out</button>
               </div>
             </div>
             <div className="col-sm-6 mt-3">
