@@ -353,6 +353,9 @@ select.form-control {
 #navbarAuth {
   z-index: 99999 !important;
   padding-top: 10vh !important;
+  padding-bottom: 10vh;
+  overflow-y: auto;
+  align-items: start;
 }
 
 #docsDropdown.show {
@@ -4001,7 +4004,12 @@ section.wallet .btn-mint {
 
 .authentication-box .terms-and-conditions {
   line-height: 18px;
+  padding: 0 var(--amplify-components-authenticator-form-padding);
 }
+.authentication-box .terms-and-conditions a:hover {
+   color: inherit;
+   border-bottom: 1px solid white;
+ }
 
 .authentication-box .register-link {
   font-weight: 700;
@@ -4022,15 +4030,90 @@ section.wallet .btn-mint {
 }
 
 /* FIX Amplify Authenticator */
-[data-amplify-authenticator] [data-amplify-container] {
-  width: 100% !important;
+#navbarAuth [data-amplify-authenticator] [data-amplify-container] {
+  width: 100%;
+}
+
+#navbarAuth [data-amplify-authenticator] [data-amplify-router] {
+  background-color: transparent;
+  box-shadow: none;
+  border-width: unset;
+  border-style: none;
+}
+#navbarAuth .amplify-tabs,
+#navbarAuth [data-amplify-authenticator] [data-state=inactive] {
+  background-color: transparent;
+}
+#navbarAuth .amplify-tabs-item {
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+#navbarAuth .amplify-tabs[data-indicator-position=top] {
+  border-width: 0;
+}
+#navbarAuth [data-indicator-position=top] > .amplify-tabs-item {
+  border-width: 0 0 var(--amplify-components-tabs-border-width) 0;
+  border-color: transparent;
+}
+#navbarAuth .amplify-tabs-item[data-state=active] {
+  border-color: white;
+}
+#navbarAuth .amplify-divider {
+  border-color: white;
+}
+#navbarAuth .amplify-divider--label::after {
+  color: white;
+  background-color: rgb(55,170,245);
+}
+#navbarAuth .amplify-heading--3 {
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+#navbarAuth .amplify-label {
+  color: white;
+}
+#navbarAuth .amplify-input {
+  background-color: white;
+}
+#navbarAuth .amplify-text--error {
+  color: #ff7280;
+}
+#navbarAuth .amplify-button {
+  background-color: white;
+}
+#navbarAuth .amplify-button.amplify-button--primary,
+#navbarAuth .amplify-button.federated-sign-in-button {
+  background: linear-gradient(180deg, #F2F9FC 0%, #93D4ED 100%);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, #8CD3FF -2.8%, rgba(113, 148, 186, 0) 102.78%);
+  color: #00008A;
+}
+#navbarAuth .amplify-button.amplify-button--primary {
+  text-transform: uppercase;
+  font-weight: 700 !important;
+  font-size: 20px;
+  line-height: 21.76px;
+}
+#navbarAuth .amplify-button.amplify-button--link {
+  background-color: transparent;
+  text-decoration: underline;
+  color: white;
+}
+#navbarAuth .amplify-button.amplify-button--link:focus {
+  box-shadow: none;
 }
 
 /* FIX AuthHidePhone - Hide phone_number field in Amplify Authenticator
-    Due to the `gap` and the fact that the phone number field parent is not identified properly,
-    I had to unset the gaps and use the same values as margins on the input itself.
-    This forces us to apply the same margins again on the show/hide buttons at the end of
-    the password inputs (`amplify-field-group__outer-end`)
+Due to the `gap` and the fact that the phone number field parent is not identified properly,
+I had to unset the gaps and use the same values as margins on the input itself.
+This forces us to apply the same margins again on the show/hide buttons at the end of
+the password inputs (`amplify-field-group__outer-end`)
 */
 fieldset.amplify-flex,
 fieldset.amplify-flex > div {

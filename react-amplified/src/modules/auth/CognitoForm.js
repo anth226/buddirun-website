@@ -1,5 +1,5 @@
 import React from "react";
-import { Authenticator } from '@aws-amplify/ui-react';
+import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react';
 
 const formFields = {
   signUp: {
@@ -41,10 +41,16 @@ const formFields = {
 };
 
 export default function CognitoAuthForm({setFormType, formType}) {
+  const { route } = useAuthenticator((context) => [context.route]);
+
   return (
   <div className="authentication-box d-md-block">
-    <h4>Sign IN</h4>
     <Authenticator formFields={formFields} loginMechanisms={['email']} signUpAttributes={['family_name', 'given_name']}></Authenticator>
+    { route === 'signUp' && (
+      <p class="terms-and-conditions">
+        By clicking "Create Account" above, you accept BuddiRun <a href="#">Terms & Conditions</a>
+      </p>
+    )}
   </div>
   );
 }
