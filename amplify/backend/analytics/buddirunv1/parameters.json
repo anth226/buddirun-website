@@ -1,21 +1,21 @@
 {
-  "appName": "buddirunv1",
-  "roleName": "pinpointLambdaRole584b5ed4",
-  "cloudformationPolicyName": "cloudformationPolicy584b5ed4",
-  "cloudWatchPolicyName": "cloudWatchPolicy584b5ed4",
-  "pinpointPolicyName": "pinpointPolicy584b5ed4",
-  "authPolicyName": "pinpoint_amplify_584b5ed4",
-  "unauthPolicyName": "pinpoint_amplify_584b5ed4",
-  "authRoleName": {
-    "Ref": "AuthRoleName"
-  },
-  "unauthRoleName": {
-    "Ref": "UnauthRoleName"
-  },
-  "authRoleArn": {
-    "Fn::GetAtt": [
-      "AuthRole",
-      "Arn"
-    ]
-  }
+    "appName": "buddirunv1",
+    "roleName": "pinpointLambdaRole2c628536",
+    "cloudformationPolicyName": "cloudformationPolicy2c628536",
+    "cloudWatchPolicyName": "cloudWatchPolicy2c628536",
+    "pinpointPolicyName": "pinpointPolicy2c628536",
+    "authPolicyName": "pinpoint_amplify_2c628536",
+    "unauthPolicyName": "pinpoint_amplify_2c628536",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
 }
