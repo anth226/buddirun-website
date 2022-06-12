@@ -193,3 +193,57 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUser = /* GraphQL */ `
+    subscription OnCreateUser($owner: String) {
+        onCreateUser(owner: $owner) {
+            id
+            email
+            username
+            first_name
+            last_name
+            data
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const onUpdateUser = /* GraphQL */ `
+    subscription OnUpdateUser($owner: String) {
+        onUpdateUser(owner: $owner) {
+            id
+            email
+            username
+            first_name
+            last_name
+            data
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;
+export const onDeleteUser = /* GraphQL */ `
+    subscription OnDeleteUser($owner: String) {
+        onDeleteUser(owner: $owner) {
+            id
+            email
+            username
+            first_name
+            last_name
+            data
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+        }
+    }
+`;

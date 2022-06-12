@@ -141,6 +141,15 @@
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput"
           ]
+        },
+        {
+          "category": "analytics",
+          "resourceName": "buddirunv1",
+          "attributes": [
+            "Region",
+            "Id",
+            "appName"
+          ]
         }
       ]
     }

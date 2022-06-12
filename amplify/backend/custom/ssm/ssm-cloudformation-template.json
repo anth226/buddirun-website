@@ -63,6 +63,18 @@
     "apibuddirunv1GraphQLAPIEndpointOutput": {
       "Type": "String",
       "Description": "Input parameter describing GraphQLAPIEndpointOutput attribute for api/buddirunv1 resource"
+    },
+    "analyticsbuddirunv1Region": {
+      "Type": "String",
+      "Description": "Input parameter describing Region attribute for analytics/buddirunv1 resource"
+    },
+    "analyticsbuddirunv1Id": {
+      "Type": "String",
+      "Description": "Input parameter describing Id attribute for analytics/buddirunv1 resource"
+    },
+    "analyticsbuddirunv1appName": {
+      "Type": "String",
+      "Description": "Input parameter describing appName attribute for analytics/buddirunv1 resource"
     }
   },
   "Mappings": {
@@ -149,6 +161,58 @@
         "Type": "String",
         "Value": {
           "Ref": "authbuddirunv166e6c49aUserPoolId"
+        }
+      }
+    },
+    "pinpointregion": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Fn::FindInMap": [
+                  "Environment",
+                  "Names",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              },
+              "PINPOINT_REGION"
+            ]
+          ]
+        },
+        "Type": "String",
+        "Value": {
+          "Ref": "analyticsbuddirunv1Region"
+        }
+      }
+    },
+    "pinpointappid": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Fn::FindInMap": [
+                  "Environment",
+                  "Names",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              },
+              "PINPOINT_APP_ID"
+            ]
+          ]
+        },
+        "Type": "String",
+        "Value": {
+          "Ref": "analyticsbuddirunv1Id"
         }
       }
     }
