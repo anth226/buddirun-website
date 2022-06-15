@@ -3220,6 +3220,17 @@ section.enter-a-race table tbody tr td.race-name {
   color: #00008a;
 }
 
+section.enter-a-race .primary-btn.active {
+  box-shadow: 0px -1px 9px -3px inset;
+}
+
+section.enter-a-race .primary-btn:disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.45;
+  background: linear-gradient(180deg, #f2f9fc 0%, #93b8c6 100%);
+}
+
 @media (max-width: 768px) {
   section.enter-a-race .container-fluid {
     padding-left: 0px !important;
