@@ -1,3 +1,30 @@
+# Buddi Run
+
+## Setup
+1. Clone project & download Amplify CLI
+```
+git clone <git_project_url>
+cd <git_project_path>
+npm install -g @aws-amplify/cli
+```
+3. Login to AWS console and retrieve the local setup instructions from the `dev` environment of the Amplify app (Backend environments). After running the command, you'll be given a login id that you'll paste in Amplify CLI then you'll be able to finish your local Amplify configuration.
+**Local Amplify setup**
+```
+default editor: <your choice>
+type of app: javascript
+framework: react
+source directory: react-amplified/src 
+build directory: react-amplified/build
+build command: <default>
+start command: <default>
+```
+3. Go to `react-amplified` directory and install dependencies
+```
+cd react-amplified
+npm i
+```
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
