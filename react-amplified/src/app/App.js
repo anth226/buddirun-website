@@ -3,13 +3,14 @@ import "../assets/style/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import { DataStore, Hub, Predicates } from "aws-amplify";
+import { DataStore, Hub } from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { DatastoreReadyContext } from "./DatastoreReadyContext";
 import { YamProvider, Web3Provider, Web3ModalProvider, NavigationContextProvider } from '../contexts';
 import { User } from "../models";
-import { getUserInfo, getProfile, updateProfile } from "./Backend";
+import { updateAuth } from "./Auth";
+import AppUser from "../appModels/AppUser";
 
 function App() {
   const [isReady, setReady] = useState(false);
@@ -32,28 +33,14 @@ function App() {
         case "signIn":
           // console.log('USER IS SIGNED IN');
           // Get profile and update backend with user data if it changed
-          const userAttributes = await getUserInfo(),
-                profile = await getProfile(),
-                userData = {},
-                propertyMap = {
-                  'given_name': 'first_name',
-                  'family_name': 'last_name',
-                  'email': 'email',
-                };
-          for (let attrKey in userAttributes) {
-            const attrVal = userAttributes[attrKey],
-                  profileKey = propertyMap[attrKey];
-            if (profileKey != null && attrVal != profile[profileKey]) {
-              userData[profileKey] = attrVal;
-            }
-          }
-          if (Object.keys(userData).length > 0) {
-            await updateProfile(userData);
-          }
-          // TODO: Close auth navbar
+          await updateAuth();
           break;
         case "signOut":
+          // TODO:  Make sure this is running as expected,
+          //        the app seems to force navigation after signout skipping the AppUser.destroy().
+          //        According to the Datastore READY event, everything seems to be working as expected.
           // console.log('USER IS SIGNED OUT');
+          AppUser.destroy();
           break;
         case "configured":
           // NOTE: `configured` event is never triggered in Auth
