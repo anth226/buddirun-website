@@ -10,7 +10,6 @@ export const APP_ROUTES = {
   },
   Demo: {
     path: "/demo",
-    protectedRoute: true,
     devOnly: true,
     Component: Demo,
   },
