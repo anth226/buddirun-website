@@ -16,30 +16,30 @@ export default function Demo() {
   }
 
   const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
-    loaderUrl: "../../unity/myunityapp.loader.js",
-    dataUrl: "../../unity/myunityapp.data",
-    frameworkUrl: "../../unity/myunityapp.framework.js",
-    codeUrl: "../../unity/myunityapp.wasm",
+    loaderUrl: "unity/ProjectXeonBuild.loader.js",
+    dataUrl: "unity/ProjectXeonBuild.data",
+    frameworkUrl: "unity/ProjectXeonBuild.framework.js",
+    codeUrl: "unity/ProjectXeonBuild.wasm",
   });
 
   const handleShowWinner = useCallback((userName, score) => {
-    setIsGameOver(true);
-    setUserName(userName);
-    setScore(score);
+    // setIsGameOver(true);
+    // setUserName(userName);
+    // setScore(score);
   }, []);
   useEffect(() => {
-    addEventListener("ShowWinnerJS", handleShowWinner);
+    addEventListener("onGameEnd", handleShowWinner);
     return () => {
-      removeEventListener("ShowWinnerJS", handleShowWinner);
+      removeEventListener("onGameEnd", handleShowWinner);
     };
   }, [addEventListener, removeEventListener, handleShowWinner]);
 
   const handleStartGame = () => {
     const gameParams = {
-      buddi: buddiID,
-      race: raceID,
+      playerID: '', // ID of the selected Buddi
+      // race: raceID,
     };
-    sendMessage("SceneObjectName", "methodName", JSON.stringify(gameParams));
+    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
   }
 
   return (
@@ -313,10 +313,13 @@ export default function Demo() {
         */}
         { !isLoaded &&
         <div className="progress">
-          <div className="progress-bar" role="progressbar" aria-valuenow="{Math.round(loadingProgression * 100)}" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className="progress-bar" role="progressbar" style={{width: Math.round(loadingProgression * 100) + "%"}} aria-valuenow={Math.round(loadingProgression * 100)} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         }
-        <Unity unityProvider={unityProvider} />
+        <Unity
+          style={{ visibility: isLoaded ? "visible" : "hidden" }}
+          unityProvider={unityProvider}
+        />
       </section>
       <Footer />
     </div>
