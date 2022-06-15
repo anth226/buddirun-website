@@ -1,0 +1,49 @@
+{
+  "race1": {
+    "name": "Race 1",
+    "course": "<course_name>",
+    "maxEntrants": 8,
+    "prizePool": "16",
+    "payout": {
+      "1": 8,
+      "2": 5,
+      "3": 3
+    }
+  },
+  "race2": {
+    "name": "Race 2",
+    "course": "<course_name>",
+    "maxEntrants": 8,
+    "prizePool": "40",
+    "payout": {
+      "1": 20,
+      "2": 10,
+      "3": 6,
+      "4": 4
+    }
+  },
+  "race3": {
+    "name": "Race 3",
+    "course": "<course_name>",
+    "maxEntrants": 8,
+    "prizePool": "40",
+    "payout": {
+      "1": 10,
+      "2": 10,
+      "3": 10,
+      "4": 10
+    },
+    "race4": {
+      "name": "Race 4",
+      "course": "<course_name>",
+      "maxEntrants": 8,
+      "prizePool": "20",
+      "payout": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "whale": {
+    "whale1": {
+      "buddiID": "whale1",
+      "name": "Whale",
+      "stats": {
+        "speed": 7,
+        "accel": 4,
+        "fitness": 6,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "whale2": {
+      "buddiID": "whale2",
+      "name": "Whale",
+      "stats": {
+        "speed": 4,
+        "accel": 7,
+        "fitness": 8,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "whale3": {
+      "buddiID": "whale3",
+      "name": "Whale",
+      "stats": {
+        "speed": 7,
+        "accel": 6,
+        "fitness": 5,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    }
+  },
+  "sloth": {
+    "sloth1": {
+      "buddiID": "sloth1",
+      "name": "Sloth",
+      "stats": {
+        "speed": 8,
+        "accel": 4,
+        "fitness": 5,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "sloth2": {
+      "buddiID": "sloth2",
+      "name": "Sloth",
+      "stats": {
+        "speed": 5,
+        "accel": 9,
+        "fitness": 6,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "sloth3": {
+      "buddiID": "sloth3",
+      "name": "Sloth",
+      "stats": {
+        "speed": 8,
+        "accel": 4,
+        "fitness": 7,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    }
+  },
+  "crocodile": {
+    "crocodile1": {
+      "buddiID": "crocodile1",
+      "name": "Crocodile",
+      "stats": {
+        "speed": 9,
+        "accel": 4,
+        "fitness": 4,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "crocodile2": {
+      "buddiID": "crocodile2",
+      "name": "Crocodile",
+      "stats": {
+        "speed": 7,
+        "accel": 5,
+        "fitness": 6,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "crocodile3": {
+      "buddiID": "crocodile3",
+      "name": "Crocodile",
+      "stats": {
+        "speed": 5,
+        "accel": 9,
+        "fitness": 6,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    }
+  },
+  "spider": {
+    "spider1": {
+      "buddiID": "spider1",
+      "name": "Spider",
+      "stats": {
+        "speed": 3,
+        "accel": 8,
+        "fitness": 7,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "spider2": {
+      "buddiID": "spider2",
+      "name": "Spider",
+      "stats": {
+        "speed": 4,
+        "accel": 7,
+        "fitness": 7,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "spider3": {
+      "buddiID": "spider3",
+      "name": "Spider",
+      "stats": {
+        "speed": 7,
+        "accel": 4,
+        "fitness": 5,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    }
+  },
+  "armadillo": {
+    "armadillo1": {
+      "buddiID": "armadillo1",
+      "name": "Armadillo",
+      "stats": {
+        "speed": 6,
+        "accel": 8,
+        "fitness": 4,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "armadillo2": {
+      "buddiID": "armadillo2",
+      "name": "Armadillo",
+      "stats": {
+        "speed": 6,
+        "accel": 6,
+        "fitness": 6,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    },
+    "armadillo3": {
+      "buddiID": "armadillo3",
+      "name": "Armadillo",
+      "stats": {
+        "speed": 6,
+        "accel": 5,
+        "fitness": 8,
+        "intel": 0,
+        "jump": 0
+      },
+      "imgUrl": ""
+    }
+  }
+}

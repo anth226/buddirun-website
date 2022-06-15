@@ -2,17 +2,31 @@ import React, {useCallback, useEffect, useState} from "react";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import BuddisList from "../buddis-list.json";
+import BuddiList from "../assets/buddi-list.json";
+import { randomIntFromInterval } from "../assets/utils";
 
 export default function Demo() {
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [userName, setUserName] = useState();
-  const [buddiID, setBuddiID] = useState();
-  const [raceID, setRaceID] = useState();
-  const [score, setScore] = useState();
+  const [buddiList, setBuddiList] = useState([]),
+        [raceList, setRaceList] = useState([]),
+        [isGameOver, setIsGameOver] = useState(false),
+        [userName, setUserName] = useState(),
+        [buddiID, setBuddiID] = useState(),
+        [raceID, setRaceID] = useState(),
+        [score, setScore] = useState();
 
-  const getRandomBuddis = () => {
-
+  const fetchBuddyList = () => {
+    // Get list
+    let availableBuddiList = [];
+    // Randomize selection in each Buddi section
+    for (let buddiGroupKey in BuddiList) {
+      const buddiGroup = Object.values(BuddiList[buddiGroupKey]);
+      const buddiIndex = randomIntFromInterval(0, buddiGroup.length - 1);
+      console.log('TEST BUDDI GROUP', buddiGroup, buddiIndex);
+      availableBuddiList.push(buddiGroup[buddiIndex]);
+    }
+    // Fill state
+    console.log('TEST STATE', availableBuddiList);
+    setBuddiList(availableBuddiList);
   }
 
   const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
