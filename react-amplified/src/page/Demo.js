@@ -6,26 +6,32 @@ import BuddiList from "../assets/buddi-list.json";
 import { randomIntFromInterval } from "../assets/utils";
 
 export default function Demo() {
-  const [buddiList, setBuddiList] = useState([]),
+  const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
         [raceList, setRaceList] = useState([]),
         [isGameOver, setIsGameOver] = useState(false),
         [userName, setUserName] = useState(),
-        [buddiID, setBuddiID] = useState(),
+        [selectedBuddi, setSelectedBuddi] = useState(),
         [raceID, setRaceID] = useState(),
         [score, setScore] = useState();
 
-  const fetchBuddyList = () => {
-    // Get list
-    let availableBuddiList = [];
-    // Randomize selection in each Buddi section
-    for (let buddiGroupKey in BuddiList) {
+  const fetchRandomBuddis = () => {
+    const topRowQty = 2,
+          buddiListKeys = Object.keys(BuddiList);
+    let availableBuddiList = [[],[]],
+        rowIndex = 0;
+
+    // Pick a random Buddi in each Buddi group
+    // NOTE: For sake of speed, we're using a standard FOR_LOOP to support the concept of rows enforced in the UI
+    for (let i = 0; i < buddiListKeys.length; i++) {
+      if (i === topRowQty) {
+        rowIndex++;
+      }
+      const buddiGroupKey = buddiListKeys[i];
       const buddiGroup = Object.values(BuddiList[buddiGroupKey]);
       const buddiIndex = randomIntFromInterval(0, buddiGroup.length - 1);
-      console.log('TEST BUDDI GROUP', buddiGroup, buddiIndex);
-      availableBuddiList.push(buddiGroup[buddiIndex]);
+      availableBuddiList[rowIndex].push(buddiGroup[buddiIndex]);
     }
     // Fill state
-    console.log('TEST STATE', availableBuddiList);
     setBuddiList(availableBuddiList);
   }
 
@@ -42,6 +48,7 @@ export default function Demo() {
     // setScore(score);
   }, []);
   useEffect(() => {
+    fetchRandomBuddis();
     addEventListener("onGameEnd", handleShowWinner);
     return () => {
       removeEventListener("onGameEnd", handleShowWinner);
@@ -55,6 +62,64 @@ export default function Demo() {
     };
     sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
   }
+
+  const buddiStatsUI = (buddiStats) => {
+    if (!buddiStats) return '';
+    const statLabels = {
+      speed: 'Speed',
+      intel: 'Intell',
+      fitness: 'Finess',
+      accel: 'Accel',
+      jump: 'Jump',
+    }
+    return Object.keys(buddiStats).map((statKey, keyIndex) => {
+      return <>
+        <div className="col key">{statLabels[statKey]}</div>
+        <div className="col para">{buddiStats[statKey]}</div>
+      </>
+    });
+  }
+
+  const buddiItemUI = (buddiRow, rowIndex) => {
+    if (!buddiRow) return '';
+    return buddiRow.map((buddi, buddiIndex) => {
+      let boxClassName = 'box';
+      if (selectedBuddi === buddi.id) {
+        boxClassName += ' active';
+      }
+      return <div className="col-6 col-xxl-4" key={`buddiIndex-${buddiIndex}`} onClick={() => setSelectedBuddi(buddi.id)}>
+        <div className={ boxClassName }>
+          <div className="info">
+            <div className="row h-100 align-items-center">
+              <div className="col-5 details">
+                <div className="row row-cols-2">
+                  { buddiStatsUI(buddi.stats) }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="heading">
+            <h4>{buddi.name.toUpperCase()}</h4>
+          </div>
+          <div className="model">
+            <img src={buddi.imgUrl} />
+          </div>
+        </div>
+      </div>;
+    });
+  }
+
+  const buddiListUI = buddiList.map((buddiRow, rowIndex) => {
+    let rowClassName = "row";
+    if (rowIndex > 0) {
+      rowClassName += ' justify-content-center';
+    } else {
+      rowClassName += ' justify-content-md-center';
+    }
+    return <div className={rowClassName} key={`buddiRow-${rowIndex}`}>
+      { buddiItemUI(buddiRow) }
+    </div>;
+  })
 
   return (
     <div>
@@ -78,150 +143,7 @@ export default function Demo() {
             <img src="img/VGC2-2-Energy_Cell_V01-final 1.png" />
           </div>
           <div className="content">
-            <div className="row justify-content-md-center">
-              <div className="col-6 col-xxl-4">
-                <div className="box active">
-                  <div className="info">
-                    <div className="row h-100 align-items-center">
-                      <div className="col-5 details">
-                        <div className="row row-cols-2">
-                          <div className="col key">Speed</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Intell</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Finess</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Accel</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Jump</div>
-                          <div className="col para">0.1</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="heading">
-                    <h4>SPIDER</h4>
-                  </div>
-                  <div className="model">
-                    <img src="img/Asset 2.png" />
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 col-xxl-4">
-                <div className="box">
-                  <div className="info">
-                    <div className="row h-100 align-items-center">
-                      <div className="col-5 details">
-                        <div className="row row-cols-2">
-                          <div className="col key">Speed</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Intell</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Finess</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Accel</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Jump</div>
-                          <div className="col para">0.1</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="heading">
-                    <h4>ARMADILLO</h4>
-                  </div>
-                  <div className="model">
-                    <img src="img/Asset 3.png" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row justify-content-center">
-              <div className="col-6 col-xxl-4">
-                <div className="box">
-                  <div className="info">
-                    <div className="row h-100 align-items-center">
-                      <div className="col-5 details">
-                        <div className="row row-cols-2">
-                          <div className="col key">Speed</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Intell</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Finess</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Accel</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Jump</div>
-                          <div className="col para">0.1</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="heading">
-                    <h4>WHALE</h4>
-                  </div>
-                  <div className="model">
-                    <img src="img/Asset 1.png" />
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 col-xxl-4">
-                <div className="box">
-                  <div className="info">
-                    <div className="row h-100 align-items-center">
-                      <div className="col-5 details">
-                        <div className="row row-cols-2">
-                          <div className="col key">Speed</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Intell</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Finess</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Accel</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Jump</div>
-                          <div className="col para">0.1</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="heading">
-                    <h4>CROCODILE</h4>
-                  </div>
-                  <div className="model">
-                    <img src="img/Asset 5.png" />
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 col-xxl-4">
-                <div className="box">
-                  <div className="info">
-                    <div className="row h-100 align-items-center">
-                      <div className="col-5 details">
-                        <div className="row row-cols-2">
-                          <div className="col key">Speed</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Intell</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Finess</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Accel</div>
-                          <div className="col para">0.1</div>
-                          <div className="col key">Jump</div>
-                          <div className="col para">0.1</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="heading">
-                    <h4>SLOTH</h4>
-                  </div>
-                  <div className="model">
-                    <img src="img/furboy_item_31_32_quarter 1.png" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            { buddiListUI }
           </div>
         </div>
       </section>
