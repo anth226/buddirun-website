@@ -3,7 +3,16 @@ import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import BuddiList from "../assets/buddi-list.json";
+import RaceList from "../assets/race-list.json";
 import { randomIntFromInterval } from "../assets/utils";
+
+const statLabels = {
+  speed: 'Speed',
+  intel: 'Intell',
+  fitness: 'Fitness',
+  accel: 'Accel',
+  jump: 'Jump',
+};
 
 export default function Demo() {
   const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
@@ -11,7 +20,7 @@ export default function Demo() {
         [isGameOver, setIsGameOver] = useState(false),
         [userName, setUserName] = useState(),
         [selectedBuddi, setSelectedBuddi] = useState(),
-        [raceID, setRaceID] = useState(),
+        [selectedRace, setSelectedRace] = useState(),
         [score, setScore] = useState();
 
   const fetchRandomBuddis = () => {
@@ -35,6 +44,28 @@ export default function Demo() {
     setBuddiList(availableBuddiList);
   }
 
+  const fetchRandomRaces = () => {
+  const maxRaceQty = 3,
+        raceListKeys = Object.keys(RaceList);
+    let availableRaces = [];
+
+    // Pick 3 random races
+    if (raceListKeys.length < maxRaceQty) {
+      availableRaces = Object.values(RaceList);
+    } else {
+      while (availableRaces.length < maxRaceQty) {
+        const raceKeyIndex = randomIntFromInterval(0, raceListKeys.length - 1);
+        const raceKey = raceListKeys[raceKeyIndex];
+        availableRaces.push(RaceList[raceKey]);
+        raceListKeys.splice(raceKeyIndex, 1);
+      }
+    }
+
+    // Fill state
+    setRaceList(availableRaces);
+  }
+
+  // NOTE: Blocking Unity loader until optimized
   const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
     loaderUrl: "unity/ProjectXeonBuild.loader.js",
     dataUrl: "unity/ProjectXeonBuild.data",
@@ -47,79 +78,39 @@ export default function Demo() {
     // setUserName(userName);
     // setScore(score);
   }, []);
+
+  const handleStartGame = () => {
+    const gameParams = {
+      playerID: '', // ID of the selected Buddi
+      // race: selectedRace,
+    };
+    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+  }
+
   useEffect(() => {
     fetchRandomBuddis();
+    fetchRandomRaces();
     addEventListener("onGameEnd", handleShowWinner);
     return () => {
       removeEventListener("onGameEnd", handleShowWinner);
     };
   }, [addEventListener, removeEventListener, handleShowWinner]);
 
-  const handleStartGame = () => {
-    const gameParams = {
-      playerID: '', // ID of the selected Buddi
-      // race: raceID,
-    };
-    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
-  }
-
-  const buddiStatsUI = (buddiStats) => {
-    if (!buddiStats) return '';
-    const statLabels = {
-      speed: 'Speed',
-      intel: 'Intell',
-      fitness: 'Finess',
-      accel: 'Accel',
-      jump: 'Jump',
-    }
-    return Object.keys(buddiStats).map((statKey, keyIndex) => {
-      return <>
-        <div className="col key">{statLabels[statKey]}</div>
-        <div className="col para">{buddiStats[statKey]}</div>
-      </>
-    });
-  }
-
-  const buddiItemUI = (buddiRow, rowIndex) => {
-    if (!buddiRow) return '';
-    return buddiRow.map((buddi, buddiIndex) => {
-      let boxClassName = 'box';
-      if (selectedBuddi === buddi.id) {
-        boxClassName += ' active';
-      }
-      return <div className="col-6 col-xxl-4" key={`buddiIndex-${buddiIndex}`} onClick={() => setSelectedBuddi(buddi.id)}>
-        <div className={ boxClassName }>
-          <div className="info">
-            <div className="row h-100 align-items-center">
-              <div className="col-5 details">
-                <div className="row row-cols-2">
-                  { buddiStatsUI(buddi.stats) }
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="heading">
-            <h4>{buddi.name.toUpperCase()}</h4>
-          </div>
-          <div className="model">
-            <img src={buddi.imgUrl} />
-          </div>
-        </div>
-      </div>;
-    });
-  }
-
-  const buddiListUI = buddiList.map((buddiRow, rowIndex) => {
-    let rowClassName = "row";
-    if (rowIndex > 0) {
-      rowClassName += ' justify-content-center';
+  const handleBuddiSelection = (selectedBuddiID) => {
+    if (selectedBuddi === selectedBuddiID) {
+      setSelectedBuddi(null);
     } else {
-      rowClassName += ' justify-content-md-center';
+      setSelectedBuddi(selectedBuddiID);
     }
-    return <div className={rowClassName} key={`buddiRow-${rowIndex}`}>
-      { buddiItemUI(buddiRow) }
-    </div>;
-  })
+  }
+
+  const handleRaceSelection = (selectedRaceID) => {
+    if (selectedRace === selectedRaceID) {
+      setSelectedRace(null);
+    } else {
+      setSelectedRace(selectedRaceID);
+    }
+  }
 
   return (
     <div>
@@ -143,7 +134,48 @@ export default function Demo() {
             <img src="img/VGC2-2-Energy_Cell_V01-final 1.png" />
           </div>
           <div className="content">
-            { buddiListUI }
+            {Array.from(buddiList, (buddiRow, rowIndex) => {
+              let rowClassName = "row";
+              rowClassName += rowIndex > 0 ? ' justify-content-center' : ' justify-content-md-center';
+              return (
+                <div className={rowClassName} key={`buddiRow-${rowIndex}`}>
+                  {Array.from(buddiRow, (buddi, buddiIndex) => {
+                    let boxClassName = 'box';
+                    boxClassName += selectedBuddi === buddi.id ? ' active' : '';
+                    const buddiUIKey = `buddiIndex-${buddiIndex}`,
+                          buddiStats = buddi.stats;
+                    return (
+                      <div className="col-6 col-xxl-4" key={buddiUIKey} onClick={() => handleBuddiSelection(buddi.id)}>
+                        <div className={ boxClassName }>
+                          <div className="info">
+                            <div className="row h-100 align-items-center">
+                              <div className="col-5 details">
+                                <div className="row row-cols-2">
+                                  {Array.from(Object.keys(buddiStats), (statKey, keyIndex) => {
+                                    return (
+                                      <React.Fragment key={`${buddiUIKey}-${keyIndex}`}>
+                                        <div className="col key">{statLabels[statKey]}</div>
+                                        <div className="col para">{buddiStats[statKey]}</div>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="heading">
+                            <h4>{buddi.name.toUpperCase()}</h4>
+                          </div>
+                          <div className="model">
+                            <img src={buddi.imgUrl} />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -176,21 +208,36 @@ export default function Demo() {
               </tr>
               </thead>
               <tbody>
-              {Array.from(Array(4), (e, i) => {
+              {Array.from(raceList, (race, raceIndex) => {
+                const maxEntrants = race.maxEntrants,
+                      raceIsSelected = selectedRace === race.id,
+                      currentEntrantsQty = raceIsSelected ? maxEntrants : maxEntrants - 1;
                 return (
-                  <tr key={i}>
+                  <tr key={`race-${raceIndex}`}>
                     <th scope="row">
                       <img src="img/ic_round-energy-savings-leaf.png" />
                     </th>
-                    <td className="race-name">Race name</td>
-                    <td>Course name</td>
-                    <td>10</td>
-                    <td>9/10</td>
+                    <td className="race-name">{race.name}</td>
+                    <td>{race.course}</td>
+                    <td>{`${race.prizePool} EC`}</td>
+                    <td>{`${currentEntrantsQty}/${maxEntrants}`}</td>
                     <td style={{ textAlign: "center" }}>
-                      <button className="primary-btn">Enter</button>
+                      <button
+                        className={`primary-btn${raceIsSelected ? ' active' : ''}`}
+                        aria-pressed={raceIsSelected}
+                        data-bs-toggle="button"
+                        onClick={() => handleRaceSelection(race.id)}
+                      >
+                        Enter
+                      </button>
                     </td>
                     <td style={{ textAlign: "center" }}>
-                      <button className="primary-btn">Confirm</button>
+                      <button
+                        className="primary-btn"
+                        disabled={!raceIsSelected}
+                      >
+                        Confirm
+                      </button>
                     </td>
                   </tr>
                 );
