@@ -1,17 +1,6 @@
-import { Auth } from "aws-amplify";
+import { getToken } from "./Auth";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const CORS_MODE = ''; // defaults to 'cors'
-
-async function getUserInfo() {
-  const user = await Auth.currentAuthenticatedUser();
-  return user.attributes;
-}
-
-async function getToken() {
-  const session = await Auth.currentSession(),
-        token = session.getAccessToken();
-  return token.getJwtToken();
-}
 
 const getAuthHeader = async () => {
   const token = await getToken();
@@ -85,7 +74,6 @@ const updateProfile = async (attrs) => {
 }
 
 export {
-  getUserInfo,
   getProfile,
   updateProfile,
 }
