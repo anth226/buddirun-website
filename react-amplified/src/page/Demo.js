@@ -73,32 +73,19 @@ export default function Demo() {
     codeUrl: "unity/ProjectXeonBuild.wasm",
   });
 
-  const handleShowWinner = useCallback((userName, score) => {
-    // setIsGameOver(true);
-    // setUserName(userName);
-    // setScore(score);
-  }, []);
-
-  const handleStartGame = () => {
-    const gameParams = {
-      playerID: '', // ID of the selected Buddi
-      // race: selectedRace,
-    };
-    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
-  }
-
   useEffect(() => {
     fetchRandomBuddis();
     fetchRandomRaces();
-    addEventListener("onGameEnd", handleShowWinner);
+    addEventListener("onGameEnd", handleEndGame);
     return () => {
-      removeEventListener("onGameEnd", handleShowWinner);
+      removeEventListener("onGameEnd", handleEndGame);
     };
-  }, [addEventListener, removeEventListener, handleShowWinner]);
+  }, [addEventListener, removeEventListener, handleEndGame]);
 
   const handleBuddiSelection = (selectedBuddiID) => {
     if (selectedBuddi === selectedBuddiID) {
       setSelectedBuddi(null);
+      setSelectedRace(null);
     } else {
       setSelectedBuddi(selectedBuddiID);
     }
@@ -111,6 +98,22 @@ export default function Demo() {
       setSelectedRace(selectedRaceID);
     }
   }
+
+  const handleStartGame = () => {
+    const gameParams = {
+      playerID: selectedBuddi, // ID of the selected Buddi
+      // race: selectedRace,
+    };
+    console.log('TEST START GAME', gameParams);
+    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+  }
+
+  const handleEndGame = useCallback((userName, score) => {
+    // setIsGameOver(true);
+    // setUserName(userName);
+    // setScore(score);
+    console.log('TEST END GAME', userName, score);
+  }, []);
 
   return (
     <div>
@@ -226,6 +229,7 @@ export default function Demo() {
                         className={`primary-btn${raceIsSelected ? ' active' : ''}`}
                         aria-pressed={raceIsSelected}
                         data-bs-toggle="button"
+                        disabled={!selectedBuddi}
                         onClick={() => handleRaceSelection(race.id)}
                       >
                         Enter
@@ -235,6 +239,7 @@ export default function Demo() {
                       <button
                         className="primary-btn"
                         disabled={!raceIsSelected}
+                        onClick={handleStartGame}
                       >
                         Confirm
                       </button>
