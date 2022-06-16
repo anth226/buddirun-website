@@ -73,15 +73,6 @@ export default function Demo() {
     codeUrl: "unity/ProjectXeonBuild.wasm",
   });
 
-  useEffect(() => {
-    fetchRandomBuddis();
-    fetchRandomRaces();
-    addEventListener("onGameEnd", handleEndGame);
-    return () => {
-      removeEventListener("onGameEnd", handleEndGame);
-    };
-  }, [addEventListener, removeEventListener, handleEndGame]);
-
   const handleBuddiSelection = (selectedBuddiID) => {
     if (selectedBuddi === selectedBuddiID) {
       setSelectedBuddi(null);
@@ -114,6 +105,15 @@ export default function Demo() {
     // setScore(score);
     console.log('TEST END GAME', userName, score);
   }, []);
+
+  useEffect(() => {
+    fetchRandomBuddis();
+    fetchRandomRaces();
+    addEventListener("onGameEnd", handleEndGame);
+    return () => {
+      removeEventListener("onGameEnd", handleEndGame);
+    };
+  }, [addEventListener, removeEventListener, handleEndGame]);
 
   return (
     <div>
