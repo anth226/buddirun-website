@@ -5,8 +5,8 @@ import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
-import { DatastoreReadyContext } from "../../app/DatastoreReadyContext";
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 
 export default function Header() {
   const active = window.location.pathname;
@@ -14,7 +14,7 @@ export default function Header() {
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("");
-  const datastoreReady = useContext(DatastoreReadyContext);
+  const datastoreStatus = useDatastoreContext();
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
@@ -312,7 +312,7 @@ export default function Header() {
                   className={`btn-signin btn collapsed`}
                   type="button"
                   onClick={() => handleOpenAuth()}
-                  disabled={!datastoreReady}
+                  disabled={datastoreStatus < DatastoreStatus.READY}
                 >
                   SIGN IN
                 </button>
