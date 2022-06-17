@@ -98,17 +98,16 @@ export default function Demo() {
   }
 
   const handleStartGame = () => {
+    console.log('START GAME', isLoaded);
+    if (!isLoaded) {
+      console.warn("Can't start game, Unity is not loaded");
+      return false;
+    }
     const gameParams = {
       playerID: selectedBuddi, // ID of the selected Buddi
       // race: selectedRace,
     };
-    setUserStock((refStock) => {
-      const newStock = {...refStock};
-      newStock.energyCell = --newStock.energyCell > 0 ? newStock.energyCell : 0
-      return newStock;
-    });
-    setTimeout(handleEndGame, 5000);
-    // sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
   }
 
   const handleEndGame = useCallback((userName, score) => {
@@ -118,12 +117,25 @@ export default function Demo() {
     console.log('TEST END GAME', userName, score);
     const reward = randomIntFromInterval(0,6);
     console.log('FAKE REWARD', reward);
+    let stockData = {}
     setUserStock(currentStock => {
-      return {
+      stockData = {
         ...currentStock,
         energyCell: currentStock.energyCell + reward
-      };
-    })
+      }
+      return stockData;
+    });
+
+    if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
+      const appUserModel = AppUser.getInstance();
+      appUserModel.updateProfileData(stockData)
+        .then((res) => {
+          console.log('USER PROFILE IS UPDATED');
+        })
+        .catch((err) => {
+          console.error('An error occurred while updating user profile\n', err);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -141,11 +153,11 @@ export default function Demo() {
     }
     fetchRandomBuddis();
     fetchRandomRaces();
-    addEventListener("onGameEnd", handleEndGame);
+    addEventListener("onEndGame", handleEndGame);
     return () => {
-      removeEventListener("onGameEnd", handleEndGame);
+      removeEventListener("onEndGame", handleEndGame);
     };
-  }, [addEventListener, removeEventListener, handleEndGame, datastoreStatus]);
+  }, [addEventListener, removeEventListener, handleEndGame, datastoreStatus, setUserStock, userStock]);
 
   return (
     <div>
@@ -261,7 +273,7 @@ export default function Demo() {
                         className={`primary-btn${raceIsSelected ? ' active' : ''}`}
                         aria-pressed={raceIsSelected}
                         data-bs-toggle="button"
-                        disabled={!selectedBuddi}
+                        disabled={!isLoaded || !selectedBuddi}
                         onClick={() => handleRaceSelection(race.id)}
                       >
                         Enter
