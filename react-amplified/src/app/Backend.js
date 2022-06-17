@@ -30,7 +30,7 @@ const getProfile = async () => {
     if (profileRes.ok) {
       return profileRes.json();
     }
-    console.error('API call did not fail but was not 200', {
+    console.error('API call did not fail but was not 200\n', {
       status: profileRes.status,
       statusCode: profileRes.statusCode,
       statusMessage: profileRes.statusMessage,
@@ -38,7 +38,7 @@ const getProfile = async () => {
     });
     return {};
   } catch (err) {
-    console.error('GetProfile failed', err);
+    console.error('GetProfile failed\n', err);
     return {};
   }
 }
@@ -66,7 +66,7 @@ const updateProfile = async (attrs) => {
     if (profileRes.ok) {
       return profileRes.json();
     }
-    console.error('API call did not fail but was not 200', {
+    console.error('API call did not fail but was not 200\n', {
       status: profileRes.status,
       statusCode: profileRes.statusCode,
       statusMessage: profileRes.statusMessage,
@@ -74,7 +74,7 @@ const updateProfile = async (attrs) => {
     });
     return {};
   } catch (err) {
-    console.error('UpdateProfile failed', err);
+    console.error('UpdateProfile failed\n', err);
     return {};
   }
 }

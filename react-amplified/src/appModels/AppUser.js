@@ -83,7 +83,7 @@ export default class AppUser {
 
       return user;
     } catch (err) {
-      console.error('An error occurred during getOrCreateUser', err);
+      console.error('An error occurred during getOrCreateUser\n', err);
     }
   }
 
@@ -99,7 +99,7 @@ export default class AppUser {
       const updateUserRes = await API.graphql(graphqlOperation(updateUser, {input: userDetails}));
       console.log('TEST updateUserRes', updateUserRes);
     } catch (err) {
-      console.error('An error occurred during updateUser', err);
+      console.error('An error occurred during updateUser\n', err);
     }
   }
 
@@ -117,7 +117,7 @@ export default class AppUser {
       const updateUserProfileRes = await API.graphql(graphqlOperation(updateUser, { input: userProfile }));
       console.log('TEST updateUserProfileRes', updateUserProfileRes);
     } catch (err) {
-      console.error('An error occurred during updateProfile', err);
+      console.error('An error occurred during updateProfile\n', err);
     }
   }
 }
