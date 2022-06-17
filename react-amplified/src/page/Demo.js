@@ -22,6 +22,7 @@ export default function Demo() {
         [userStock, setUserStock] = useState({ // TODO: Find proper naming for userStock to represent the user stock in rewards
           energyCell: 0
         }),
+        [isGameStarted, setIsGameStarted] = useState(false),
         [isGameOver, setIsGameOver] = useState(false),
         [userName, setUserName] = useState(),
         [selectedBuddi, setSelectedBuddi] = useState(null),
@@ -108,6 +109,7 @@ export default function Demo() {
       // race: selectedRace,
     };
     sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+    setIsGameStarted(true);
   }
 
   const handleEndGame = useCallback((userName, score) => {
@@ -157,7 +159,18 @@ export default function Demo() {
     return () => {
       removeEventListener("onEndGame", handleEndGame);
     };
-  }, [addEventListener, removeEventListener, handleEndGame, datastoreStatus, setUserStock, userStock]);
+  }, [
+    addEventListener,
+    removeEventListener,
+    handleEndGame,
+    datastoreStatus,
+    userStock,
+    setUserStock,
+    isGameStarted,
+    setIsGameStarted,
+    selectedBuddi,
+    setSelectedBuddi,
+  ]);
 
   return (
     <div>
@@ -326,32 +339,35 @@ export default function Demo() {
         </div>
       </section>
       <section className="race-play">
-        {/*
         <div className="container-fluid">
           <div>
             <div className="race-img text-center">
               <img src="img/RACE.png" />
             </div>
-            <div className="video position-relative">
+            <div
+              className="video position-relative"
+              style={{ display: isGameStarted ? "none" : "block" }}
+            >
               <div className="center">
                 <img src="img/spinning wheels obstacles large.png" />
               </div>
-              <div className="play-btn">
-                <img src="img/Vector 2.png" />
-              </div>
+              { !isLoaded &&
+                <div className="progress">
+                  <div className="progress-bar" role="progressbar" style={{width: Math.round(loadingProgression * 100) + "%"}} aria-valuenow={Math.round(loadingProgression * 100)} aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              }
+              { isLoaded &&
+                <div className="play-btn">
+                  <img src="img/Vector 2.png"/>
+                </div>
+              }
             </div>
+            <Unity
+              style={{ visibility: isLoaded ? "visible" : "hidden", width: isGameStarted ? "100%" : "0%", position: "relative" }}
+              unityProvider={unityProvider}
+            />
           </div>
         </div>
-        */}
-        { !isLoaded &&
-        <div className="progress">
-          <div className="progress-bar" role="progressbar" style={{width: Math.round(loadingProgression * 100) + "%"}} aria-valuenow={Math.round(loadingProgression * 100)} aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        }
-        <Unity
-          style={{ visibility: isLoaded ? "visible" : "hidden" }}
-          unityProvider={unityProvider}
-        />
       </section>
       <Footer />
     </div>
