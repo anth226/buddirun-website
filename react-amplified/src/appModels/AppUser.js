@@ -103,7 +103,7 @@ export default class AppUser {
     }
   }
 
-  async updateProfile(profileData) {
+  async updateProfileData(profileData) {
     try {
       const user = await this.getOrCreateUser();
       const userProfile = {
