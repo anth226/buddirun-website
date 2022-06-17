@@ -68,7 +68,7 @@ const updateAuth = async () => {
     }
     return true;
   } catch (err) {
-    console.error('An error occurred during updateAuth', err);
+    console.error('An error occurred during updateAuth\n', err);
   }
 }
 
