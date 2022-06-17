@@ -20,7 +20,7 @@ export default function Demo() {
   const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
         [raceList, setRaceList] = useState([]),
         [userStock, setUserStock] = useState({ // TODO: Find proper naming for userStock to represent the user stock in rewards
-          energyCell: 1
+          energyCell: 0
         }),
         [isGameOver, setIsGameOver] = useState(false),
         [userName, setUserName] = useState(),
@@ -132,7 +132,7 @@ export default function Demo() {
       appUserModel.getOrCreateUser()
         .then((appUser) => {
           setUserStock(appUser.data.rewards || {
-            energyCell: 1
+            energyCell: 0
           });
         })
         .catch((err) => {
