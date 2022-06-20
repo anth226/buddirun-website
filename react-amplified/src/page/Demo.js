@@ -4,7 +4,9 @@ import Header from "../modules/layout/HeaderLayout";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import BuddiList from "../assets/buddi-list.json";
 import RaceList from "../assets/race-list.json";
-import { randomIntFromInterval } from "../assets/utils";
+import { formatNumber, randomIntFromInterval } from "../assets/utils";
+import { DatastoreStatus, useDatastoreContext } from "../lib/contextLib";
+import AppUser from "../appModels/AppUser";
 
 const statLabels = {
   speed: 'Speed',
@@ -17,10 +19,13 @@ const statLabels = {
 export default function Demo() {
   const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
         [raceList, setRaceList] = useState([]),
+        [userStock, setUserStock] = useState({ // TODO: Find proper naming for userStock to represent the user stock in rewards
+          energyCell: 1
+        }),
         [isGameOver, setIsGameOver] = useState(false),
         [userName, setUserName] = useState(),
-        [selectedBuddi, setSelectedBuddi] = useState(),
-        [selectedRace, setSelectedRace] = useState(),
+        [selectedBuddi, setSelectedBuddi] = useState(null),
+        [selectedRace, setSelectedRace] = useState(null),
         [score, setScore] = useState();
 
   const fetchRandomBuddis = () => {
@@ -65,6 +70,8 @@ export default function Demo() {
     setRaceList(availableRaces);
   }
 
+  const datastoreStatus = useDatastoreContext();
+
   // NOTE: Blocking Unity loader until optimized
   const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
     loaderUrl: "unity/ProjectXeonBuild.loader.js",
@@ -95,8 +102,13 @@ export default function Demo() {
       playerID: selectedBuddi, // ID of the selected Buddi
       // race: selectedRace,
     };
-    console.log('TEST START GAME', gameParams);
-    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+    setUserStock((refStock) => {
+      const newStock = {...refStock};
+      newStock.energyCell = --newStock.energyCell > 0 ? newStock.energyCell : 0
+      return newStock;
+    });
+    setTimeout(handleEndGame, 5000);
+    // sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
   }
 
   const handleEndGame = useCallback((userName, score) => {
@@ -104,16 +116,36 @@ export default function Demo() {
     // setUserName(userName);
     // setScore(score);
     console.log('TEST END GAME', userName, score);
+    const reward = randomIntFromInterval(0,6);
+    console.log('FAKE REWARD', reward);
+    setUserStock(currentStock => {
+      return {
+        ...currentStock,
+        energyCell: currentStock.energyCell + reward
+      };
+    })
   }, []);
 
   useEffect(() => {
+    if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
+      const appUserModel = AppUser.getInstance();
+      appUserModel.getOrCreateUser()
+        .then((appUser) => {
+          setUserStock(appUser.data.rewards || {
+            energyCell: 1
+          });
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+    }
     fetchRandomBuddis();
     fetchRandomRaces();
     addEventListener("onGameEnd", handleEndGame);
     return () => {
       removeEventListener("onGameEnd", handleEndGame);
     };
-  }, [addEventListener, removeEventListener, handleEndGame]);
+  }, [addEventListener, removeEventListener, handleEndGame, datastoreStatus]);
 
   return (
     <div>
@@ -133,7 +165,7 @@ export default function Demo() {
             <hr />
           </div>
           <div className="energy-cell d-flex">
-            <h4>0001</h4>
+            <h4>{ formatNumber(userStock.energyCell) }</h4>
             <img src="img/VGC2-2-Energy_Cell_V01-final 1.png" />
           </div>
           <div className="content">
@@ -213,7 +245,7 @@ export default function Demo() {
               <tbody>
               {Array.from(raceList, (race, raceIndex) => {
                 const maxEntrants = race.maxEntrants,
-                      raceIsSelected = selectedRace === race.id,
+                      raceIsSelected = selectedRace === race.id && selectedBuddi,
                       currentEntrantsQty = raceIsSelected ? maxEntrants : maxEntrants - 1;
                 return (
                   <tr key={`race-${raceIndex}`}>

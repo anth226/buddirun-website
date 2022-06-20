@@ -56,9 +56,11 @@ export default class AppUser {
 
   async getOrCreateUser() {
     try {
+      if (!this._userID) {
+        return {};
+      }
       const getUserRes = await API.graphql(graphqlOperation(getUser, {id: this._userID}));
       let user = getUserRes.data.getUser;
-      console.log('FETCH USER', user);
 
       if (!user) {
         const userDetails = {
@@ -70,7 +72,15 @@ export default class AppUser {
         const createUserRes = await API.graphql(graphqlOperation(createUser, { input: userDetails }));
         user = createUserRes.data.createUser;
       }
-      console.log('RETURN USER', user);
+
+      let userData = {};
+      try {
+        userData = JSON.parse(user.data);
+      } catch (jsonParseErr) {
+        userData = {};
+      }
+      user.data = userData;
+
       return user;
     } catch (err) {
       console.error('An error occurred during getOrCreateUser', err);

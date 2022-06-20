@@ -4,18 +4,24 @@ const CORS_MODE = ''; // defaults to 'cors'
 
 const getAuthHeader = async () => {
   const token = await getToken();
+  if (!token) {
+    return null;
+  }
   return {
     'Authorization': `Bearer ${token}`
   }
 }
 
 const getProfile = async () => {
-  const authHeader = await getAuthHeader(),
-        queryOptions = {
-          headers: {
-            ...authHeader,
-          },
-        };
+  const authHeader = await getAuthHeader();
+  if (!authHeader) {
+    return null;
+  }
+  const queryOptions = {
+    headers: {
+      ...authHeader,
+    },
+  };
   if (CORS_MODE) {
     queryOptions.mode = CORS_MODE;
   }

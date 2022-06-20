@@ -3,18 +3,27 @@ import { getProfile, updateProfile } from "./Backend";
 import AppUser from "../appModels/AppUser";
 
 const getUserAttributes = async () => {
-  const user = await Auth.currentAuthenticatedUser();
-  return {
-    username: user.username,
-    ...user.attributes
-  };
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    return {
+      username: user.username,
+      ...user.attributes
+    };
+  } catch (err) {
+    console.warn('GetUserAttributes:', err);
+    return null;
+  }
 }
 
 const getToken = async () => {
-  const session = await Auth.currentSession(),
-        token = session.getAccessToken();
-  console.log('TEST SESSION', session);
-  return token.getJwtToken();
+  try {
+    const session = await Auth.currentSession(),
+      token = session.getAccessToken();
+    return token.getJwtToken();
+  } catch (err) {
+    console.warn('GetToken:', err);
+    return null;
+  }
 }
 
 // Update app User & backend profile
@@ -29,6 +38,9 @@ const updateAuth = async () => {
         'family_name': 'last_name',
         'email': 'email',
       };
+    if (!userAttributes || !profile) {
+      return false;
+    }
 
     const appUserModel = AppUser.getInstance();
     appUserModel.setUserID(userAttributes.sub);
@@ -54,6 +66,7 @@ const updateAuth = async () => {
     if (Object.keys(appUserData).length > 0) {
       await appUserModel.updateUser(appUserData);
     }
+    return true;
   } catch (err) {
     console.error('An error occurred during updateAuth', err);
   }
