@@ -1,8 +1,47 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
+import { Unity, useUnityContext } from "react-unity-webgl";
+import BuddisList from "../buddis-list.json";
 
 export default function Demo() {
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [userName, setUserName] = useState();
+  const [buddiID, setBuddiID] = useState();
+  const [raceID, setRaceID] = useState();
+  const [score, setScore] = useState();
+
+  const getRandomBuddis = () => {
+
+  }
+
+  const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
+    loaderUrl: "../../unity/myunityapp.loader.js",
+    dataUrl: "../../unity/myunityapp.data",
+    frameworkUrl: "../../unity/myunityapp.framework.js",
+    codeUrl: "../../unity/myunityapp.wasm",
+  });
+
+  const handleShowWinner = useCallback((userName, score) => {
+    setIsGameOver(true);
+    setUserName(userName);
+    setScore(score);
+  }, []);
+  useEffect(() => {
+    addEventListener("ShowWinnerJS", handleShowWinner);
+    return () => {
+      removeEventListener("ShowWinnerJS", handleShowWinner);
+    };
+  }, [addEventListener, removeEventListener, handleShowWinner]);
+
+  const handleStartGame = () => {
+    const gameParams = {
+      buddi: buddiID,
+      race: raceID,
+    };
+    sendMessage("SceneObjectName", "methodName", JSON.stringify(gameParams));
+  }
+
   return (
     <div>
       <section className="race-a-buddi">
@@ -182,44 +221,44 @@ export default function Demo() {
           <div className="content">
             <table className="table d-none d-sm-table w-100">
               <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col" style={{ width: "18%" }}>
-                    Race name
-                  </th>
-                  <th scope="col" style={{ width: "18%" }}>
-                    Course name
-                  </th>
-                  <th scope="col" style={{ width: "18%" }}>
-                    Prize Pool
-                  </th>
-                  <th scope="col" style={{ width: "18%" }}>
-                    Entrants
-                  </th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col" style={{ width: "18%" }}>
+                  Race name
+                </th>
+                <th scope="col" style={{ width: "18%" }}>
+                  Course name
+                </th>
+                <th scope="col" style={{ width: "18%" }}>
+                  Prize Pool
+                </th>
+                <th scope="col" style={{ width: "18%" }}>
+                  Entrants
+                </th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
               </thead>
               <tbody>
-                {Array.from(Array(4), (e, i) => {
-                  return (
-                    <tr key={i}>
-                      <th scope="row">
-                        <img src="img/ic_round-energy-savings-leaf.png" />
-                      </th>
-                      <td className="race-name">Race name</td>
-                      <td>Course name</td>
-                      <td>10</td>
-                      <td>9/10</td>
-                      <td style={{ textAlign: "center" }}>
-                        <button className="primary-btn">Enter</button>
-                      </td>
-                      <td style={{ textAlign: "center" }}>
-                        <button className="primary-btn">Confirm</button>
-                      </td>
-                    </tr>
-                  );
-                })}
+              {Array.from(Array(4), (e, i) => {
+                return (
+                  <tr key={i}>
+                    <th scope="row">
+                      <img src="img/ic_round-energy-savings-leaf.png" />
+                    </th>
+                    <td className="race-name">Race name</td>
+                    <td>Course name</td>
+                    <td>10</td>
+                    <td>9/10</td>
+                    <td style={{ textAlign: "center" }}>
+                      <button className="primary-btn">Enter</button>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      <button className="primary-btn">Confirm</button>
+                    </td>
+                  </tr>
+                );
+              })}
               </tbody>
             </table>
             {Array.from(Array(4), (e, i) => {
@@ -255,6 +294,7 @@ export default function Demo() {
         </div>
       </section>
       <section className="race-play">
+        {/*
         <div className="container-fluid">
           <div>
             <div className="race-img text-center">
@@ -270,6 +310,13 @@ export default function Demo() {
             </div>
           </div>
         </div>
+        */}
+        { !isLoaded &&
+        <div className="progress">
+          <div className="progress-bar" role="progressbar" aria-valuenow="{Math.round(loadingProgression * 100)}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        }
+        <Unity unityProvider={unityProvider} />
       </section>
       <Footer />
     </div>
