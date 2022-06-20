@@ -1,13 +1,29 @@
 import React from "react";
+import { useCallback, useContext, useState } from 'react';
 import Header from "../modules/layout/HeaderLayout";
 import {useAuthenticator} from "@aws-amplify/ui-react";
+import { Web3ModalContext, NavigationContext } from './../contexts';
 
 export default function Profile() {
+  const [addr, setAddr] = React.useState(null);
+  const { connect, disconnect, account } = useContext(Web3ModalContext);
   const active = window.location.pathname;
   const { user, signOut } = useAuthenticator((context) => [context.user]);
-  const [address] = React.useState("0x245v...984tb9adv");
-  const [hasConnect, setHasConnect] = React.useState(true);
+  const [address,setAddress] = React.useState(null);
+  
+  const handleConnectWallet = useCallback(() => {
+    connect();
+  }, [connect]);
 
+
+  React.useEffect(() => {
+    if (account) {
+      const updatedAddr = account.toString();
+      setAddr(updatedAddr); 
+      setAddress(account.substr(0,5) + "..." + account.substr(account.length - 6, account.length));
+    }
+  })
+  
   return (
     <div className="profile">
       <div className="container-fluid">
@@ -23,7 +39,7 @@ export default function Profile() {
                 <button className="btn btn-outline profile-btn mb-4">
                   Change pictuce
                 </button>
-                {hasConnect && (
+                {account && (
                   <div className="d-flex flex-row align-items-center wallet-info">
                     <div className="wallet-logo">
                       <svg
@@ -99,7 +115,7 @@ export default function Profile() {
             <div className="col-sm-6 mt-3">
               <div className="content">
                 <div className="inner">
-                  {!hasConnect && (
+                  {!account && (
                     <div>
                       <h5>
                         You have completed 1/4 steps for a complete profile
@@ -125,7 +141,7 @@ export default function Profile() {
                       <span className="key">Email</span>
                       <span className="para"> ivanlikeab@gmail.com</span>
                     </div>
-                    {hasConnect && (
+                    {account && (
                       <div className="recieve-update d-flex flex-row align-items-center">
                         <input type="checkbox" />
                         <h6>Receive drop updates & Marketing emails</h6>
@@ -133,9 +149,9 @@ export default function Profile() {
                     )}
                   </div>
                 </div>
-                {!hasConnect ? (
+                {!account ? (
                   <>
-                    <button className="primary-btn">
+                    <button className="primary-btn" onClick={handleConnectWallet}>
                       Connect MetaMask Wallet
                     </button>
                     <button className="primary-btn">Connect Twitter</button>

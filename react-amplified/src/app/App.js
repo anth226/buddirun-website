@@ -7,6 +7,7 @@ import { DataStore, Hub, Predicates } from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { DatastoreReadyContext } from "./DatastoreReadyContext";
+import { YamProvider, Web3Provider, Web3ModalProvider, NavigationContextProvider } from '../contexts';
 import { User } from "../models";
 import { getUserInfo, getProfile, updateProfile } from "./Backend";
 
@@ -73,13 +74,21 @@ function App() {
   }, []);
 
   return (
-    <DatastoreReadyContext.Provider value={isReady}>
-      <Authenticator.Provider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </Authenticator.Provider>
-    </DatastoreReadyContext.Provider>
+    <Web3ModalProvider>
+      <YamProvider>
+        <Web3Provider>
+            <NavigationContextProvider>
+              <DatastoreReadyContext.Provider value={isReady}>
+                <Authenticator.Provider>
+                  <BrowserRouter>
+                    <AppRoutes />
+                  </BrowserRouter>
+                </Authenticator.Provider>
+              </DatastoreReadyContext.Provider>
+            </NavigationContextProvider>
+        </Web3Provider>
+      </YamProvider>
+    </Web3ModalProvider>
   );
 }
 

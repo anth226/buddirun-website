@@ -1,9 +1,48 @@
 import React from "react";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
+import { useCallback, useContext, useState } from 'react';
+import { Web3ModalContext, NavigationContext } from './../contexts';
+import { array } from "yup";
 
 export default function Mint() {
-  const [address] = React.useState("0x245v...984tb9adv");
+  const [addr, setAddr] = React.useState(null);
+  const [buddis, setBuddis] = React.useState([1,1,1,1,1]);
+  const { connect, disconnect, account } = useContext(Web3ModalContext);
+  const [address,setAddress] = React.useState(null);
+
+  React.useEffect(() => {
+    if (account) {
+      // const updatedAddr = account.toString();
+      // setAddr(updatedAddr); 
+      // alert(account);
+      setAddress(account.substr(0,5) + "..." + account.substr(account.length - 6, account.length));
+    }
+  })
+
+  const handleConnectWallet = useCallback(() => {
+    connect();
+  }, [connect]);
+
+  const handleBuddiCounts = useCallback((type,id) => {
+
+    if(type == 1) {
+      const temp = new array(5);
+      for(let i = 0; i < 5; i ++) {
+        temp[i] = buddis[i];
+      }
+      temp[id] = buddis[id]++;
+      // setBuddis(temp);
+    } else if(type == 0) {
+      const temp = new array(5);
+      for(let i = 0; i < 5; i ++) {
+        temp[i] = buddis[i];
+      }
+      temp[id] = buddis[id]--;
+      // setBuddis(temp);
+    }
+  }, []);
+
   return (
     <div>
       <section className="mint">
@@ -31,9 +70,9 @@ export default function Mint() {
                   <h4>Spider</h4>
                 </div>
                 <div className="row count">
-                  <div className="col-3 col-md-4 btn-sub">-</div>
-                  <div className="col-6 col-md-4 number">1</div>
-                  <div className="col-3 col-md-4 btn-add">+</div>
+                  <div className="col-3 col-md-4 btn-sub" onClick={() => handleBuddiCounts(0,0)}>-</div>
+                  <div className="col-6 col-md-4 number">{buddis[0]}</div>
+                  <div className="col-3 col-md-4 btn-add" onClick={() => handleBuddiCounts(1,0)}>+</div>
                 </div>
               </div>
               <div className="box">
@@ -44,9 +83,9 @@ export default function Mint() {
                   <h4>Armadillo</h4>
                 </div>
                 <div className="row count">
-                  <div className="col-3 col-md-4 btn-sub">-</div>
-                  <div className="col-6 col-md-4 number">1</div>
-                  <div className="col-3 col-md-4 btn-add">+</div>
+                  <div className="col-3 col-md-4 btn-sub" onClick={() => handleBuddiCounts(0,1)}>-</div>
+                  <div className="col-6 col-md-4 number">{buddis[1]}</div>
+                  <div className="col-3 col-md-4 btn-add" onClick={() => handleBuddiCounts(1,1)}>+</div>
                 </div>
               </div>
               <div className="box">
@@ -57,9 +96,9 @@ export default function Mint() {
                   <h4>Whale</h4>
                 </div>
                 <div className="row count">
-                  <div className="col-3 col-md-4 btn-sub">-</div>
-                  <div className="col-6 col-md-4 number">1</div>
-                  <div className="col-3 col-md-4 btn-add">+</div>
+                  <div className="col-3 col-md-4 btn-sub" onClick={() => handleBuddiCounts(0,2)}>-</div>
+                  <div className="col-6 col-md-4 number">{buddis[2]}</div>
+                  <div className="col-3 col-md-4 btn-add" onClick={() => handleBuddiCounts(1,2)}>+</div>
                 </div>
               </div>
               <div className="box">
@@ -70,9 +109,9 @@ export default function Mint() {
                   <h4>Crocodile</h4>
                 </div>
                 <div className="row count">
-                  <div className="col-3 col-md-4 btn-sub">-</div>
-                  <div className="col-6 col-md-4 number">1</div>
-                  <div className="col-3 col-md-4 btn-add">+</div>
+                  <div className="col-3 col-md-4 btn-sub" onClick={() => handleBuddiCounts(0,3)}>-</div>
+                  <div className="col-6 col-md-4 number">{buddis[3]}</div>
+                  <div className="col-3 col-md-4 btn-add" onClick={() => handleBuddiCounts(1,3)}>+</div>
                 </div>
               </div>
               <div className="box">
@@ -83,9 +122,9 @@ export default function Mint() {
                   <h4>Sloth</h4>
                 </div>
                 <div className="row count">
-                  <div className="col-3 col-md-4 btn-sub">-</div>
-                  <div className="col-6 col-md-4 number">1</div>
-                  <div className="col-3 col-md-4 btn-add">+</div>
+                  <div className="col-3 col-md-4 btn-sub" onClick={() => handleBuddiCounts(0,4)}>-</div>
+                  <div className="col-6 col-md-4 number">{buddis[4]}</div>
+                  <div className="col-3 col-md-4 btn-add" onClick={() => handleBuddiCounts(1,4)}>+</div>
                 </div>
               </div>
             </div>
@@ -103,6 +142,8 @@ export default function Mint() {
             <hr />
           </div>
           <div className="content text-center">
+          {
+            account ? (
             <div className="box">
               <div className="d-flex flex-row">
                 <div className="status">
@@ -160,7 +201,32 @@ export default function Mint() {
                 </div>
               </div>
             </div>
-            <button className="btn-mint">MINT</button>
+            ) : (
+              <div className="box">
+                <div className="d-flex flex-row align-items-center wallet-info">
+                  <div className="wallet-logo">
+                    <svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 26 26"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.13169e-06 3C2.13169e-06 2.20435 0.316073 1.44129 0.878682 0.87868C1.44129 0.316071 2.20435 0 3 0H19.75C20.612 0 21.4386 0.34241 22.0481 0.951903C22.6576 1.5614 23 2.38805 23 3.25V4.256C24.748 4.874 26 6.541 26 8.5V21.5C26 22.6935 25.5259 23.8381 24.682 24.682C23.8381 25.5259 22.6935 26 21.5 26H4.5C3.30653 26 2.16194 25.5259 1.31802 24.682C0.474108 23.8381 2.13169e-06 22.6935 2.13169e-06 21.5V3.25H0.0100021C0.00323947 3.16684 -9.66756e-05 3.08344 2.13169e-06 3ZM21 3.25C21 2.56 20.44 2 19.75 2H3C2.73479 2 2.48043 2.10536 2.2929 2.29289C2.10536 2.48043 2 2.73478 2 3C2 3.26522 2.10536 3.51957 2.2929 3.70711C2.48043 3.89464 2.73479 4 3 4H21V3.25ZM18 15C17.7348 15 17.4804 15.1054 17.2929 15.2929C17.1054 15.4804 17 15.7348 17 16C17 16.2652 17.1054 16.5196 17.2929 16.7071C17.4804 16.8946 17.7348 17 18 17H21C21.2652 17 21.5196 16.8946 21.7071 16.7071C21.8946 16.5196 22 16.2652 22 16C22 15.7348 21.8946 15.4804 21.7071 15.2929C21.5196 15.1054 21.2652 15 21 15H18Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                  <span>{"0x000a...00000001"}</span>
+                </div>
+              </div>
+            ) }
+            {account ? (
+              <button className="btn-mint">MINT</button>
+            ) : (
+              <button className="btn-mint" onClick={handleConnectWallet}>CONNECT METAMASK WALLET</button>
+            )}
           </div>
         </div>
       </section>
