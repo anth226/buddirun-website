@@ -28,8 +28,7 @@
     "web-vitals": "^2.1.4",
     "web3": "^1.7.3",
     "web3modal": "^1.9.8",
-    "yup": "^0.32.11",
-    "flowtype": "2.0.0"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -39,8 +38,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "plugin:flowtype/recommended",
-      "react-app"
+      "react-app/jest"
     ]
   },
   "browserslist": {
