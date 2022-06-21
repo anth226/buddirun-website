@@ -1,4 +1,6 @@
 
+export { default as AmplifyContext } from './amplify/AmplifyContext';
+export { default as AmplifyContextProvider } from './amplify/AmplifyContextProvider';
 export { default as Web3Context } from './Web3/Web3Context';
 export { default as Web3Provider } from './Web3/Web3Provider';
 export { default as Web3ModalContext } from './Web3Modal/Web3ModalContext';

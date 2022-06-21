@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, {useEffect, useState, createContext, useContext} from "react";
 import "../assets/style/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
@@ -6,27 +6,33 @@ import AppRoutes from "./AppRoutes";
 import { DataStore, Hub } from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
-import { DatastoreReadyContext } from "./DatastoreReadyContext";
-import { YamProvider, Web3Provider, Web3ModalProvider, NavigationContextProvider } from '../contexts';
+import {
+  AmplifyContext,
+  YamProvider,
+  Web3Provider,
+  Web3ModalProvider,
+  NavigationContextProvider,
+} from '../contexts';
+import { DatastoreStatus } from "../contexts/amplify/AmplifyContext";
 import { User } from "../models";
 import { updateAuth } from "./Auth";
 import AppUser from "../appModels/AppUser";
-import { DatastoreContext, DatastoreStatus } from "../lib/contextLib";
 
 function App() {
-  const [datastoreStatus, setDatastoreStatus] = useState(DatastoreStatus.INIT);
+  const { datastoreStatus, updateDatastoreStatus } = useContext(AmplifyContext);
 
   useEffect(() => {
+    updateDatastoreStatus(DatastoreStatus.INIT);
     const subscription = DataStore.observe(User).subscribe((msg) => {
       console.log('GOT USER MODEL', msg.model, msg.opType, msg.element);
     });
     const datastoreListener = Hub.listen("datastore", async hubData => {
       const {event, data} = hubData.payload;
       if (event === "ready") {
-        setDatastoreStatus(DatastoreStatus.READY);
+        updateDatastoreStatus(DatastoreStatus.READY);
         const loggedIn = await updateAuth();
         if (loggedIn) {
-          setDatastoreStatus(DatastoreStatus.LOGGED_IN);
+          updateDatastoreStatus(DatastoreStatus.LOGGED_IN);
         }
       }
     });
@@ -39,7 +45,7 @@ function App() {
           // Get profile and update backend with user data if it changed
           const loggedIn = await updateAuth();
           if (loggedIn) {
-            setDatastoreStatus(DatastoreStatus.LOGGED_IN);
+            updateDatastoreStatus(DatastoreStatus.LOGGED_IN);
           }
           break;
         case "signOut":
@@ -71,15 +77,13 @@ function App() {
     <Web3ModalProvider>
       <YamProvider>
         <Web3Provider>
-            <NavigationContextProvider>
-              <DatastoreReadyContext.Provider value={isReady}>
-                <Authenticator.Provider>
-                  <BrowserRouter>
-                    <AppRoutes />
-                  </BrowserRouter>
-                </Authenticator.Provider>
-              </DatastoreReadyContext.Provider>
-            </NavigationContextProvider>
+          <NavigationContextProvider>
+            <Authenticator.Provider>
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
+            </Authenticator.Provider>
+          </NavigationContextProvider>
         </Web3Provider>
       </YamProvider>
     </Web3ModalProvider>

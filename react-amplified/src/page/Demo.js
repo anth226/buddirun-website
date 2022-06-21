@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import BuddiList from "../assets/buddi-list.json";
 import RaceList from "../assets/race-list.json";
 import { formatNumber, randomIntFromInterval } from "../assets/utils";
-import { DatastoreStatus, useDatastoreContext } from "../lib/contextLib";
+import { AmplifyContext } from "../contexts";
+import { DatastoreStatus } from "../contexts/amplify/AmplifyContext";
 import AppUser from "../appModels/AppUser";
 
 const statLabels = {
@@ -17,6 +18,7 @@ const statLabels = {
 };
 
 export default function Demo() {
+  const { datastoreStatus } = useContext(AmplifyContext);
   const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
         [raceList, setRaceList] = useState([]),
         [userStock, setUserStock] = useState({ // TODO: Find proper naming for userStock to represent the user stock in rewards
@@ -70,8 +72,6 @@ export default function Demo() {
     // Fill state
     setRaceList(availableRaces);
   }
-
-  const datastoreStatus = useDatastoreContext();
 
   // NOTE: Blocking Unity loader until optimized
   const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { AmplifyContext } from "../../contexts";
+import { DatastoreStatus } from "../../contexts/amplify/AmplifyContext";
 import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
-import { useAuthenticator } from '@aws-amplify/ui-react';
-import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 
 export default function Header() {
   const active = window.location.pathname;
@@ -14,7 +15,7 @@ export default function Header() {
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("");
-  const datastoreStatus = useDatastoreContext();
+  const { datastoreStatus } = useContext(AmplifyContext);
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
