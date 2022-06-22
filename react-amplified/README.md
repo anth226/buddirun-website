@@ -24,6 +24,20 @@ cd react-amplified
 npm i
 ```
 
+4. Setup environment variables (they are automatically setup in DEV and PROD environments)
+> For the WebGL files, you can download them from S3 or ask any project manager
+
+| key | value |
+|---|---|
+| REACT_APP_AUTH_DOMAIN | `auth.dev.buddirun.com` |
+| REACT_APP_BACKEND_URL | `https://buddirun.dev/api/v1/` |
+| REACT_WEBGL_FILES_URL | `unity-webgl-game/` |
+
+5. Run the app
+```
+npm run start
+```
+
 
 # Getting Started with Create React App
 

@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, {useState, useContext, useEffect} from "react";
+import { Link, useLocation } from "react-router-dom";
 import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
@@ -7,6 +7,7 @@ import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
+import AppUser from "../../appModels/AppUser";
 
 export default function Header() {
   const active = window.location.pathname;
@@ -14,7 +15,10 @@ export default function Header() {
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("");
+  const [userFullName, setUserFullName] = React.useState("");
   const datastoreStatus = useDatastoreContext();
+
+  let location = useLocation();
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
 
@@ -45,12 +49,16 @@ export default function Header() {
   const handleOpenAuth = () => {
     console.log('OPENING AUTH', openAuth);
     if (!openAuth) {
-      const p = document.createElement("div");
-      p.className = "filter-backdrop";
-      p.id = "filter-backdrop";
-      document.body.appendChild(p);
+      const backdrop = document.getElementById("filter-backdrop");
+      if (!backdrop) {
+        const p = document.createElement("div");
+        p.className = "filter-backdrop";
+        p.id = "filter-backdrop";
+        document.body.appendChild(p);
+      }
     } else {
       const p = document.getElementById("filter-backdrop");
+      console.log('TEST BACKDROP', p);
       p?.parentNode?.removeChild(p);
       setFormType("");
       closeNavbar('navbarAuth');
@@ -82,16 +90,31 @@ export default function Header() {
   };
 
   // On render
-  let userFullName = '';
-  if (user) {
-    userFullName = `${user.attributes.given_name} ${user.attributes.family_name}`;
-    // TODO:  Hackish ~ If auth authNavbar is opened after login, close it.
-    //        Unfortunately, if the authNavbar is intentionally opened while this component renders,
-    //        it will force the close which may not be the desired behaviour.
-    if (openAuth) {
+  useEffect(() => {
+    console.log('LOAD HEADER LAYOUT', datastoreStatus);
+    console.log('TEST LOCATION', location);
+    const requireAuth = location.state ? location.state.requireAuth : false;
+    if (requireAuth) {
       handleOpenAuth();
     }
-  };
+    if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
+      const appUserModel = AppUser.getInstance();
+      appUserModel.getOrCreateUser()
+        .then((appUser) => {
+          console.log('GOT USER in HEADER LAYOUT', appUser);
+          setUserFullName(`${appUser.first_name} ${appUser.last_name}`);
+          // TODO:  Hackish ~ If auth authNavbar is opened after login, close it.
+          //        Unfortunately, if the authNavbar is intentionally opened while this component renders,
+          //        it will force the close which may not be the desired behaviour.
+          if (openAuth) {
+            handleOpenAuth();
+          }
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+    }
+  }, [datastoreStatus, setUserFullName]);
 
   return (
     <header>

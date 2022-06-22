@@ -88,6 +88,7 @@ export default class AppUser {
   }
 
   async updateUser(params) {
+    // TODO: Make sure it works when we're updating a User
     try {
       const userDetails = {
         id: this._userID,
@@ -107,11 +108,14 @@ export default class AppUser {
     try {
       const user = await this.getOrCreateUser();
       const userProfile = {
+        // ...user,
         id: this._userID,
-        data: {
+        email: this._email,
+        data: JSON.stringify({
           ...user.data,
           ...profileData
-        }
+        }),
+        _version: user._version,
       };
       console.log('TEST USER PROFILE', userProfile);
       const updateUserProfileRes = await API.graphql(graphqlOperation(updateUser, { input: userProfile }));
