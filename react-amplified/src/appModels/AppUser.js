@@ -2,6 +2,9 @@ import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../graphql/queries";
 import { createUser, updateUser } from "../graphql/mutations";
 
+// TODO: URGENT => Use Datastore instead of API.graphql
+//        https://docs.amplify.aws/lib/datastore/data-access/q/platform/js/#create-and-update
+
 export default class AppUser {
   // source: https://stackoverflow.com/questions/44719103/singleton-object-in-react-native
 
