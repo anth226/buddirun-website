@@ -300,7 +300,7 @@ export default function Header() {
                   className={`btn-signin btn collapsed`}
                   type="button"
                   onClick={() => handleOpenAuth()}
-                  disabled={datastoreStatus < DatastoreStatus.READY}
+                  disabled={datastoreStatus < DatastoreStatus.INIT}
                 >
                   SIGN IN
                 </button>
