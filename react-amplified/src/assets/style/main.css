@@ -286,11 +286,11 @@ select.form-control {
   z-index: 3;
 }
 
-.nav-item.col-lg-3 {
+.nav-item.col-lg-3, .nav-item.col-lg-2 {
   text-align: center;
 }
 
-.nav-item.col-lg-3 a {
+.nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
   color: #fff;
   font-weight: 400;
   font-size: 18px;
@@ -506,44 +506,45 @@ select.form-control {
 }
 
 .section1-box {
-  left: 80%;
-  transform: translateX(-80%);
+  /*left: 70%;
+  transform: translateX(-80%);*/
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 7%;
   max-width: 736px;
   width: 100%;
   max-height: 437px;
   height: 100%;
-  background: url("../img/Asset 14 1.png") no-repeat;
+  /*background: url("../img/Asset 14 1.png") no-repeat;
   border-radius: 45px;
   background-size: cover;
   background-position: bottom;
-  border: 0.88587px solid #c3f9ff;
+  border: 0.88587px solid #c3f9ff;*/
   padding: 53px 40px 52px 40px;
 }
 
 .section1-box h2 {
-  font-weight: 400;
-  font-size: 69px;
+  font-weight: 700;
+  font-size: 60px;
   line-height: 80px;
   color: #fff;
 }
 
 .section1-box p {
-  font-weight: 400;
-  font-size: 17px;
+  font-weight: 700;
+  font-size: 24px;
   line-height: 26px;
   color: #fff;
 }
 
 .btn-playvideo {
-  position: absolute;
-  top: -12%;
+  /*top: -12%;
   right: -10%;
-  transform: translate(10%, 12%);
+  transform: translate(10%, 12%);*/
   width: 377px;
   height: 79px;
   white-space: nowrap;
-  text-align: left !important;
+  text-align: center !important;
   background: linear-gradient(180deg, #effcff 0%, #73bbbf 170.73%);
   box-shadow: 0px 58px 80px rgba(4, 79, 105, 0.14),
     0px 24.231px 33.4221px rgba(4, 79, 105, 0.10064);
@@ -553,6 +554,7 @@ select.form-control {
   color: #00008a !important;
   font-size: 30px !important;
   line-height: 26px !important;
+  margin: 30px 0px;
 }
 
 .btn-playvideo svg {
@@ -605,7 +607,7 @@ select.form-control {
     width: 450px;
     height: 50px;
   }
-  .nav-item.col-lg-3 a {
+  .nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
     font-size: 16px;
   }
 
@@ -757,16 +759,16 @@ select.form-control {
     width: 100%;
     margin-top: 40px !important;
   }
-  .nav-item.col-lg-3 {
+  .nav-item.col-lg-3, .nav-item.col-lg-2 {
     margin-top: 40px;
   }
-  .nav-item.col-lg-3 a {
+  .nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
     color: #ffffff;
     font-weight: 700;
     font-size: 18px;
     line-height: 20px;
   }
-  .nav-item.col-lg-3:nth-child(3) {
+  .nav-item.col-lg-3:nth-child(3), .nav-item.col-lg-2:nth-child(3) {
     margin-top: 100px;
   }
 
@@ -1015,13 +1017,13 @@ select.form-control {
 
 .section2 .background img:first-child {
   position: absolute;
-  top: 10%;
-  left: 40%;
-  transform: translate(-40%, -10%);
-  width: 35%;
+  top: 5%;
+  left: 50%;
+  transform: translate(-35%, -10%);
+  width: 50%;
 }
 
-.section2 .background img:last-child {
+/*.section2 .background img:last-child {
   position: absolute;
   right: 10%;
   top: 10%;
@@ -1036,7 +1038,7 @@ select.form-control {
   transform: translate(-18%, 450%);
   width: 13%;
   z-index: 10;
-}
+}*/
 
 @media (max-width: 1400px) {
   .section2-box {
@@ -1125,17 +1127,17 @@ select.form-control {
   }
   .section2 .background img:first-child {
     position: absolute;
-    top: 10%;
-    left: 20%;
+    top: 5%;
+    left: 40%;
     transform: translate(-20%, -10%);
-    width: 210px;
+    width: 300px;
   }
   .section2 .background {
     margin-left: 0%;
     background-size: cover;
     background-position-x: 60%;
   }
-  .section2 .background img:last-child {
+  /*.section2 .background img:last-child {
     position: absolute;
     right: -35%;
     top: 30%;
@@ -1149,7 +1151,7 @@ select.form-control {
     transform: translate(-8%, 450%);
     width: 13%;
     z-index: 10;
-  }
+  }*/
   .dna div {
     right: 11%;
     transform: translate(-11%, -10%);
@@ -2586,7 +2588,7 @@ section.team .team-members span {
 /* community */
 section.community {
   position: relative;
-  margin-top: 150px;
+  margin-top: 270px;
 }
 
 section.community .background {
@@ -2669,6 +2671,9 @@ section.community .icon:hover {
 }
 
 @media (max-width: 768px) {
+  section.community {
+    margin-top: 590px;
+  }
   section.community .background {
     height: 576px;
   }
@@ -2694,15 +2699,18 @@ section.community .icon:hover {
 
 @media (max-width: 576px) {
   section.community {
-    margin-top: 60px;
+    margin-top: 300px;
   }
   section.community .background {
     height: 454px;
   }
+  section.community .community-join {
+    max-width: 350px;
+  }
   section.community .community-box {
     height: 35px;
     width: 80%;
-    top: -5%;
+    top: -21%;
     left: 50%;
     transform: translate(-50%, 200%);
   }

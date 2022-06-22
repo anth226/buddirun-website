@@ -18,64 +18,58 @@ export default function Roadmap() {
     <section className="roadmap" id="roadmap">
       <div className="background"></div>
       <div className="container-fluid roadmap-wrap">
-        {viewPost.width > 768 ? (
-          <div className="roadmap-flow">
-            <img src="img/Group 19.png" />
-            <div className="position-relative w-100 h-100">
-              <div className="final">
-                <svg
-                  width="100"
-                  height="100"
-                  viewBox="0 0 52 52"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="26"
-                    cy="26"
-                    r="20.28"
-                    stroke="url(#paint0_linear_0_1)"
-                    strokeWidth="11.44"
-                  />
-                  <circle
-                    cx="26.0001"
-                    cy="26.0001"
-                    r="10.4"
-                    fill="url(#paint1_linear_0_1)"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_0_1"
-                      x1="26"
-                      y1="0"
-                      x2="26"
-                      y2="52"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="#76DDFA" />
-                      <stop offset="1" stopColor="#7166DB" />
-                    </linearGradient>
-                    <linearGradient
-                      id="paint1_linear_0_1"
-                      x1="26.0001"
-                      y1="15.6001"
-                      x2="26.0001"
-                      y2="36.4001"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="#76DCFA" />
-                      <stop offset="1" stopColor="#7068DC" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
+        <div className="roadmap-flow">
+          <img src="img/Group 19.png" />
+          <div className="position-relative w-100 h-100">
+            <div className="final">
+              <svg
+                width="100"
+                height="100"
+                viewBox="0 0 52 52"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="26"
+                  cy="26"
+                  r="20.28"
+                  stroke="url(#paint0_linear_0_1)"
+                  strokeWidth="11.44"
+                />
+                <circle
+                  cx="26.0001"
+                  cy="26.0001"
+                  r="10.4"
+                  fill="url(#paint1_linear_0_1)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_0_1"
+                    x1="26"
+                    y1="0"
+                    x2="26"
+                    y2="52"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#76DDFA" />
+                    <stop offset="1" stopColor="#7166DB" />
+                  </linearGradient>
+                  <linearGradient
+                    id="paint1_linear_0_1"
+                    x1="26.0001"
+                    y1="15.6001"
+                    x2="26.0001"
+                    y2="36.4001"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#76DCFA" />
+                    <stop offset="1" stopColor="#7068DC" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
           </div>
-        ) : (
-          <div className="roadmap-flow">
-            <img src="img/Group 19 2.png" />
-          </div>
-        )}
+        </div>
         <div className="roadmap-heading text-center">
           <h3>ROAD MAP</h3>
         </div>

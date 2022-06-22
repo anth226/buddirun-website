@@ -68,11 +68,8 @@ export default function Race() {
           </div>
         </div>
         <p className="paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit nisi
-          sapien leo lorem etiam sed facilisi. Pharetra, orci hendrerit maecenas
-          amet tortor tempus. Pellentesque et ornare nunc ac leo. Сonsectetur
-          adipiscing elit. Blandit nisi sapien leo lorem etiam sed facilisi.
-          Pharetra, orci hendrerit
+        Buddi are ready to race as soon as they are born. <br/>
+        Players enter Buddis into individual races or tournaments to win prize pools of Race Entry Tickets or Energy Cells.
         </p>
         <h1>GAME PLAY ELEMENTS</h1>
         <div className="row mx-auto">
