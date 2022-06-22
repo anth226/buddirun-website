@@ -136,7 +136,7 @@ export default function Header() {
               </div>
             )}
             <ul className="navbar-nav me-auto navbar-list row">
-              <li className="nav-item col-lg-3 h-100 p-0">
+              <li className="nav-item col-lg-2 h-100 p-0">
                 <Link
                   to="/about"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center  ${
@@ -201,7 +201,7 @@ export default function Header() {
                   </ul>
                 </div>
               </li>
-              <li className="nav-item col-lg-3 h-100 p-0">
+              <li className="nav-item col-lg-2 h-100 p-0">
                 <Link
                   to={APP_ROUTES.Demo.path}
                   className={`nav-link h-100 d-flex align-items-center justify-content-center ${
@@ -214,7 +214,7 @@ export default function Header() {
                   DEMO
                 </Link>
               </li>
-              <li className="nav-item col-lg-3 h-100 p-0">
+              <li className="nav-item col-lg-2 h-100 p-0">
                 <Link
                   to="/mint"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center ${
@@ -226,6 +226,47 @@ export default function Header() {
                 >
                   MINT
                 </Link>
+              </li>
+              <li className="nav-item col-lg-3 h-100 p-0 position-relative">
+                <div className="d-none d-lg-block h-100">
+                  <a
+                    href="/more"
+                    id="moreDropdown"
+                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center ${
+                      active === "/documents" && "active"
+                    }`}
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    MORE
+                  </a>
+                  <ul
+                    className="dropdown-menu w-100 mt-2"
+                    aria-labelledby="moreDropdown"
+                  >
+                    <li>
+                      <Link to="/team" className="dropdown-item d-flex">
+                        <span>Team</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="d-block d-lg-none h-100">
+                  <a
+                    href="/more"
+                    className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
+                  >
+                    MORE
+                  </a>
+                  <ul className="w-100 list-unstyled">
+                    <li className="mt-2">
+                      <Link to="/team" className="docs-item">
+                        <span>Team</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>

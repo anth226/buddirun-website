@@ -298,6 +298,18 @@ select.form-control {
   text-align: center;
 }
 
+.nav-item.col-lg-2 {
+  text-align: center;
+}
+
+.nav-item.col-lg-2 a {
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+}
+
 .navbar-expand-lg .navbar-nav .nav-link.active,
 .navbar-expand-lg .navbar-nav .nav-link:hover {
   background: rgba(255, 255, 255, 0.8) !important;
@@ -596,6 +608,11 @@ select.form-control {
   .nav-item.col-lg-3 a {
     font-size: 16px;
   }
+
+  .nav-item.col-lg-2 a {
+    font-size: 16px;
+  }
+
   .nav-logo {
     margin: 0px 2px;
   }
@@ -752,6 +769,20 @@ select.form-control {
   .nav-item.col-lg-3:nth-child(3) {
     margin-top: 100px;
   }
+
+  .nav-item.col-lg-2 {
+    margin-top: 40px;
+  }
+  .nav-item.col-lg-2 a {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .nav-item.col-lg-2:nth-child(3) {
+    margin-top: 100px;
+  }
+
   .nav-item .docs-item {
     text-decoration: none;
     font-weight: 700 !important;
@@ -2367,8 +2398,8 @@ section.roadmap .row.right {
 /* Team */
 section.team {
   position: relative;
+  padding-bottom: 400px;
 }
-
 section.team .background {
   background-color: #fff;
   background-image: url("../img/Asset\ 2\ 7.png");
@@ -2402,7 +2433,23 @@ section.team .team-member {
   margin: 30px 15px 0px;
 }
 
+section.team .team-members {
+  margin: 30px 30px 0px;
+}
+
 section.team .avatar img {
+  box-shadow: 0px 100px 80px rgba(0, 248, 255, 0.12),
+    0px 41.7776px 33.4221px rgba(0, 248, 255, 0.0862625),
+    0px 22.3363px 17.869px rgba(0, 248, 255, 0.0715329),
+    0px 12.5216px 10.0172px rgba(0, 248, 255, 0.06),
+    0px 6.6501px 5.32008px rgba(0, 248, 255, 0.0484671),
+    0px 2.76726px 2.21381px rgba(0, 248, 255, 0.0337375);
+  border-radius: 215px;
+  border: solid 3px #f9fcfc;
+}
+
+section.team .avatar-team img {
+  width: 200px;
   box-shadow: 0px 100px 80px rgba(0, 248, 255, 0.12),
     0px 41.7776px 33.4221px rgba(0, 248, 255, 0.0862625),
     0px 22.3363px 17.869px rgba(0, 248, 255, 0.0715329),
@@ -2430,11 +2477,34 @@ section.team .team-member span {
   color: #3b3ba7;
 }
 
+section.team .team-members h4 {
+  margin-top: 24px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+  text-align: center;
+  color: #00008a;
+}
+
+section.team .team-members span {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #3b3ba7;
+}
+
 @media (max-width: 768px) {
+  section.team {
+    padding-bottom: 260px;
+  }
   section.team .team-wrap {
     top: 0px;
   }
   section.team .avatar img {
+    max-width: 215.6px;
+  }
+  section.team .avatar-team img {
     max-width: 215.6px;
   }
   section.team .team-member h4 {
@@ -2450,9 +2520,26 @@ section.team .team-member span {
   section.team .team-member {
     margin: 15px 15px 0px;
   }
+
+  section.team .team-members h4 {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  section.team .team-members span {
+    margin-top: 12px;
+    font-size: 10px;
+    line-height: 13px;
+  }
+  section.team .team-members {
+    margin: 15px 15px 0px;
+  }
 }
 
 @media (max-width: 576px) {
+  section.team {
+    padding-bottom: 240px;
+  }
   section.team .background {
     height: 1000px;
   }
@@ -2460,6 +2547,9 @@ section.team .team-member span {
     margin-top: -1000px;
   }
   section.team .avatar img {
+    max-width: 100px;
+  }
+  section.team .avatar-team img {
     max-width: 100px;
   }
   section.team .team-member h4 {
@@ -2474,6 +2564,21 @@ section.team .team-member span {
     line-height: 11px;
   }
   section.team .team-member {
+    margin: 30px 8px 0px;
+  }
+
+  section.team .team-members h4 {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 12px;
+    margin-bottom: 0px;
+  }
+  section.team .team-members span {
+    margin-top: 6px;
+    font-size: 9px;
+    line-height: 11px;
+  }
+  section.team .team-members {
     margin: 30px 8px 0px;
   }
 }
@@ -2794,6 +2899,90 @@ section.race-a-buddi .wrap h1 {
     padding-bottom: 40%;
   }
   section.race-a-buddi .wrap h1 {
+    font-size: 46px;
+    line-height: 50px;
+    margin-top: 10%;
+  }
+}
+
+/* Team Header */
+section.teamHeader {
+  background-color: #fff;
+  background: url("../img/unknown 1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+section.teamHeader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: url("../img/Asset 15 3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 80%;
+  filter: blur(50px);
+  opacity: 0.6;
+}
+
+section.teamHeader::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+  height: 20%;
+}
+
+section.teamHeader .wrap {
+  padding-bottom: 20%;
+  text-align: center;
+}
+
+section.teamHeader .wrap h1 {
+  font-weight: 900;
+  font-size: 200px;
+  line-height: 218px;
+  color: #ffffff;
+  margin-top: 10%;
+}
+
+@media (max-width: 1600px) {
+  section.teamHeader .wrap h1 {
+    font-size: 160px;
+    line-height: 172px;
+  }
+}
+
+@media (max-width: 1200px) {
+  section.teamHeader .wrap h1 {
+    font-size: 100px;
+    line-height: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  section.teamHeader .wrap h1 {
+    font-size: 100px;
+    line-height: 109px;
+  }
+}
+
+@media (max-width: 576px) {
+  section.teamHeader .wrap {
+    padding-bottom: 40%;
+  }
+  section.teamHeader .wrap h1 {
     font-size: 46px;
     line-height: 50px;
     margin-top: 10%;
