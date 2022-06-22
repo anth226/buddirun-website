@@ -2,6 +2,27 @@ import React, { useEffect, useState } from "react";
 
 export default function Race() {
   const [element, setElement] = useState("breed");
+  // List of the Gameplay elements
+  const elementsList = ["breed", "wearables", "bond", "generate"]
+  // Initial element to start the loop (from elementsList)
+  let initElement = 0
+
+  useEffect(() => {
+    const gamePlayElAnimInterval = setInterval(() => {
+      setElement(elementsList[initElement])
+        if (elementsList[initElement+1] != null ) {
+          initElement = initElement + 1
+        } else {
+          initElement = 0
+        }
+    }, 3000)
+
+    return stop = (e) => {
+      const gameElID = e?.currentTarget.dataset.id;
+      clearInterval(gamePlayElAnimInterval);
+      setElement(gameElID);
+    }
+  }, [setInterval, clearInterval, setElement,]);
 
   return (
     <section className="race">
@@ -80,27 +101,23 @@ export default function Race() {
               <div className="row row-cols-2 w-100 h-100 mx-0">
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("generate");
-                  }}
+                  data-id={"generate"}
+                  onClick = {stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("breed");
-                  }}
+                  data-id={"breed"}
+                  onClick = {stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("bond");
-                  }}
+                  data-id={"bond"}
+                  onClick = {stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("wearables");
-                  }}
+                  data-id={"wearables"}
+                  onClick = {stop}
                 ></div>
               </div>
             </div>
