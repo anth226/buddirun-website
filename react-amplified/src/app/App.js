@@ -15,9 +15,7 @@ function App() {
   const [datastoreStatus, setDatastoreStatus] = useState(DatastoreStatus.INIT);
 
   useEffect(() => {
-    const subscription = DataStore.observe(User).subscribe((msg) => {
-      console.log('GOT USER MODEL', msg.model, msg.opType, msg.element);
-    });
+    let userSubscription;
     const datastoreListener = Hub.listen("datastore", async hubData => {
       const {event, data} = hubData.payload;
       if (event === "ready") {
@@ -25,6 +23,11 @@ function App() {
         const loggedIn = await updateAuth();
         if (loggedIn) {
           setDatastoreStatus(DatastoreStatus.LOGGED_IN);
+          if (!userSubscription) {
+            userSubscription = DataStore.observe(User).subscribe((msg) => {
+              // console.log('GOT USER MODEL', msg.model, msg.opType, msg.element);
+            });
+          }
         }
       }
     });
@@ -38,6 +41,12 @@ function App() {
           const loggedIn = await updateAuth();
           if (loggedIn) {
             setDatastoreStatus(DatastoreStatus.LOGGED_IN);
+            DataStore.start();
+            if (!userSubscription) {
+              userSubscription = DataStore.observe(User).subscribe((msg) => {
+                // console.log('GOT USER MODEL', msg.model, msg.opType, msg.element);
+              });
+            }
           }
           break;
         case "signOut":
@@ -59,7 +68,9 @@ function App() {
     });
 
     return () => {
-      subscription.unsubscribe();
+      if (userSubscription) {
+        userSubscription.unsubscribe(); // SEARCH: subscription = DataStore.observe
+      }
       datastoreListener();
       authListener();
     }
