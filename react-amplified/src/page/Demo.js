@@ -183,27 +183,29 @@ export default function Demo() {
     setPlayerPositionText(formatPlayerPosition(playerPosition));
 
     console.log('REWARD ?', reward);
-    if (!reward) {
-      setOpenEndGameLoseModal(true);
-    } else {
-      setPlayerRewardText(`${reward} ${formatPlural('Energy Cell', reward)}`);
-      setOpenEndGameWinModal(true);
-      let stockData = {};
-      console.log('TEST CURRENT STOCK DATA', userStock);
-      stockData = {
-        ...userStock,
-        energyCell: userStock.energyCell + reward
-      }
-
-      setUserStock(stockData);
-
-      if (datastoreStatus !== DatastoreStatus.LOGGED_IN) {
-        setShowSignupReminder(true);
+    setTimeout(() => {
+      if (!reward) {
+        setOpenEndGameLoseModal(true);
       } else {
-        console.log('UPDATE USER DATA AFTER WIN', stockData);
-        updateUserStock(stockData);
+        setPlayerRewardText(`${reward} ${formatPlural('Energy Cell', reward)}`);
+        setOpenEndGameWinModal(true);
+        let stockData = {};
+        console.log('TEST CURRENT STOCK DATA', userStock);
+        stockData = {
+          ...userStock,
+          energyCell: userStock.energyCell + reward
+        }
+
+        setUserStock(stockData);
+
+        if (datastoreStatus !== DatastoreStatus.LOGGED_IN) {
+          setShowSignupReminder(true);
+        } else {
+          console.log('UPDATE USER DATA AFTER WIN', stockData);
+          updateUserStock(stockData);
+        }
       }
-    }
+    }, 7000);
   }, [selectedRace]);
 
   useEffect(() => {
