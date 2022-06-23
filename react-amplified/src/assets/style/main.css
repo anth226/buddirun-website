@@ -4228,6 +4228,10 @@ section.wallet .btn-mint {
   color: #ffffff;
 }
 
+.profile .box .wallet-info .status {
+  cursor: pointer;
+}
+
 .profile .box .wallet-info .clipboard {
   cursor: pointer;
   margin-right: 24px;
