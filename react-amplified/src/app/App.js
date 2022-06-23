@@ -3,7 +3,7 @@ import "../assets/style/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import { DataStore, Hub } from "aws-amplify";
+import {Auth, DataStore, Hub} from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { User } from "../models";
@@ -16,6 +16,17 @@ function App() {
 
   useEffect(() => {
     let userSubscription;
+    // TODO: Optimize the check for logged in User is order to start Datastore
+    Auth.currentSession()
+      .then((session) => {
+        console.log('TEST SESSION', session, datastoreStatus);
+        if (datastoreStatus < DatastoreStatus.READY) {
+          DataStore.start();
+        }
+      })
+      .catch((sessionErr) => {
+        console.warn('Failed getting session', sessionErr);
+      })
     const datastoreListener = Hub.listen("datastore", async hubData => {
       const {event, data} = hubData.payload;
       if (event === "ready") {
@@ -74,7 +85,7 @@ function App() {
       datastoreListener();
       authListener();
     }
-  }, []);
+  }, [setDatastoreStatus]);
 
   return (
     <Authenticator.Provider>
