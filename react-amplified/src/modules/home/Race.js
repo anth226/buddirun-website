@@ -31,62 +31,8 @@ export default function Race() {
         <div className="race-img text-center">
           <img src="img/RACE.png" />
         </div>
-        <div className="slider d-none d-sm-flex position-relative align-items-center justify-content-center">
-          <div className="pre-btn">
-            <img src="img/Asset 3 1.png" />
-          </div>
-          <div className="previous">
-            <img src="img/Asset 1 8.png" />
-          </div>
-          <div className="center">
-            <img src="img/spinning wheels obstacles 1.png" />
-          </div>
-          <div className="next">
-            <img src="img/Asset 1 8.png" />
-          </div>
-          <div className="next-btn">
-            <img src="img/Asset 2 1.png" />
-          </div>
-          <div className="play-btn">
-            <svg
-              width="87"
-              height="106"
-              viewBox="0 0 87 106"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-        </div>
-        <div className="slider-responsive d-block d-sm-none">
-          <div className="position-relative">
-            <div className="center">
-              <img src="img/spinning wheels obstacles 1.png" />
-            </div>
-            <div className="play-btn">
-              <svg
-                width="87"
-                height="106"
-                viewBox="0 0 87 106"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-          </div>
-          <div className="slide-bar d-flex">
-            <div className="slide-item"></div>
-            <div className="slide-item center"></div>
-            <div className="slide-item"></div>
-          </div>
+        <div className="text-center" style={{ width: "100%", height: "45vw", marginTop: "-20px", position: "relative"}}>
+          <iframe src="https://www.youtube.com/embed/dfWVx6HW2EQ" style={{ border: "5px solid white", borderRadius: "30px", height: "100%", width: "80%", boxShadow: "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)" }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <p className="paragraph">
         Buddi are ready to race as soon as they are born. <br/>
