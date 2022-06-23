@@ -11,51 +11,57 @@ export default function Section3() {
         <div className="container-fluid">
         <br/><br/>
           <div className="row justify-content-md-center justify-content-sm-center">
-            <div className="col-6 col-lg-4 offset-xxl-1 col-xxl-2">
+            <div className="d-none d-xl-flex col-xl-1"></div>
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.spider.spider3.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.armadillo.armadillo1.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.whale.whale3.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.crocodile.crocodile3.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.sloth.sloth1.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 offset-xxl-1 col-xxl-2">
+            <div className="d-none d-xl-flex col-xl-1"></div>
+            <div className="d-none d-xl-flex col-xl-1"></div>
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.spider.spider1.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.armadillo.armadillo3.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.whale.whale2.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.crocodile.crocodile2.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.sloth.sloth2.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 offset-xxl-1 col-xxl-2">
+            <div className="d-none d-xl-flex col-xl-1"></div>
+            <div className="d-none d-xl-flex col-xl-1"></div>
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.spider.spider2.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.armadillo.armadillo2.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.whale.whale1.imgUrl} />
             </div>
-            <div className="col-6 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.crocodile.crocodile1.imgUrl} />
             </div>
-            <div className="col-5 col-lg-4 col-xxl-2">
+            <div className="col-6 col-md-4 col-xl-2">
               <Buddi imgUrl={BuddiesList.sloth.sloth3.imgUrl} />
             </div>
+            <div className="d-none d-xl-flex col-xl-1"></div>
           </div>
         </div>
       </div>
