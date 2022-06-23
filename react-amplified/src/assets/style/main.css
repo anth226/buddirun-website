@@ -380,6 +380,13 @@ select.form-control {
   color: #ffffff !important;
 }
 
+.social-links-float {
+  margin-top: -20rem;
+  display: block;
+  right: 0;
+  max-width: 80px;
+}
+
 .dropdown-toggle::after {
   display: inline-block;
   margin-left: 10px !important;
@@ -481,7 +488,8 @@ select.form-control {
   top: 0;
   right: 0;
   left: 0;
-  background: url("../img/Asset 16 1.png");
+  /*background: url("../img/Asset 16 1.png");*/
+  background: url("../img/bg-section1-alt.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -881,14 +889,22 @@ select.form-control {
     padding-right: 15px !important;
     padding-left: 15px !important;
   }
+  .nav-container {
+    justify-content: start !important;
+  }
   .navbar-nav {
     margin-right: 0px;
   }
   .navbar-brand {
-    width: 100%;
+    width: auto;
+    margin-right: 0px !important;
   }
   .navbar-brand img {
     width: 127px;
+  }
+
+  .social-links-float {
+    margin-top: -22rem;
   }
   .section1-box {
     top: 33%;
@@ -896,6 +912,7 @@ select.form-control {
     max-height: 283px;
     padding: 20px 18px;
     border-radius: 19.9321px;
+    margin-top: 80px;
   }
   .section1-box h2 {
     font-size: 26px;
@@ -2903,6 +2920,9 @@ section.race-a-buddi .wrap h1 {
 }
 
 @media (max-width: 576px) {
+  section.race-a-buddi .social-links-float {
+    margin-top: -9rem;
+  }
   section.race-a-buddi .wrap {
     padding-bottom: 40%;
   }
@@ -2987,6 +3007,9 @@ section.teamHeader .wrap h1 {
 }
 
 @media (max-width: 576px) {
+  section.teamHeader .social-links-float {
+    margin-top: -9rem;
+  }
   section.teamHeader .wrap {
     padding-bottom: 40%;
   }

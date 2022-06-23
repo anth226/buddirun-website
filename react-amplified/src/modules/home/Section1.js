@@ -18,7 +18,7 @@ export default function Section1() {
               PLAY VIDEO
             </button>
           </div>
-          <div className="position-absolute" style={{ marginTop: "-20rem", display: "block", left: "90%" }}>
+          <div className="position-absolute social-links-float">
             <div className="w-auto m-1" style={{ float: "right", display: "block"}}>
               <a
                 href="https://discord.gg/U4tsfjvcWP"

@@ -119,7 +119,7 @@ export default function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
+        <div className="container-fluid nav-container">
           <a className="navbar-brand" href="/">
             <img src="img/top nav.png" alt="ocmp.svg" className="img-fluid" />
           </a>
@@ -167,7 +167,7 @@ export default function Header() {
                   }`}
                   aria-current="page"
                   onClick={() => {
-                    active !== "/page" && handleClose();
+                    active !== "/" && handleClose();
                   }}
                 >
                   HOME
@@ -177,13 +177,13 @@ export default function Header() {
                 <Link
                   to={APP_ROUTES.Demo.path}
                   className={`nav-link h-100 d-flex align-items-center justify-content-center ${
-                    active === "/demo" && "active"
+                    active === APP_ROUTES.Demo.path && "active"
                   }`}
                   onClick={() => {
-                    active !== "/demo" && handleClose();
+                    active !== APP_ROUTES.Demo.path && handleClose();
                   }}
                 >
-                  DEMO
+                  RACE
                 </Link>
               </li>
               <li className="nav-item col-lg-2 h-100 p-0 position-relative">
@@ -293,7 +293,7 @@ export default function Header() {
               </li>
             </ul>
           </div>
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav">
             <li className="nav-item">
               {!user ? (
                 <button
