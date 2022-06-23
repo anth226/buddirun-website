@@ -9,8 +9,8 @@ export const APP_ROUTES = {
     path: "/",
     Component: Home,
   },
-  Demo: {
-    path: "/demo",
+  Race: {
+    path: "/race",
     devOnly: true,
     Component: Demo,
   },

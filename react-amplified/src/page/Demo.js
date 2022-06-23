@@ -393,7 +393,7 @@ export default function Demo() {
               <div>
                 <h4>Connect your wallet</h4>
                 <p>Complete your account and connect your wallet to keep the energy cells you win. </p>
-                <Link to={APP_ROUTES.Profile.path} state={{from: APP_ROUTES.Demo.path}}>
+                <Link to={APP_ROUTES.Profile.path} state={{from: APP_ROUTES.Race.path}}>
                   Connect
                 </Link>
               </div>

@@ -158,12 +158,12 @@ export default function Header() {
                 </div>
               </div>
             )}
-            <ul className="navbar-nav me-auto navbar-list row">
+            <ul className="navbar-nav me-auto navbar-list">
               <li className="nav-item col-lg-3 h-100 p-0">
                 <Link
                   to="/"
-                  className={`nav-link h-100 d-flex align-items-center justify-content-center  ${
-                    active === "/" && "active"
+                  className={`nav-link h-100 d-flex align-items-center justify-content-center${
+                    active === "/" ? " active" : ''
                   }`}
                   aria-current="page"
                   onClick={() => {
@@ -175,12 +175,12 @@ export default function Header() {
               </li>
               <li className="nav-item col-lg-2 h-100 p-0">
                 <Link
-                  to={APP_ROUTES.Demo.path}
-                  className={`nav-link h-100 d-flex align-items-center justify-content-center ${
-                    active === APP_ROUTES.Demo.path && "active"
+                  to={APP_ROUTES.Race.path}
+                  className={`nav-link h-100 d-flex align-items-center justify-content-center${
+                    active === APP_ROUTES.Race.path ? " active" : ''
                   }`}
                   onClick={() => {
-                    active !== APP_ROUTES.Demo.path && handleClose();
+                    active !== APP_ROUTES.Race.path && handleClose();
                   }}
                 >
                   RACE
@@ -191,9 +191,7 @@ export default function Header() {
                   <a
                     href="/documents"
                     id="docsDropdown"
-                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center ${
-                      active === "/documents" && "active"
-                    }`}
+                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center`}
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -205,34 +203,33 @@ export default function Header() {
                     aria-labelledby="docsDropdown"
                   >
                     <li>
-                      <Link to="/whitepaper" className="dropdown-item d-flex">
+                      <a href="https://basha-games.gitbook.io/buddi-run-whitepaper/" className="dropdown-item d-flex">
                         <span>Whitepaper</span>
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link to="/pitch-deck" className="dropdown-item d-flex">
+                      <a href="#" className="dropdown-item d-flex" disabled="disabled">
                         <span>Pitch Deck</span>
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>
                 <div className="d-block d-lg-none h-100">
-                  <a
-                    href="/documents"
+                  <span
                     className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
                   >
                     DOCS
-                  </a>
+                  </span>
                   <ul className="w-100 list-unstyled">
                     <li className="mt-2">
-                      <Link to="/whitepaper" className="docs-item">
+                      <a href="https://basha-games.gitbook.io/buddi-run-whitepaper/" className="nav-link docs-item">
                         <span>Whitepaper</span>
-                      </Link>
+                      </a>
                     </li>
                     <li className="mt-2">
-                      <Link to="/pitch-deck" className="docs-item">
+                      <a href="#" className="nav-link docs-item" disabled="disabled">
                         <span>Pitch Deck</span>
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -240,11 +237,11 @@ export default function Header() {
               <li className="nav-item col-lg-2 h-100 p-0">
                 <Link
                   to="/mint"
-                  className={`nav-link h-100 d-flex align-items-center justify-content-center ${
-                    active === "/mint" && "active"
+                  className={`nav-link h-100 d-flex align-items-center justify-content-center${
+                    active === "/mint" ? " active" : ''
                   }`}
                   onClick={() => {
-                    active !== "/mint" && handleClose();
+                    active !== APP_ROUTES.Mint.path && handleClose();
                   }}
                 >
                   MINT
@@ -255,9 +252,7 @@ export default function Header() {
                   <a
                     href="/more"
                     id="moreDropdown"
-                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center ${
-                      active === "/documents" && "active"
-                    }`}
+                    className={`nav-link dropdown-toggle h-100 d-flex align-items-center justify-content-center`}
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -273,19 +268,38 @@ export default function Header() {
                         <span>Team</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/faq" className="dropdown-item d-flex" disabled="disabled">
+                        <span>FAQ</span>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="d-block d-lg-none h-100">
-                  <a
-                    href="/more"
+                  <span
                     className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
                   >
                     MORE
-                  </a>
+                  </span>
                   <ul className="w-100 list-unstyled">
                     <li className="mt-2">
-                      <Link to="/team" className="docs-item">
+                      <Link
+                        to="/team"
+                        className={`nav-link docs-item${ active === APP_ROUTES.Team.path ? " active" : ''}`}
+                        onClick={() => {
+                          active !== APP_ROUTES.Team.path && handleClose();
+                        }}
+                      >
                         <span>Team</span>
+                      </Link>
+                    </li>
+                    <li className="mt-2">
+                      <Link
+                        to="/faq"
+                        className={`nav-link docs-item`/* TODO: Add active class if route is current & add onClick handler */}
+                        disabled="disabled"
+                      >
+                        <span>FAQ</span>
                       </Link>
                     </li>
                   </ul>
@@ -374,7 +388,7 @@ export default function Header() {
             </li>
           </ul>
           <button
-            className={`navbar-toggler ${open && "close-toggle"} collapsed`}
+            className={`navbar-toggler${open ? " close-toggle" : ''} collapsed`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarList"
@@ -417,14 +431,14 @@ export default function Header() {
         </div>
       </nav>
       <div
-        className={`collapse navbar-collapse navbarAuth ${
-          openAuth ? "show" : ""
+        className={`collapse navbar-collapse navbarAuth${
+          openAuth ? " show" : ""
         }`}
         id="navbarAuth"
       >
         <button
-          className={`navbar-toggle close-auth-toggle ${
-            openAuth && "active"
+          className={`navbar-toggler close-auth-toggle${
+            openAuth ? " active" : ""
           } collapsed`}
           type="button"
           onClick={() => handleOpenAuth()}

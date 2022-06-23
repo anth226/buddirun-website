@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "../layout/HeaderLayout";
+import {APP_ROUTES} from "../../app/routes";
+import { Link } from "react-router-dom";
 
 export default function Section1() {
   return (
@@ -14,9 +16,9 @@ export default function Section1() {
               Care, Breed, Race and Win with your unique Buddi. 
               </p>
             </div>
-            <button className="btn btn-playvideo text-center">
-              PLAY VIDEO
-            </button>
+            <Link to={APP_ROUTES.Race.path}>
+              <button className="btn btn-playvideo text-center">RACE A BUDDI</button>
+            </Link>
           </div>
           <div className="position-absolute social-links-float">
             <div className="w-auto m-1" style={{ float: "right", display: "block"}}>

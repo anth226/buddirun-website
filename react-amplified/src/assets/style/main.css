@@ -262,7 +262,9 @@ select.form-control {
 .navbar {
   padding-top: 45px !important;
 }
-
+.navbar-collapse {
+  justify-content: center;
+}
 .navbar-list {
   margin-left: 12% !important;
   transform: translateX(-12%);
@@ -277,41 +279,40 @@ select.form-control {
     #00c2ff 125.98%
   );
   border-radius: 54px;
-  place-items: center;
-  place-content: center;
 }
-
+.nav-item {
+  text-align: center;
+}
+.nav-item a.nav-link {
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+}
+.nav-item a.nav-link[disabled] {
+  opacity: 50%;
+  cursor: default;
+}
+.navbar-list .nav-item .nav-link:focus {
+  color: #FFFFFF;
+}
 .navbar-brand,
 .navbar-nav {
   z-index: 3;
 }
-
-.nav-item.col-lg-3, .nav-item.col-lg-2 {
-  text-align: center;
+.dropdown-item[disabled], .dropdown-item[disabled] {
+  opacity: 50%;
+  cursor: default;
 }
-
-.nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
-  color: #fff;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 20px;
-  text-align: center;
+.dropdown-item[disabled]:focus, .dropdown-item[disabled]:hover {
+  background-color: transparent;
 }
-
-.nav-item.col-lg-2 {
-  text-align: center;
+.dropdown-item[disabled]:focus span, .dropdown-item[disabled]:hover span {
+  color: #FFFFFF;
 }
-
-.nav-item.col-lg-2 a {
-  color: #fff;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 20px;
-  text-align: center;
-}
-
 .navbar-expand-lg .navbar-nav .nav-link.active,
-.navbar-expand-lg .navbar-nav .nav-link:hover {
+.navbar-expand-lg .navbar-nav .nav-link:not(span):not([disabled]):hover{
   background: rgba(255, 255, 255, 0.8) !important;
   color: #228de9;
 }
@@ -454,11 +455,17 @@ select.form-control {
 }
 
 .close-auth-toggle {
-  position: fixed;
+  /*position: fixed;*/
+  /*display: none !important;*/
+  /*background: transparent;*/
+  /*border: none;*/
+  /*right: 420px;*/
+}
+.navbar-toggler.close-auth-toggle {
   display: none !important;
-  background: transparent;
-  border: none;
-  right: 420px;
+  position: fixed;
+  right: 408px; /* Note: Same dimension as #navbarAuth */
+  top: 0;
 }
 
 .close-auth-toggle.active {
@@ -595,8 +602,10 @@ select.form-control {
   .container-fluid {
     max-width: 1200px;
   }
+
   .navbar-nav {
-    flex-direction: row !important;
+    /* NOTE:  This is practically useless */
+    flex-direction: row;
   }
   .navbar-nav .avatar img {
     width: 42px;
@@ -615,11 +624,7 @@ select.form-control {
     width: 450px;
     height: 50px;
   }
-  .nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
-    font-size: 16px;
-  }
-
-  .nav-item.col-lg-2 a {
+  .nav-item a.nav-link {
     font-size: 16px;
   }
 
@@ -701,53 +706,56 @@ select.form-control {
 }
 
 @media (max-width: 991px) {
-  .navbar-collapse {
-    flex-basis: 100%;
+  .navbar > .container-fluid.nav-container {
+    justify-content: flex-end;
+    padding-right: 0 !important;
+  }
+  .navbar-brand {
     flex-grow: 1;
-    align-items: center;
+  }
+  .navbar-brand img {
+    width: 127px;
+  }
+  .navbar-collapse {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100% !important;
     top: 0;
     max-width: 50vw;
     width: 100%;
-    right: -300px;
+    right: -50vw;
     z-index: 999;
     transition: all 0.3s linear;
-    background-color: #fff;
     background: linear-gradient(
         90deg,
         rgba(35, 140, 255, 0.8) -6.72%,
         #00c2ff 125.98%
       ),
       rgba(255, 255, 255, 0.5);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    filter: blur(0.2);
-    padding-top: 20vh;
   }
   .navbar-collapse.show {
-    display: block !important;
     right: 0;
   }
   .navbar-collapse.collapsing {
+    /* NOTE:  While collapsing, override the height set by Bootstrap */
     height: 100% !important;
+  }
+  .navbar-toggler {
+    z-index: 9999;
   }
   .navbar-toggler:focus {
     box-shadow: none !important;
   }
-  .navbar-toggler {
-    padding: 0;
-    position: absolute;
-    right: 0;
-    top: 55px;
-    z-index: 9999;
+  .navbar-toggler:not(.close-toggle) {
+    margin-left: 20px;
   }
-  .navbar-nav {
-    margin-right: 20px;
-  }
-  .close-toggle {
-    right: 50%;
+  .navbar-toggler.close-toggle,
+  .navbar-toggler.close-auth-toggle {
+    position: fixed;
+    right: 50vw;
+    top: 0;
   }
   .navbar-toggler svg path {
     transition: all 0.3s ease-in-out;
@@ -761,37 +769,65 @@ select.form-control {
   .close-toggle svg path:first-child {
     opacity: 0;
   }
-  .navbar-list {
+  .social-links-float .nav-logo {
+    margin: 0px 13px;
+  }
+  .social-links-float .nav-logo svg {
+    width: 24px;
+    height: 24px;
+  }
+  .navbar-nav.navbar-list {
     background: transparent;
     border: none;
     width: 100%;
-    margin-top: 40px !important;
+    height: auto;
+    margin-left: 0 !important;
+    transform: unset;
+    gap: 9vh;
   }
-  .nav-item.col-lg-3, .nav-item.col-lg-2 {
-    margin-top: 40px;
-  }
-  .nav-item.col-lg-3 a, .nav-item.col-lg-2 a {
+  .nav-item a.nav-link,
+  .nav-item a,
+  .nav-item span.nav-link {
     color: #ffffff;
     font-weight: 700;
     font-size: 18px;
     line-height: 20px;
   }
-  .nav-item.col-lg-3:nth-child(3), .nav-item.col-lg-2:nth-child(3) {
-    margin-top: 100px;
+  .nav-item a.nav-link[disabled] {
+    opacity: 20%;
+    cursor: default;
   }
-
-  .nav-item.col-lg-2 {
-    margin-top: 40px;
+  .navbar-expand-lg .navbar-list .nav-item:first-child .nav-link,
+  .navbar-expand-lg .navbar-list .nav-item:last-child .nav-link{
+    border-radius: unset;
   }
-  .nav-item.col-lg-2 a {
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 20px;
+  /* TODO: DELETE BELOW */
+  .navbar-collapse {
+    /*flex-basis: 100%;*/
+    /*flex-grow: 1;*/
+    /*align-items: center;*/
+    /*position: fixed;*/
+    /*height: 100% !important;*/
+    /*top: 0;*/
+    /*max-width: 50vw;*/
+    /*width: 100%;*/
+    /*right: -300px;*/
+    /*z-index: 999;*/
+    /*transition: all 0.3s linear;*/
+    /*background-color: #fff;*/
+    /*background: linear-gradient(
+        90deg,
+        rgba(35, 140, 255, 0.8) -6.72%,
+        #00c2ff 125.98%
+      ),
+      rgba(255, 255, 255, 0.5);*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+    /*filter: blur(0.2);*/
+    /*padding-top: 20vh;*/
   }
-  .nav-item.col-lg-2:nth-child(3) {
-    margin-top: 100px;
-  }
+  /* EO DELETE BELOW */
 
   .nav-item .docs-item {
     text-decoration: none;
@@ -800,19 +836,9 @@ select.form-control {
     line-height: 17px !important;
     text-transform: uppercase;
   }
-  .navbar-brand img {
-    width: 127px;
-  }
-  .nav-logo {
-    margin: 0px 13px;
-  }
-  .nav-logo svg {
-    width: 24px;
-    height: 24px;
-  }
   .btn-signin {
     padding: 12px 34px !important;
-    margin: 0px 12px;
+    margin: 0;
     font-size: 18px !important;
     line-height: 20px !important;
   }
@@ -889,11 +915,8 @@ select.form-control {
     padding-right: 15px !important;
     padding-left: 15px !important;
   }
-  .nav-container {
-    justify-content: start !important;
-  }
-  .navbar-nav {
-    margin-right: 0px;
+  .navbar-toggler:not(.close-toggle) {
+    margin-left: 0px;
   }
   .navbar-brand {
     width: auto;
@@ -939,19 +962,19 @@ select.form-control {
     height: 34.5px;
     margin-right: 28px;
   }
-  .navbar-toggler {
-    text-align-last: right;
-  }
-  .close-toggle {
-    right: 0%;
-    top: 70vh;
-  }
-  .btn-signin {
-    margin: 0px 0px 0px 12px;
+  .navbar-toggler.close-toggle,
+  .navbar-toggler.close-auth-toggle {
+    right: 1vw;
+    bottom: 10vh;
+    top: unset;
   }
   .navbar-collapse {
-    max-width: 100vw;
-    padding-top: 38vh;
+    max-width: unset;
+    justify-content: flex-end;
+  }
+  .navbar-nav.navbar-list {
+    gap: 7vh;
+    padding-bottom: 10vh;
   }
   .close-auth-toggle {
     right: 5%;
@@ -1146,7 +1169,6 @@ select.form-control {
     position: absolute;
     top: 5%;
     left: 40%;
-    transform: translate(-20%, -10%);
     width: 300px;
   }
   .section2 .background {
@@ -2046,6 +2068,10 @@ section.roadmap .roadmap-heading {
   border-radius: 8px;
   margin-bottom: 120px;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 section.roadmap .roadmap-heading h3 {
