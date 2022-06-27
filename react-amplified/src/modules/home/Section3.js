@@ -1,15 +1,17 @@
 import React from "react";
-import Buddi from "./Buddi"
-import BuddiesList from "../../assets/buddis.json"
-
+import Buddi from "./Buddi";
+import BuddiesList from "../../assets/buddis.json";
 
 export default function Section3() {
   return (
     <section className="section3">
       <div className="background"></div>
+      <h1 className="section-h1">MEET SOME BUDDIS</h1>
+
       <div className="section3-content">
         <div className="container-fluid">
-        <br/><br/>
+          <br />
+          <br />
           <div className="row justify-content-md-center justify-content-sm-center">
             <div className="d-none d-xl-flex col-xl-1"></div>
             <div className="col-6 col-md-4 col-xl-2">

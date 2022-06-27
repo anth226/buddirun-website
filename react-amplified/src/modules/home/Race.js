@@ -3,26 +3,27 @@ import React, { useEffect, useState } from "react";
 export default function Race() {
   const [element, setElement] = useState("breed");
   // List of the Gameplay elements
-  const elementsList = ["breed", "wearables", "bond", "generate"]
+  const elementsList = ["breed", "wearables", "bond", "generate"];
   // Initial element to start the loop (from elementsList)
-  let initElement = 0
+  let initElement = 0;
 
   useEffect(() => {
     const gamePlayElAnimInterval = setInterval(() => {
-      setElement(elementsList[initElement])
-        if (elementsList[initElement+1] != null ) {
-          initElement = initElement + 1
-        } else {
-          initElement = 0
-        }
-    }, 3000)
+      setElement(elementsList[initElement]);
+      if (elementsList[initElement + 1] != null) {
+        initElement = initElement + 1;
+      } else {
+        initElement = 0;
+      }
+    }, 3000);
 
-    return stop = (e) => {
+    // eslint-disable-next-line no-global-assign
+    return (stop = (e) => {
       const gameElID = e?.currentTarget.dataset.id;
       clearInterval(gamePlayElAnimInterval);
       setElement(gameElID);
-    }
-  }, [setInterval, clearInterval, setElement,]);
+    });
+  }, [setInterval, clearInterval, setElement]);
 
   return (
     <section className="race">
@@ -31,39 +32,60 @@ export default function Race() {
         <div className="race-img text-center">
           <img src="img/RACE.png" />
         </div>
-        <div className="text-center" style={{ width: "100%", height: "45vw", marginTop: "-20px", position: "relative"}}>
-          <iframe src="https://www.youtube.com/embed/dfWVx6HW2EQ" style={{ border: "5px solid white", borderRadius: "30px", height: "100%", width: "80%", boxShadow: "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)" }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div
+          className="text-center"
+          style={{
+            width: "100%",
+            height: "45vw",
+            marginTop: "-20px",
+            position: "relative",
+          }}
+        >
+          <iframe
+            src="https://www.youtube.com/embed/dfWVx6HW2EQ"
+            style={{
+              border: "5px solid white",
+              borderRadius: "30px",
+              height: "100%",
+              width: "80%",
+              boxShadow:
+                "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)",
+            }}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
         <p className="paragraph">
-        Buddi are ready to race as soon as they are born. <br/>
-        Players enter Buddis into individual races or tournaments to win prize pools of Race Entry Tickets or Energy Cells.
+          Buddi are ready to race as soon as they are born. <br />
+          Players enter Buddis into individual races or tournaments to win prize
+          pools of Race Entry Tickets or Energy Cells.
         </p>
-        <h1>GAME PLAY ELEMENTS</h1>
+        <h1 className="section-h1">GAME PLAY ELEMENTS</h1>
         <div className="row mx-auto">
-          <div
-            className="col-12 col-lg-5 position-relative"
-          >
+          <div className="col-12 col-lg-5 position-relative">
             <div className="gameplay-box mx-auto">
               <div className="row row-cols-2 w-100 h-100 mx-0">
                 <div
                   className="gameplay-item"
                   data-id={"generate"}
-                  onClick = {stop}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
                   data-id={"breed"}
-                  onClick = {stop}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
                   data-id={"bond"}
-                  onClick = {stop}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
                   data-id={"wearables"}
-                  onClick = {stop}
+                  onClick={stop}
                 ></div>
               </div>
             </div>
@@ -73,10 +95,7 @@ export default function Race() {
               }`}
             >
               <div className="gameplay-img">
-                <img
-                  src="img/Frame 72.png"
-                  className="elementImage"
-                />
+                <img src="img/Frame 72.png" className="elementImage" />
               </div>
             </div>
             <div
@@ -170,7 +189,7 @@ export default function Race() {
                 <p>
                   Wearable NFT items add or enhance a skill of the Buddi wearing
                   it. Items can be bought in the shop, traded on the market and
-                  crafted when a player's Buddi(s) have collected enough
+                  crafted when a player&apos;s Buddi(s) have collected enough
                   materials.
                 </p>
               </div>
