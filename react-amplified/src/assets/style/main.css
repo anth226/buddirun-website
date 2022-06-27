@@ -850,9 +850,9 @@ select.form-control {
     font-weight: 400 !important;
     font-size: 16px !important;
     line-height: 24px !important;
-    right: -8%;
+    /*right: -8%;
     top: -13%;
-    transform: translate(8%, 13%);
+    transform: translate(8%, 13%);*/
   }
   .btn-playvideo svg {
     width: 32px;
@@ -880,19 +880,19 @@ select.form-control {
     padding-left: 30px !important;
   }
   .section1-box {
-    left: 40%;
-    transform: translateX(-40%);
+    /*left: 40%;
+    transform: translateX(-40%);*/
     max-width: 489.25px;
     max-height: 290.49px;
     padding: 35px 26.5px;
     border-radius: 29.9136px;
   }
   .section1-box h2 {
-    font-size: 42px;
+    font-size: 32px;
     line-height: 54px;
   }
   .section1-box p {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 17px;
   }
   .btn-playvideo {
@@ -1488,7 +1488,7 @@ select.form-control {
 @media (max-width: 768px) {
   .section3 {
     padding-bottom: 0px;
-    margin-top: 100px;
+    margin-top: 200px;
   }
   .section3 .background {
     height: fit-content;/*height: 1200px;*/
@@ -4655,3 +4655,32 @@ fieldset.amplify-flex .amplify-field-group__outer-end {
   line-height: 16px;
 }
 /* EO TOOLTIPS */
+
+.buddi img {
+  width: 100%;
+}
+
+/* Flex Buddies */
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flexItem {
+  width: 20%;
+}
+
+/* Responsive tablet */
+@media (max-width: 800px) {
+  .flexItem {
+    width: 33%;
+  }
+}
+
+/* Responsive mobile */
+@media (max-width: 600px) {
+  .flexItem {
+    width: 50%;
+  }
+}

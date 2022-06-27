@@ -1,6 +1,7 @@
 import React from "react";
-import Buddi from "./Buddi";
-import BuddiesList from "../../assets/buddis.json";
+import Buddi from "./Buddi"
+import BuddiListHome from "../../assets/buddi-list-home.json"
+
 
 export default function Section3() {
   return (
@@ -10,60 +11,14 @@ export default function Section3() {
 
       <div className="section3-content">
         <div className="container-fluid">
-          <br />
-          <br />
-          <div className="row justify-content-md-center justify-content-sm-center">
-            <div className="d-none d-xl-flex col-xl-1"></div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.spider.spider3.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.armadillo.armadillo1.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.whale.whale3.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.crocodile.crocodile3.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.sloth.sloth1.imgUrl} />
-            </div>
-            <div className="d-none d-xl-flex col-xl-1"></div>
-            <div className="d-none d-xl-flex col-xl-1"></div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.spider.spider1.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.armadillo.armadillo3.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.whale.whale2.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.crocodile.crocodile2.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.sloth.sloth2.imgUrl} />
-            </div>
-            <div className="d-none d-xl-flex col-xl-1"></div>
-            <div className="d-none d-xl-flex col-xl-1"></div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.spider.spider2.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.armadillo.armadillo2.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.whale.whale1.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.crocodile.crocodile1.imgUrl} />
-            </div>
-            <div className="col-6 col-md-4 col-xl-2">
-              <Buddi imgUrl={BuddiesList.sloth.sloth3.imgUrl} />
-            </div>
-            <div className="d-none d-xl-flex col-xl-1"></div>
+          <br/>
+          <br/>
+          <div className="flexContainer">
+            {BuddiListHome.map(budd => (
+              <div className="buddi flexItem">
+                <Buddi imgUrl={budd.imgUrl} />
+              </div>
+            ))}
           </div>
         </div>
       </div>

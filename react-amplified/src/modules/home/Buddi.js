@@ -1,14 +1,10 @@
 import React from "react";
-import BuddiesList from "../../assets/buddis.json"
+import BuddiesList from "../../assets/buddi-list-home.json"
 
 console.log(BuddiesList)
 
 export default function Buddi(props) {
   return (
-    <div className="" id="">
-      <div className="model">
-        <img src={props.imgUrl} style={{ width: "100%", marginTop: "2rem" }} />
-      </div>
-    </div>
+        <img src={props.imgUrl} />
   );
 }
