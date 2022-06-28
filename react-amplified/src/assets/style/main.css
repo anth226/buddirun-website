@@ -1221,7 +1221,7 @@ select.form-control {
 
 .section3-content {
   position: relative;
-  top: -100px;
+  top: -80px;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -1492,6 +1492,9 @@ select.form-control {
   }
   .section3 .background {
     height: fit-content;/*height: 1200px;*/
+  }
+  .section3-content {
+    top: -60px;
   }
   .section3 .box {
     max-width: 283px;
@@ -3614,12 +3617,13 @@ section.race-play .play-btn {
   transform: translate(-50%, -50%);
 }
 section.race-play .video-unity {
-  max-width: 0;
+  display: none;
+  width: 100%;
   transform: translateY(-30px);
   margin: 0 auto;
 }
 section.race-play .video-unity.active {
-  max-width: 1000px;
+  display: block;
 }
 section.race-play .video-unity::before {
   content: "";

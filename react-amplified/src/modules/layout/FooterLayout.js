@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <img src="img/Layer 2.png" />
           </div>
-          <span>© 2022 Buddy RUN. All rights reserved</span>
+          <span>© 2022 Buddi RUN. All rights reserved</span>
         </div>
         <div className="col-12 col-sm-7 link">
           <div className="row">

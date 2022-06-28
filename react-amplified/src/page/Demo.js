@@ -1,11 +1,16 @@
-import React, {useCallback, useEffect, useState} from "react";
-import ReactModal from 'react-modal';
+import React, { useCallback, useEffect, useState } from "react";
+import ReactModal from "react-modal";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import BuddiList from "../assets/buddi-list.json";
 import RaceList from "../assets/race-list.json";
-import { formatNumber, formatPlayerPosition, formatPlural, randomIntFromInterval } from "../assets/utils";
+import {
+  formatNumber,
+  formatPlayerPosition,
+  formatPlural,
+  randomIntFromInterval,
+} from "../assets/utils";
 import { DatastoreStatus, useDatastoreContext } from "../lib/contextLib";
 import AppUser from "../appModels/AppUser";
 import { Link } from "react-router-dom";
@@ -13,48 +18,50 @@ import { APP_ROUTES } from "../app/routes";
 const WebGLUnityFileURL = process.env.REACT_APP_WEBGL_FILES_URL;
 
 const statLabels = {
-  speed: 'Speed',
-  intel: 'Intell',
-  fitness: 'Fitness',
-  accel: 'Accel',
-  jump: 'Jump',
+  speed: "Speed",
+  intel: "Intell",
+  fitness: "Fitness",
+  accel: "Accel",
+  jump: "Jump",
 };
 
 export default function Demo() {
-  const [buddiList, setBuddiList] = useState([[],[]]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
-        [raceList, setRaceList] = useState([]),
-        [userStock, setUserStock] = useState({ // TODO: Find proper naming for userStock to represent the user stock in rewards
-          energyCell: 0
-        }),
-        [isGameStarted, setIsGameStarted] = useState(false),
-        [selectedBuddi, setSelectedBuddi] = useState(null),
-        [selectedRace, setSelectedRace] = useState(null),
-        [playerPositionText, setPlayerPositionText] = useState(''),
-        [playerRewardText, setPlayerRewardText] = useState(''),
-        [openEndGameWinModal, setOpenEndGameWinModal] = useState(false),
-        [openEndGameLoseModal, setOpenEndGameLoseModal] = useState(false),
-        [showSignupReminder, setShowSignupReminder] = useState(false);
+  const [buddiList, setBuddiList] = useState([[], []]), // NOTE: For sake of speed, I'll keep the concept of rows enforced in the UI
+    [raceList, setRaceList] = useState([]),
+    [userStock, setUserStock] = useState({
+      // TODO: Find proper naming for userStock to represent the user stock in rewards
+      energyCell: 0,
+    }),
+    [isGameStarted, setIsGameStarted] = useState(false),
+    [selectedBuddi, setSelectedBuddi] = useState(null),
+    [selectedRace, setSelectedRace] = useState(null),
+    [playerPositionText, setPlayerPositionText] = useState(""),
+    [playerRewardText, setPlayerRewardText] = useState(""),
+    [openEndGameWinModal, setOpenEndGameWinModal] = useState(false),
+    [openEndGameLoseModal, setOpenEndGameLoseModal] = useState(false),
+    [showSignupReminder, setShowSignupReminder] = useState(false);
 
   const updateUserStock = (userStock) => {
     const appUserModel = AppUser.getInstance();
-    appUserModel.updateProfileData({
-      rewards: {
-        ...userStock
-      }
-    })
-    .then((res) => {
-      console.log('USER PROFILE IS UPDATED');
-    })
-    .catch((err) => {
-      console.error('An error occurred while updating user profile\n', err);
-    });
-  }
+    appUserModel
+      .updateProfileData({
+        rewards: {
+          ...userStock,
+        },
+      })
+      .then((res) => {
+        console.log("USER PROFILE IS UPDATED");
+      })
+      .catch((err) => {
+        console.error("An error occurred while updating user profile\n", err);
+      });
+  };
 
   const fetchRandomBuddis = useCallback(() => {
     const topRowQty = 2,
-          buddiListKeys = Object.keys(BuddiList);
-    let availableBuddiList = [[],[]],
-        rowIndex = 0;
+      buddiListKeys = Object.keys(BuddiList);
+    let availableBuddiList = [[], []],
+      rowIndex = 0;
 
     // Pick a random Buddi in each Buddi group
     // NOTE: For sake of speed, we're using a standard FOR_LOOP to support the concept of rows enforced in the UI
@@ -72,8 +79,8 @@ export default function Demo() {
   }, []);
 
   const fetchRandomRaces = useCallback(() => {
-  const maxRaceQty = 3,
-        raceListKeys = Object.keys(RaceList);
+    const maxRaceQty = 3,
+      raceListKeys = Object.keys(RaceList);
     let availableRaces = [];
 
     // Pick 3 random races
@@ -95,7 +102,14 @@ export default function Demo() {
   const datastoreStatus = useDatastoreContext();
 
   // NOTE: Blocking Unity loader until optimized
-  const { unityProvider, isLoaded, loadingProgression, sendMessage, addEventListener, removeEventListener } = useUnityContext({
+  const {
+    unityProvider,
+    isLoaded,
+    loadingProgression,
+    sendMessage,
+    addEventListener,
+    removeEventListener,
+  } = useUnityContext({
     // LATEST
     loaderUrl: `${WebGLUnityFileURL}Webgl.loader.js`,
     dataUrl: `${WebGLUnityFileURL}Webgl.data`,
@@ -109,37 +123,39 @@ export default function Demo() {
     fetchRandomBuddis();
     fetchRandomRaces();
     setIsGameStarted(false);
-  }
+  };
 
   const closeModal = () => {
     resetGame();
     setOpenEndGameWinModal(false);
     setOpenEndGameLoseModal(false);
-  }
+  };
 
   const hideSignupReminder = () => {
     setShowSignupReminder(false);
-  }
+  };
 
   const handleBuddiSelection = (e) => {
     const selectedBuddiID = e.currentTarget.dataset.id;
-    const prevSelectedBuddiID = selectedBuddi ? selectedBuddi.id : '';
+    const prevSelectedBuddiID = selectedBuddi ? selectedBuddi.id : "";
     if (prevSelectedBuddiID === selectedBuddiID) {
       setSelectedBuddi(null);
       setSelectedRace(null);
     } else {
-      const buddiData = Object.values(BuddiList).flatMap((groupObj) => {
-        return Object.values(groupObj);
-      }).find((buddi) => {
-        return buddi.id === selectedBuddiID;
-      });
+      const buddiData = Object.values(BuddiList)
+        .flatMap((groupObj) => {
+          return Object.values(groupObj);
+        })
+        .find((buddi) => {
+          return buddi.id === selectedBuddiID;
+        });
       setSelectedBuddi(buddiData);
     }
-  }
+  };
 
   const handleRaceSelection = (e) => {
     const selectedRaceID = e.currentTarget.dataset.id;
-    const prevSelectedRaceID = selectedRace ? selectedRace.id : '';
+    const prevSelectedRaceID = selectedRace ? selectedRace.id : "";
     if (prevSelectedRaceID === selectedRaceID) {
       setSelectedRace(null);
     } else {
@@ -148,10 +164,10 @@ export default function Demo() {
       });
       setSelectedRace(raceData);
     }
-  }
+  };
 
   const handleStartGame = () => {
-    console.log('START GAME', isLoaded);
+    console.log("START GAME", isLoaded);
     if (!isLoaded) {
       console.warn("Can't start game, Unity is not loaded");
       return false;
@@ -160,72 +176,78 @@ export default function Demo() {
       playerID: selectedBuddi.id, // ID of the selected Buddi
       // race: selectedRace,
     };
-    console.log('TEST GAME PARAMS', gameParams);
+    console.log("TEST GAME PARAMS", gameParams);
     sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
     setIsGameStarted(true);
-  }
+  };
 
-  const handleEndGame = useCallback((data) => {
-    console.log('TEST END GAME', data, selectedRace);
-    let gameData = {};
-    try {
-      gameData = JSON.parse(data);
-    } catch (jsonParseErr) {
-      console.warn('Game data is invalid');
-      gameData = null;
-    }
-    let reward = 0;
-    const playerPosition = gameData ? gameData.playerPosition : '';
-    if (playerPosition && selectedRace) {
-      reward = selectedRace.payout[playerPosition] || 0;
-    }
-
-    setPlayerPositionText(formatPlayerPosition(playerPosition));
-
-    console.log('REWARD ?', reward);
-    setTimeout(() => {
-      if (!reward) {
-        setOpenEndGameLoseModal(true);
-      } else {
-        setPlayerRewardText(`${reward} ${formatPlural('Energy Cell', reward)}`);
-        setOpenEndGameWinModal(true);
-        let stockData = {};
-        console.log('TEST CURRENT STOCK DATA', userStock);
-        stockData = {
-          ...userStock,
-          energyCell: userStock.energyCell + reward
-        }
-
-        setUserStock(stockData);
-
-        if (datastoreStatus !== DatastoreStatus.LOGGED_IN) {
-          setShowSignupReminder(true);
-        } else {
-          console.log('UPDATE USER DATA AFTER WIN', stockData);
-          updateUserStock(stockData);
-        }
+  const handleEndGame = useCallback(
+    (data) => {
+      console.log("TEST END GAME", data, selectedRace);
+      let gameData = {};
+      try {
+        gameData = JSON.parse(data);
+      } catch (jsonParseErr) {
+        console.warn("Game data is invalid");
+        gameData = null;
       }
-    }, 7000);
-  }, [selectedRace]);
+      let reward = 0;
+      const playerPosition = gameData ? gameData.playerPosition : "";
+      if (playerPosition && selectedRace) {
+        reward = selectedRace.payout[playerPosition] || 0;
+      }
+
+      setPlayerPositionText(formatPlayerPosition(playerPosition));
+
+      console.log("REWARD ?", reward);
+      setTimeout(() => {
+        if (!reward) {
+          setOpenEndGameLoseModal(true);
+        } else {
+          setPlayerRewardText(
+            `${reward} ${formatPlural("Energy Cell", reward)}`
+          );
+          setOpenEndGameWinModal(true);
+          let stockData = {};
+          console.log("TEST CURRENT STOCK DATA", userStock);
+          stockData = {
+            ...userStock,
+            energyCell: userStock.energyCell + reward,
+          };
+
+          setUserStock(stockData);
+
+          if (datastoreStatus !== DatastoreStatus.LOGGED_IN) {
+            setShowSignupReminder(true);
+          } else {
+            console.log("UPDATE USER DATA AFTER WIN", stockData);
+            updateUserStock(stockData);
+          }
+        }
+      }, 7000);
+    },
+    [selectedRace]
+  );
 
   useEffect(() => {
     if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
       const appUserModel = AppUser.getInstance();
-      appUserModel.getOrCreateUser()
-          .then((appUser) => {
-            console.log('LOAD USER STOCK DATA', appUser);
-            setUserStock((currentStock) => {
-              const newStock = appUser.data.rewards || {
-                energyCell: 0
-              };
-              return {...currentStock, ...newStock};
-            });
-          })
-          .catch((err) => {
-            console.warn(err);
+      appUserModel
+        .getOrCreateUser()
+        .then((appUser) => {
+          console.log("LOAD USER STOCK DATA", appUser);
+          setUserStock((currentStock) => {
+            const newStock = appUser.data.rewards || {
+              energyCell: 0,
+            };
+            return { ...currentStock, ...newStock };
           });
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
     }
-    ReactModal.setAppElement('#root');
+    ReactModal.setAppElement("#root");
     if (buddiList[0].length === 0) {
       fetchRandomBuddis();
     }
@@ -249,46 +271,56 @@ export default function Demo() {
     <div>
       <ReactModal
         isOpen={openEndGameWinModal}
-        overlayClassName={'br-modal-overlay'}
-        className={'br-modal-content raceEnd-modal-content raceEnd-win text-center'}
+        overlayClassName={"br-modal-overlay"}
+        className={
+          "br-modal-content raceEnd-modal-content raceEnd-win text-center"
+        }
       >
         <h2>Winner</h2>
-        <div className={'center-box'}>
-          <img src="img/energy-cell.svg" alt="Energy Cell image" className={'energy-cell'} />
-          {selectedBuddi &&
-            <img src={selectedBuddi.imgUrl} className={'buddi-img'}/>
-          }
-          <div className={'rewardQty'}>
+        <div className={"center-box"}>
+          <img
+            src="img/energy-cell.svg"
+            alt="Energy Cell image"
+            className={"energy-cell"}
+          />
+          {selectedBuddi && (
+            <img src={selectedBuddi.imgUrl} className={"buddi-img"} />
+          )}
+          <div className={"rewardQty"}>
             <span>{parseInt(playerRewardText)}</span>
           </div>
         </div>
-        <p>Your Buddi placed {playerPositionText}<br/>and you win {playerRewardText}!</p>
-        <button
-          className={`primary-btn active`}
-          onClick={closeModal}
-        >
+        <p>
+          Your Buddi placed {playerPositionText}
+          <br />
+          and you win {playerRewardText}!
+        </p>
+        <button className={`primary-btn active`} onClick={closeModal}>
           Thanks
         </button>
       </ReactModal>
       <ReactModal
         isOpen={openEndGameLoseModal}
-        overlayClassName={'br-modal-overlay'}
-        className={'br-modal-content raceEnd-modal-content raceEnd-lose text-center'}
+        overlayClassName={"br-modal-overlay"}
+        className={
+          "br-modal-content raceEnd-modal-content raceEnd-lose text-center"
+        }
       >
         <h2>Better luck next time</h2>
-        <div className={'center-box'}>
-          {selectedBuddi &&
-          <img src={selectedBuddi.imgUrl} className={'buddi-img'}/>
-          }
-          <div className={'playerPos'}>
-            <span>{playerPositionText}<br/>Place</span>
+        <div className={"center-box"}>
+          {selectedBuddi && (
+            <img src={selectedBuddi.imgUrl} className={"buddi-img"} />
+          )}
+          <div className={"playerPos"}>
+            <span>
+              {playerPositionText}
+              <br />
+              Place
+            </span>
           </div>
         </div>
         <p>Your Buddi did not place in a payout position</p>
-        <button
-          className={`primary-btn active`}
-          onClick={closeModal}
-        >
+        <button className={`primary-btn active`} onClick={closeModal}>
           Try again
         </button>
       </ReactModal>
@@ -299,7 +331,10 @@ export default function Demo() {
             <h1>Race a Buddi</h1>
           </div>
           <div className="position-absolute social-links-float">
-            <div className="w-auto m-1" style={{ float: "right", display: "block"}}>
+            <div
+              className="w-auto m-1"
+              style={{ float: "right", display: "block" }}
+            >
               <a
                 href="https://discord.gg/U4tsfjvcWP"
                 target="_blank"
@@ -342,7 +377,10 @@ export default function Demo() {
                 </svg>
               </a>
             </div>
-            <div className="w-auto m-1" style={{ float: "right", display: "block"}}>
+            <div
+              className="w-auto m-1"
+              style={{ float: "right", display: "block" }}
+            >
               <a
                 href="https://twitter.com/BuddiRun"
                 target="_blank"
@@ -385,23 +423,33 @@ export default function Demo() {
             <h3>SELECT A BUDDI</h3>
             <hr />
           </div>
-          <div className={'rewardCol'}>
+          <div className={"rewardCol"}>
             <div className="energy-cell d-flex">
-              <h4>{ formatNumber(userStock.energyCell) }</h4>
-              <img src="img/energy-cell.svg" alt="Energy Cell image"/>
+              <h4>{formatNumber(userStock.energyCell)}</h4>
+              <img src="img/energy-cell.svg" alt="Energy Cell image" />
             </div>
-            <div className={'signupReminder' + (!showSignupReminder ? ' d-none' : '')}>
-              <img src={'img/icon-info.svg'}/>
+            <div
+              className={
+                "signupReminder" + (!showSignupReminder ? " d-none" : "")
+              }
+            >
+              <img src={"img/icon-info.svg"} />
               <div>
                 <h4>Connect your wallet</h4>
-                <p>Complete your account and connect your wallet to keep the energy cells you win. </p>
-                <Link to={APP_ROUTES.Profile.path} state={{from: APP_ROUTES.Race.path}}>
+                <p>
+                  Complete your account and connect your wallet to keep the
+                  energy cells you win.{" "}
+                </p>
+                <Link
+                  to={APP_ROUTES.Profile.path}
+                  state={{ from: APP_ROUTES.Race.path }}
+                >
                   Connect
                 </Link>
               </div>
               <button
                 type="button"
-                className={'close'}
+                className={"close"}
                 aria-label="Close signup reminder"
                 onClick={hideSignupReminder}
               >
@@ -426,30 +474,50 @@ export default function Demo() {
           <div className="content">
             {Array.from(buddiList, (buddiRow, rowIndex) => {
               let rowClassName = "row";
-              rowClassName += rowIndex > 0 ? ' justify-content-center' : ' justify-content-md-center';
+              rowClassName +=
+                rowIndex > 0
+                  ? " justify-content-center"
+                  : " justify-content-md-center";
               return (
                 <div className={rowClassName} key={`buddiRow-${rowIndex}`}>
                   {Array.from(buddiRow, (buddi, buddiIndex) => {
-                    let boxClassName = 'box';
-                    const selectedBuddiID = selectedBuddi ? selectedBuddi.id : ''
-                    boxClassName += selectedBuddiID === buddi.id ? ' active' : '';
+                    let boxClassName = "box";
+                    const selectedBuddiID = selectedBuddi
+                      ? selectedBuddi.id
+                      : "";
+                    boxClassName +=
+                      selectedBuddiID === buddi.id ? " active" : "";
                     const buddiUIKey = `buddiIndex-${buddiIndex}`,
-                          buddiStats = buddi.stats;
+                      buddiStats = buddi.stats;
                     return (
-                      <div className="col-6 col-xxl-4" key={buddiUIKey} data-id={buddi.id} onClick={handleBuddiSelection}>
-                        <div className={ boxClassName }>
+                      <div
+                        className="col-6 col-xxl-4"
+                        key={buddiUIKey}
+                        data-id={buddi.id}
+                        onClick={handleBuddiSelection}
+                      >
+                        <div className={boxClassName}>
                           <div className="info">
                             <div className="row h-100 align-items-center">
                               <div className="col-5 details">
                                 <div className="row row-cols-2">
-                                  {Array.from(Object.keys(buddiStats), (statKey, keyIndex) => {
-                                    return (
-                                      <React.Fragment key={`${buddiUIKey}-${keyIndex}`}>
-                                        <div className="col key">{statLabels[statKey]}</div>
-                                        <div className="col para">{buddiStats[statKey]}</div>
-                                      </React.Fragment>
-                                    );
-                                  })}
+                                  {Array.from(
+                                    Object.keys(buddiStats),
+                                    (statKey, keyIndex) => {
+                                      return (
+                                        <React.Fragment
+                                          key={`${buddiUIKey}-${keyIndex}`}
+                                        >
+                                          <div className="col key">
+                                            {statLabels[statKey]}
+                                          </div>
+                                          <div className="col para">
+                                            {buddiStats[statKey]}
+                                          </div>
+                                        </React.Fragment>
+                                      );
+                                    }
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -480,70 +548,77 @@ export default function Demo() {
           <div className="content">
             <table className="table d-none d-sm-table w-100">
               <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col" style={{ width: "18%" }}>
-                  Race name
-                </th>
-                <th scope="col" style={{ width: "18%" }}>
-                  Course name
-                </th>
-                <th scope="col" style={{ width: "18%" }}>
-                  Prize Pool
-                </th>
-                <th scope="col" style={{ width: "18%" }}>
-                  Entrants
-                </th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Race name
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Course name
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Prize Pool
+                  </th>
+                  <th scope="col" style={{ width: "18%" }}>
+                    Entrants
+                  </th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
               </thead>
               <tbody>
-              {Array.from(raceList, (race, raceIndex) => {
-                const maxEntrants = race.maxEntrants,
-                      selectedRaceID = selectedRace ? selectedRace.id : '',
-                      raceIsSelected = selectedRaceID === race.id && selectedBuddi,
-                      currentEntrantsQty = raceIsSelected ? maxEntrants : maxEntrants - 1;
-                return (
-                  <tr key={`race-${raceIndex}`}>
-                    <th scope="row">
-                      <img src="img/ic_round-energy-savings-leaf.png" />
-                    </th>
-                    <td className="race-name">{race.name}</td>
-                    <td>{race.course}</td>
-                    <td>{`${race.prizePool} EC`}</td>
-                    <td>{`${currentEntrantsQty}/${maxEntrants}`}</td>
-                    <td style={{ textAlign: "center" }}>
-                      <button
-                        className={`primary-btn${raceIsSelected ? ' active' : ''}`}
-                        aria-pressed={raceIsSelected}
-                        data-bs-toggle="button"
-                        disabled={!isLoaded || !selectedBuddi}
-                        data-id={race.id}
-                        onClick={handleRaceSelection}
-                      >
-                        Enter
-                      </button>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      <button
-                        className="primary-btn"
-                        disabled={!raceIsSelected}
-                        onClick={handleStartGame}
-                      >
-                        Confirm
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                {Array.from(raceList, (race, raceIndex) => {
+                  const maxEntrants = race.maxEntrants,
+                    selectedRaceID = selectedRace ? selectedRace.id : "",
+                    raceIsSelected =
+                      selectedRaceID === race.id && selectedBuddi,
+                    currentEntrantsQty = raceIsSelected
+                      ? maxEntrants
+                      : maxEntrants - 1;
+                  return (
+                    <tr key={`race-${raceIndex}`}>
+                      <th scope="row">
+                        <img src="img/ic_round-energy-savings-leaf.png" />
+                      </th>
+                      <td className="race-name">{race.name}</td>
+                      <td>{race.course}</td>
+                      <td>{`${race.prizePool} EC`}</td>
+                      <td>{`${currentEntrantsQty}/${maxEntrants}`}</td>
+                      <td style={{ textAlign: "center" }}>
+                        <button
+                          className={`primary-btn${
+                            raceIsSelected ? " active" : ""
+                          }`}
+                          aria-pressed={raceIsSelected}
+                          data-bs-toggle="button"
+                          disabled={!isLoaded || !selectedBuddi}
+                          data-id={race.id}
+                          onClick={handleRaceSelection}
+                        >
+                          Enter
+                        </button>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        <button
+                          className="primary-btn"
+                          disabled={!raceIsSelected}
+                          onClick={handleStartGame}
+                        >
+                          Confirm
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             {Array.from(raceList, (race, raceIndex) => {
               const maxEntrants = race.maxEntrants,
-                selectedRaceID = selectedRace ? selectedRace.id : '',
+                selectedRaceID = selectedRace ? selectedRace.id : "",
                 raceIsSelected = selectedRaceID === race.id && selectedBuddi,
-                currentEntrantsQty = raceIsSelected ? maxEntrants : maxEntrants - 1;
+                currentEntrantsQty = raceIsSelected
+                  ? maxEntrants
+                  : maxEntrants - 1;
               return (
                 <div key={raceIndex} className="d-block d-sm-none box">
                   <div className="row">
@@ -554,17 +629,21 @@ export default function Demo() {
                       <li className="race-name">{race.name}</li>
                       <li>{race.course}</li>
                       <li>
-                        Prize pool: <span className="text-muted">{`${race.prizePool} EC`}</span>
+                        Prize pool:{" "}
+                        <span className="text-muted">{`${race.prizePool} EC`}</span>
                       </li>
                       <li>
-                        Entrants: <span className="text-muted">{`${currentEntrantsQty}/${maxEntrants}`}</span>
+                        Entrants:{" "}
+                        <span className="text-muted">{`${currentEntrantsQty}/${maxEntrants}`}</span>
                       </li>
                     </ul>
                   </div>
                   <div className="row">
                     <div className="col-6">
                       <button
-                        className={`primary-btn${raceIsSelected ? ' active' : ''}`}
+                        className={`primary-btn${
+                          raceIsSelected ? " active" : ""
+                        }`}
                         aria-pressed={raceIsSelected}
                         data-bs-toggle="button"
                         disabled={!isLoaded || !selectedBuddi}
@@ -592,10 +671,16 @@ export default function Demo() {
       </section>
       <section className="race-play">
         <div className="container-fluid">
-          <div className={'text-center'}>
-            <div className="race-img text-center">
-              <img src="img/RACE.png" />
-            </div>
+          <div className="race-img text-center">
+            <img src="img/RACE.png" />
+          </div>
+          <div
+            className="text-center"
+            style={{
+              aspectRatio: 1.6,
+              margin: "auto",
+            }}
+          >
             <div
               className="video position-relative"
               style={{ display: isGameStarted ? "none" : "block" }}
@@ -603,20 +688,35 @@ export default function Demo() {
               <div className="center">
                 <img src="img/spinning wheels obstacles large.png" />
               </div>
-              { !isLoaded &&
+              {!isLoaded && (
                 <div className="progress">
-                  <div className="progress-bar" role="progressbar" style={{width: Math.round(loadingProgression * 100) + "%"}} aria-valuenow={Math.round(loadingProgression * 100)} aria-valuemin="0" aria-valuemax="100"></div>
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: Math.round(loadingProgression * 100) + "%",
+                    }}
+                    aria-valuenow={Math.round(loadingProgression * 100)}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
                 </div>
-              }
+              )}
             </div>
             {/*
               TODO: It seems the Unity component causes the following issue: Maximum update depth exceeded.
             */}
-            <div className={`video-unity${isGameStarted ? ' active' : ''}`}>
+            <div className={`video-unity${isGameStarted ? " active" : ""}`}>
               <Unity
-                style={{ visibility: isLoaded ? "visible" : "hidden", position: "relative", width: "100%", height: "100%"}}
+                style={{
+                  visibility: isLoaded ? "visible" : "hidden",
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: 1.6,
+                }}
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
+                matchWebGLToCanvasSize={true}
               />
             </div>
           </div>
@@ -624,6 +724,5 @@ export default function Demo() {
       </section>
       <Footer />
     </div>
-
   );
 }
