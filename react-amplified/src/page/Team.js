@@ -12,7 +12,10 @@ export default function Team() {
             <h1>Team</h1>
           </div>
           <div className="position-absolute social-links-float">
-            <div className="w-auto m-1" style={{ float: "right", display: "block"}}>
+            <div
+              className="w-auto m-1"
+              style={{ float: "right", display: "block" }}
+            >
               <a
                 href="https://discord.gg/U4tsfjvcWP"
                 target="_blank"
@@ -55,7 +58,10 @@ export default function Team() {
                 </svg>
               </a>
             </div>
-            <div className="w-auto m-1" style={{ float: "right", display: "block"}}>
+            <div
+              className="w-auto m-1"
+              style={{ float: "right", display: "block" }}
+            >
               <a
                 href="https://twitter.com/BuddiRun"
                 target="_blank"
@@ -98,8 +104,8 @@ export default function Team() {
               <div className="avatar-team">
                 <img src="img/Rectangle 12.png" />
               </div>
-              <h4>Ben Abramowitzh</h4>
-              <span>Operations & Marketing</span>
+              <h4>Ben Abramowitz</h4>
+              <span>Founder</span>
             </div>
             <div className="d-flex flex-column align-items-center team-members">
               <div className="avatar-team">
@@ -140,7 +146,7 @@ export default function Team() {
               <div className="avatar-team">
                 <img src="img/Rectangle 3.png" />
               </div>
-              <h4>Alexander Alin</h4>
+              <h4>Alexandre Alin</h4>
               <span>3D Character Artist</span>
             </div>
             <div className="d-flex flex-column align-items-center team-members">
@@ -155,7 +161,7 @@ export default function Team() {
                 <img src="img/Rectangle 4.png" />
               </div>
               <h4>Tucker Hicks</h4>
-              <span>Community manager</span>
+              <span>Community Developer</span>
             </div>
           </div>
         </div>
