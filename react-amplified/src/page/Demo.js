@@ -111,10 +111,10 @@ export default function Demo() {
     removeEventListener,
   } = useUnityContext({
     // LATEST
-    loaderUrl: `${WebGLUnityFileURL}Webgl.loader.js`,
-    dataUrl: `${WebGLUnityFileURL}Webgl.data`,
-    frameworkUrl: `${WebGLUnityFileURL}Webgl.framework.js`,
-    codeUrl: `${WebGLUnityFileURL}Webgl.wasm`,
+    loaderUrl: `${WebGLUnityFileURL}Webgl_Test3_SuperCompressed.loader.js`,
+    dataUrl: `${WebGLUnityFileURL}Webgl_Test3_SuperCompressed.data`,
+    frameworkUrl: `${WebGLUnityFileURL}Webgl_Test3_SuperCompressed.framework.js`,
+    codeUrl: `${WebGLUnityFileURL}Webgl_Test3_SuperCompressed.wasm`,
   });
 
   const resetGame = () => {
