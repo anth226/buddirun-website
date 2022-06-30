@@ -15,6 +15,8 @@ import { DatastoreStatus, useDatastoreContext } from "../lib/contextLib";
 import AppUser from "../appModels/AppUser";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../app/routes";
+import { isDesktop } from "react-device-detect";
+
 const WebGLUnityFileURL = process.env.REACT_APP_WEBGL_FILES_URL;
 
 const statLabels = {
@@ -101,6 +103,10 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
+  const fileName = isDesktop
+    ? "Webgl_Test4_1024Compressed"
+    : "Webgl_Test3_SuperCompressed";
+
   // NOTE: Blocking Unity loader until optimized
   const {
     unityProvider,
@@ -111,10 +117,10 @@ export default function Demo() {
     removeEventListener,
   } = useUnityContext({
     // LATEST
-    loaderUrl: `${WebGLUnityFileURL}Webgl_Test4_1024Compressed.loader.js`,
-    dataUrl: `${WebGLUnityFileURL}Webgl_Test4_1024Compressed.data`,
-    frameworkUrl: `${WebGLUnityFileURL}Webgl_Test4_1024Compressed.framework.js`,
-    codeUrl: `${WebGLUnityFileURL}Webgl_Test4_1024Compressed.wasm`,
+    loaderUrl: `${WebGLUnityFileURL}${fileName}.loader.js`,
+    dataUrl: `${WebGLUnityFileURL}${fileName}.data`,
+    frameworkUrl: `${WebGLUnityFileURL}${fileName}.framework.js`,
+    codeUrl: `${WebGLUnityFileURL}${fileName}.wasm`,
   });
 
   const resetGame = () => {
