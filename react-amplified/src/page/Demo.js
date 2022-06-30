@@ -15,7 +15,6 @@ import { DatastoreStatus, useDatastoreContext } from "../lib/contextLib";
 import AppUser from "../appModels/AppUser";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../app/routes";
-import { isDesktop } from "react-device-detect";
 
 const WebGLUnityFileURL = process.env.REACT_APP_WEBGL_FILES_URL;
 
@@ -103,9 +102,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = isDesktop
-    ? "Webgl_Test4_1024Compressed"
-    : "Webgl_Test3_SuperCompressed";
+  const fileName = "Webgl_Test3_SuperCompressed";
 
   // NOTE: Blocking Unity loader until optimized
   const {
@@ -683,7 +680,7 @@ export default function Demo() {
           <div
             className="text-center"
             style={{
-              aspectRatio: 1.6,
+              aspectRatio: 16 / 9,
               margin: "auto",
             }}
           >
@@ -718,7 +715,7 @@ export default function Demo() {
                   visibility: isLoaded ? "visible" : "hidden",
                   position: "relative",
                   width: "100%",
-                  aspectRatio: 1.6,
+                  aspectRatio: 16 / 9,
                 }}
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
