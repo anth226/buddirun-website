@@ -99,7 +99,10 @@ export default function Team() {
       </section>
       <section className="team" id="team">
         <div className="team-content">
-          <div className="d-flex flex-row flex-wrap justify-content-center">
+          <div
+            className="d-flex flex-row flex-wrap justify-content-center"
+            style={{ maxWidth: 1500 }}
+          >
             <div className="d-flex flex-column align-items-center team-members">
               <div className="avatar-team">
                 <img src="img/Rectangle 12.png" />

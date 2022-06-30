@@ -2460,6 +2460,11 @@ section.team .background {
   filter: blur(20px);
 }
 
+.team-content {
+  text-align: center;
+  text-align: -webkit-center;
+}
+
 section.team .team-wrap {
   position: relative;
   margin-top: -1400px;
