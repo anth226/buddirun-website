@@ -31,9 +31,9 @@ export default class AppUser {
   }
 
   resetVariables() {
-    this._userID = '';
-    this._username = '';
-    this._email = '';
+    this._userID = "";
+    this._username = "";
+    this._email = "";
   }
 
   getUserID() {
@@ -62,7 +62,9 @@ export default class AppUser {
       if (!this._userID) {
         return {};
       }
-      const getUserRes = await API.graphql(graphqlOperation(getUser, {id: this._userID}));
+      const getUserRes = await API.graphql(
+        graphqlOperation(getUser, { id: this._userID })
+      );
       let user = getUserRes.data.getUser;
 
       if (!user) {
@@ -70,10 +72,17 @@ export default class AppUser {
           id: this._userID,
           username: this._username,
           email: this._email,
-          data: {}
+          data: JSON.stringify({
+            rewards: {
+              energyCell: Number(localStorage.getItem("REWARDS")),
+            },
+          }),
         };
-        const createUserRes = await API.graphql(graphqlOperation(createUser, { input: userDetails }));
+        const createUserRes = await API.graphql(
+          graphqlOperation(createUser, { input: userDetails })
+        );
         user = createUserRes.data.createUser;
+        localStorage.removeItem("REWARDS");
       }
 
       let userData = {};
@@ -86,7 +95,7 @@ export default class AppUser {
 
       return user;
     } catch (err) {
-      console.error('An error occurred during getOrCreateUser\n', err);
+      console.error("An error occurred during getOrCreateUser\n", err);
     }
   }
 
@@ -96,14 +105,16 @@ export default class AppUser {
       const userDetails = {
         id: this._userID,
         email: this._email,
-        first_name: params['first_name'],
-        last_name: params['last_name'],
-      }
-      console.log('TEST USER DETAILS BEFORE updateUser', userDetails);
-      const updateUserRes = await API.graphql(graphqlOperation(updateUser, {input: userDetails}));
-      console.log('TEST updateUserRes', updateUserRes);
+        first_name: params["first_name"],
+        last_name: params["last_name"],
+      };
+      console.log("TEST USER DETAILS BEFORE updateUser", userDetails);
+      const updateUserRes = await API.graphql(
+        graphqlOperation(updateUser, { input: userDetails })
+      );
+      console.log("TEST updateUserRes", updateUserRes);
     } catch (err) {
-      console.error('An error occurred during updateUser\n', err);
+      console.error("An error occurred during updateUser\n", err);
     }
   }
 
@@ -116,15 +127,17 @@ export default class AppUser {
         email: this._email,
         data: JSON.stringify({
           ...user.data,
-          ...profileData
+          ...profileData,
         }),
         _version: user._version,
       };
-      console.log('TEST USER PROFILE', userProfile);
-      const updateUserProfileRes = await API.graphql(graphqlOperation(updateUser, { input: userProfile }));
-      console.log('TEST updateUserProfileRes', updateUserProfileRes);
+      console.log("TEST USER PROFILE", userProfile);
+      const updateUserProfileRes = await API.graphql(
+        graphqlOperation(updateUser, { input: userProfile })
+      );
+      console.log("TEST updateUserProfileRes", updateUserProfileRes);
     } catch (err) {
-      console.error('An error occurred during updateProfile\n', err);
+      console.error("An error occurred during updateProfile\n", err);
     }
   }
 }

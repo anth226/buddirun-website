@@ -222,6 +222,10 @@ export default function Demo() {
           setUserStock(stockData);
 
           if (datastoreStatus !== DatastoreStatus.LOGGED_IN) {
+            localStorage.setItem(
+              "REWARDS",
+              (Number(localStorage.getItem("REWARDS")) || 0) + reward
+            );
             setShowSignupReminder(true);
           } else {
             console.log("UPDATE USER DATA AFTER WIN", stockData);
