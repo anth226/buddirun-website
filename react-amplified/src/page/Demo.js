@@ -228,7 +228,7 @@ export default function Demo() {
             updateUserStock(stockData);
           }
         }
-      }, 7000);
+      }, 10000);
     },
     [selectedRace]
   );

@@ -126,8 +126,6 @@ export default function Header() {
     }
   }, [datastoreStatus, setUserFullName]);
 
-  console.log(user);
-
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
