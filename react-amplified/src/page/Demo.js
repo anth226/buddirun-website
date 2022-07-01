@@ -112,6 +112,7 @@ export default function Demo() {
     sendMessage,
     addEventListener,
     removeEventListener,
+    requestFullscreen,
   } = useUnityContext({
     // LATEST
     loaderUrl: `${WebGLUnityFileURL}${fileName}.loader.js`,
@@ -721,6 +722,11 @@ export default function Demo() {
                 devicePixelRatio={window.devicePixelRatio}
                 matchWebGLToCanvasSize={true}
               />
+              <img
+                className="unity-btn"
+                src={"/img/fullscreen.svg"}
+                onClick={() => requestFullscreen(true)}
+              ></img>
             </div>
           </div>
         </div>
