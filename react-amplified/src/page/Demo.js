@@ -102,7 +102,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "Webgl_Test3_SuperCompressed";
+  const fileName = "Webgl_SuperCompressed_Fixed";
 
   // NOTE: Blocking Unity loader until optimized
   const {
