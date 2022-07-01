@@ -1,13 +1,14 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { APP_ROUTES } from "../../app/routes";
 import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 import AppUser from "../../appModels/AppUser";
+import { getAvatar } from "../../assets/utils";
 
 export default function Header() {
   const active = window.location.pathname;
@@ -24,12 +25,12 @@ export default function Header() {
 
   const closeNavbar = (navbarID) => {
     const navbar = document.getElementById(navbarID);
-    if (navbar.className.indexOf('show') >= 0) {
+    if (navbar.className.indexOf("show") >= 0) {
       new bootstrap.Collapse(navbar, {
-        hide: true
+        hide: true,
       });
     }
-  }
+  };
 
   const handleOpen = () => {
     if (!open) {
@@ -40,14 +41,14 @@ export default function Header() {
     } else {
       const p = document.getElementById("filter-backdrop");
       p?.parentNode?.removeChild(p);
-      closeNavbar('navbarList');
+      closeNavbar("navbarList");
     }
 
     setOpen(!open);
   };
 
   const handleOpenAuth = () => {
-    console.log('OPENING AUTH', openAuth);
+    console.log("OPENING AUTH", openAuth);
     if (!openAuth) {
       const backdrop = document.getElementById("filter-backdrop");
       if (!backdrop) {
@@ -58,10 +59,10 @@ export default function Header() {
       }
     } else {
       const p = document.getElementById("filter-backdrop");
-      console.log('TEST BACKDROP', p);
+      console.log("TEST BACKDROP", p);
       p?.parentNode?.removeChild(p);
       setFormType("");
-      closeNavbar('navbarAuth');
+      closeNavbar("navbarAuth");
     }
 
     setOpenAuth(!openAuth);
@@ -73,7 +74,7 @@ export default function Header() {
       p?.parentNode?.removeChild(p);
       setOpen(false);
     }
-    closeNavbar('navbarList');
+    closeNavbar("navbarList");
   };
 
   const handleFormType = () => {
@@ -85,24 +86,33 @@ export default function Header() {
       // default:
       //   return <LoginForm setFormType={setFormType} />;
       default:
-        return <CognitoAuthForm formType={formType} setFormType={setFormType} />
+        return (
+          <CognitoAuthForm formType={formType} setFormType={setFormType} />
+        );
     }
   };
 
   // On render
   useEffect(() => {
-    console.log('LOAD HEADER LAYOUT', datastoreStatus);
-    console.log('TEST LOCATION', location);
+    console.log("LOAD HEADER LAYOUT", datastoreStatus);
+    console.log("TEST LOCATION", location);
     const requireAuth = location.state ? location.state.requireAuth : false;
     if (requireAuth) {
       handleOpenAuth();
     }
     if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
       const appUserModel = AppUser.getInstance();
-      appUserModel.getOrCreateUser()
+      appUserModel
+        .getOrCreateUser()
         .then((appUser) => {
-          console.log('GOT USER in HEADER LAYOUT', appUser);
-          setUserFullName(`${appUser.first_name} ${appUser.last_name}`);
+          console.log("GOT USER in HEADER LAYOUT", appUser);
+          if (!appUser.first_name || !appUser.last_name) {
+            setUserFullName(appUser.email);
+          } else {
+            setUserFullName(
+              `${appUser.first_name || ""} ${appUser.last_name || ""}`
+            );
+          }
           // TODO:  Hackish ~ If auth authNavbar is opened after login, close it.
           //        Unfortunately, if the authNavbar is intentionally opened while this component renders,
           //        it will force the close which may not be the desired behaviour.
@@ -116,6 +126,8 @@ export default function Header() {
     }
   }, [datastoreStatus, setUserFullName]);
 
+  console.log(user);
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
@@ -127,8 +139,13 @@ export default function Header() {
             {user && (
               <div className="modal-profile text-center d-sm-block d-sm-none">
                 <div className="avatar">
-                  <img src="img/Avatar.png" />
+                  <img
+                    src={`img/avatars/${
+                      getAvatar(user?.attributes?.email) || 0
+                    }.png`}
+                  />
                 </div>
+
                 <div className="name">{userFullName}</div>
                 <div className="row">
                   <div className="col-6">
@@ -163,7 +180,7 @@ export default function Header() {
                 <Link
                   to="/"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === "/" ? " active" : ''
+                    active === "/" ? " active" : ""
                   }`}
                   aria-current="page"
                   onClick={() => {
@@ -177,7 +194,7 @@ export default function Header() {
                 <Link
                   to={APP_ROUTES.Race.path}
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === APP_ROUTES.Race.path ? " active" : ''
+                    active === APP_ROUTES.Race.path ? " active" : ""
                   }`}
                   onClick={() => {
                     active !== APP_ROUTES.Race.path && handleClose();
@@ -203,31 +220,43 @@ export default function Header() {
                     aria-labelledby="docsDropdown"
                   >
                     <li>
-                      <a href="https://basha-games.gitbook.io/buddi-run-whitepaper/" className="dropdown-item d-flex">
+                      <a
+                        href="https://basha-games.gitbook.io/buddi-run-whitepaper/"
+                        className="dropdown-item d-flex"
+                      >
                         <span>Whitepaper</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="dropdown-item d-flex" disabled="disabled">
+                      <a
+                        href="#"
+                        className="dropdown-item d-flex"
+                        disabled="disabled"
+                      >
                         <span>Pitch Deck</span>
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div className="d-block d-lg-none h-100">
-                  <span
-                    className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
-                  >
+                  <span className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50">
                     DOCS
                   </span>
                   <ul className="w-100 list-unstyled">
                     <li className="mt-2">
-                      <a href="https://basha-games.gitbook.io/buddi-run-whitepaper/" className="nav-link docs-item">
+                      <a
+                        href="https://basha-games.gitbook.io/buddi-run-whitepaper/"
+                        className="nav-link docs-item"
+                      >
                         <span>Whitepaper</span>
                       </a>
                     </li>
                     <li className="mt-2">
-                      <a href="#" className="nav-link docs-item" disabled="disabled">
+                      <a
+                        href="#"
+                        className="nav-link docs-item"
+                        disabled="disabled"
+                      >
                         <span>Pitch Deck</span>
                       </a>
                     </li>
@@ -238,7 +267,7 @@ export default function Header() {
                 <Link
                   to="/mint"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === "/mint" ? " active" : ''
+                    active === "/mint" ? " active" : ""
                   }`}
                   onClick={() => {
                     active !== APP_ROUTES.Mint.path && handleClose();
@@ -269,23 +298,27 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/faq" className="dropdown-item d-flex" disabled="disabled">
+                      <Link
+                        to="/faq"
+                        className="dropdown-item d-flex"
+                        disabled="disabled"
+                      >
                         <span>FAQ</span>
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div className="d-block d-lg-none h-100">
-                  <span
-                    className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50"
-                  >
+                  <span className="nav-link h-100 d-flex align-items-center justify-content-center opacity-50">
                     MORE
                   </span>
                   <ul className="w-100 list-unstyled">
                     <li className="mt-2">
                       <Link
                         to="/team"
-                        className={`nav-link docs-item${ active === APP_ROUTES.Team.path ? " active" : ''}`}
+                        className={`nav-link docs-item${
+                          active === APP_ROUTES.Team.path ? " active" : ""
+                        }`}
                         onClick={() => {
                           active !== APP_ROUTES.Team.path && handleClose();
                         }}
@@ -296,7 +329,9 @@ export default function Header() {
                     <li className="mt-2">
                       <Link
                         to="/faq"
-                        className={`nav-link docs-item`/* TODO: Add active class if route is current & add onClick handler */}
+                        className={
+                          `nav-link docs-item` /* TODO: Add active class if route is current & add onClick handler */
+                        }
                         disabled="disabled"
                       >
                         <span>FAQ</span>
@@ -381,14 +416,18 @@ export default function Header() {
                     </ul>
                   </li>
                   <li className="nav-item avatar">
-                    <img src="img/Avatar.png" />
+                    <img
+                      src={`img/avatars/${
+                        getAvatar(user?.attributes?.email) || 0
+                      }.png`}
+                    />
                   </li>
                 </ul>
               )}
             </li>
           </ul>
           <button
-            className={`navbar-toggler${open ? " close-toggle" : ''} collapsed`}
+            className={`navbar-toggler${open ? " close-toggle" : ""} collapsed`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarList"
@@ -459,7 +498,7 @@ export default function Header() {
             />
           </svg>
         </button>
-        { handleFormType() }
+        {handleFormType()}
       </div>
     </header>
   );

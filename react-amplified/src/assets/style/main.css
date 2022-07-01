@@ -424,9 +424,17 @@ select.form-control {
   margin-left: 11px;
 }
 
-.navbar-nav .avatar img {
+.avatar img {
   margin-left: 4px;
+  width: 42px;
+  height: 42px;
 }
+
+.avatar .avatar-lg {
+  width: 84px;
+  height: 84px;
+}
+
 
 .modal-profile {
   position: absolute;
@@ -4212,8 +4220,15 @@ section.wallet .btn-mint {
 }
 
 .profile .primary-btn {
+  display: inline-block;
   width: 100%;
+  text-align: center;
   margin: 12px 0px;
+}
+
+.profile input {
+  padding: 5px;
+  border-radius: 8px;
 }
 
 .profile .box .wallet-info {

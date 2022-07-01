@@ -1,12 +1,21 @@
 import React from "react";
 import Header from "../modules/layout/HeaderLayout";
-import {useAuthenticator} from "@aws-amplify/ui-react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
+import { getAvatar } from "../assets/utils";
 
 export default function Profile() {
   const active = window.location.pathname;
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const [address] = React.useState("0x245v...984tb9adv");
-  const [hasConnect, setHasConnect] = React.useState(true);
+  const [hasConnect, setHasConnect] = React.useState(false);
+
+  if (!user) return null;
+
+  let name = user.attributes.email;
+
+  if (user.attributes.given_name || user.attributes.family_name) {
+    name = `${user.attributes.given_name} ${user.attributes.family_name}`;
+  }
 
   return (
     <div className="profile">
@@ -15,15 +24,20 @@ export default function Profile() {
         <div className="wrap mt-5">
           <div className="row">
             <div className="col-sm-6">
-              <div className="box text-center d-flex flex-column align-items-center">
+              <div className="box text-center d-flex flex-column align-items-center mb-5">
                 <div className="avatar">
-                  <img src="img/image 48.png" />
+                  <img
+                    className="avatar-lg"
+                    src={`img/avatars/${
+                      getAvatar(user?.attributes?.email) || 0
+                    }.png`}
+                  />
                 </div>
-                <div className="name">IVAN LIKEAB</div>
-                <button className="btn btn-outline profile-btn mb-4">
+                <div className="name">{name}</div>
+                {/* <button className="btn btn-outline profile-btn mb-4">
                   Change pictuce
-                </button>
-                {hasConnect && (
+                </button> */}
+                {/* {hasConnect && (
                   <div className="d-flex flex-row align-items-center wallet-info">
                     <div className="wallet-logo">
                       <svg
@@ -87,19 +101,21 @@ export default function Profile() {
                       </svg>
                     </div>
                   </div>
-                )}
+                )} */}
                 <button
                   className="btn btn-outline profile-btn"
                   onClick={() => {
                     active != "/logout" && signOut();
                   }}
-                >Log out</button>
+                >
+                  Log out
+                </button>
               </div>
             </div>
-            <div className="col-sm-6 mt-3">
+            <div className="col-sm-6">
               <div className="content">
                 <div className="inner">
-                  {!hasConnect && (
+                  {/* {!hasConnect && (
                     <div>
                       <h5>
                         You have completed 1/4 steps for a complete profile
@@ -115,31 +131,40 @@ export default function Profile() {
                         win, you need to have a complete profile.
                       </h5>
                     </div>
-                  )}
+                  )} */}
                   <div>
-                    <div className="info d-flex flex-column mt-4">
-                      <span className="key">Username</span>
-                      <span className="para"> ivanlikeab</span>
+                    <div className="info d-flex flex-column mb-2">
+                      <h6 className="text-muted">Name</h6>
+                      <input
+                        disabled
+                        value={`${user.attributes.given_name} ${user.attributes.family_name}`}
+                      />
                     </div>
-                    <div className="info d-flex flex-column">
-                      <span className="key">Email</span>
-                      <span className="para"> ivanlikeab@gmail.com</span>
+                    <div className="info d-flex flex-column mb-4">
+                      <h6 className="text-muted">Email</h6>
+                      <input disabled value={user.attributes.email} />
                     </div>
-                    {hasConnect && (
-                      <div className="recieve-update d-flex flex-row align-items-center">
+
+                    {/* <div className="recieve-update d-flex flex-row align-items-center">
                         <input type="checkbox" />
                         <h6>Receive drop updates & Marketing emails</h6>
-                      </div>
-                    )}
+                      </div> */}
                   </div>
                 </div>
                 {!hasConnect ? (
                   <>
-                    <button className="primary-btn">
+                    {/* <button className="primary-btn">
                       Connect MetaMask Wallet
-                    </button>
-                    <button className="primary-btn">Connect Twitter</button>
-                    <button className="primary-btn">Join BR Discord</button>
+                    </button> */}
+                    {/* <button className="primary-btn">Connect Twitter</button> */}
+                    <a
+                      className="primary-btn"
+                      style={{ fontSize: "1rem" }}
+                      href="https://discord.gg/U4tsfjvcWP"
+                      target="_blank"
+                    >
+                      Join BR Discord
+                    </a>
                   </>
                 ) : (
                   <>
