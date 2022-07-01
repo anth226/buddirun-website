@@ -791,7 +791,7 @@ select.form-control {
     height: auto;
     margin-left: 0 !important;
     transform: unset;
-    gap: 9vh;
+    gap: 7vh;
   }
   .nav-item a.nav-link,
   .nav-item a,
@@ -981,7 +981,7 @@ select.form-control {
     justify-content: flex-end;
   }
   .navbar-nav.navbar-list {
-    gap: 7vh;
+    gap: 4vh;
     padding-bottom: 10vh;
   }
   .close-auth-toggle {

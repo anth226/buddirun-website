@@ -14,7 +14,9 @@ export default function Profile() {
   let name = user.attributes.email;
 
   if (user.attributes.given_name || user.attributes.family_name) {
-    name = `${user.attributes.given_name} ${user.attributes.family_name}`;
+    name = `${user.attributes.given_name || ""} ${
+      user.attributes.family_name || ""
+    }`;
   }
 
   return (
@@ -137,7 +139,9 @@ export default function Profile() {
                       <h6 className="text-muted">Name</h6>
                       <input
                         disabled
-                        value={`${user.attributes.given_name} ${user.attributes.family_name}`}
+                        value={`${user.attributes.given_name || ""} ${
+                          user.attributes.family_name || ""
+                        }`}
                       />
                     </div>
                     <div className="info d-flex flex-column mb-4">
