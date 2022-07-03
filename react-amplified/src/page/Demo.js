@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
 import Footer from "../modules/layout/FooterLayout";
 import Header from "../modules/layout/HeaderLayout";
@@ -41,6 +42,8 @@ export default function Demo() {
     [openEndGameWinModal, setOpenEndGameWinModal] = useState(false),
     [openEndGameLoseModal, setOpenEndGameLoseModal] = useState(false),
     [showSignupReminder, setShowSignupReminder] = useState(false);
+  const unityCanvasRef = useRef(null);
+  const selectBuddiRef = useRef(null);
 
   const updateUserStock = (userStock) => {
     const appUserModel = AppUser.getInstance();
@@ -183,6 +186,9 @@ export default function Demo() {
     console.log("TEST GAME PARAMS", gameParams);
     sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
     setIsGameStarted(true);
+
+    const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+    canvas.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
   const handleEndGame = useCallback(
@@ -232,6 +238,9 @@ export default function Demo() {
             updateUserStock(stockData);
           }
         }
+
+        const selectBuddi = ReactDOM.findDOMNode(selectBuddiRef.current);
+        selectBuddi.scrollIntoView({ block: "start", behavior: "smooth" });
       }, 10000);
     },
     [selectedRace]
@@ -424,7 +433,7 @@ export default function Demo() {
           </div>
         </div>
       </section>
-      <section className="select-a-buddi ">
+      <section ref={selectBuddiRef} className="select-a-buddi">
         <div className="wrap position-relative container-fluid">
           <div className="heading-wrap text-center">
             <hr />
@@ -725,6 +734,7 @@ export default function Demo() {
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
                 matchWebGLToCanvasSize={true}
+                ref={unityCanvasRef}
               />
               <img
                 className="unity-btn"
