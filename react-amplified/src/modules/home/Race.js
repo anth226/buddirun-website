@@ -33,21 +33,23 @@ export default function Race() {
           <img src="img/RACE.png" />
         </div>
         <div
-          className="text-center"
+          className="text-center video-container"
           style={{
-            width: "100%",
-            height: "45vw",
             marginTop: "-20px",
             position: "relative",
+            display: "flex",
+            gap: "7rem",
+            justifyContent: "space-between",
           }}
         >
           <iframe
             src="https://www.youtube.com/embed/dfWVx6HW2EQ"
+            className="video1"
             style={{
+              aspectRatio: 16 / 9,
               border: "5px solid white",
               borderRadius: "30px",
-              height: "100%",
-              width: "80%",
+              flex: 1,
               boxShadow:
                 "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)",
             }}
@@ -55,8 +57,25 @@ export default function Race() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-          ></iframe>
+          />
+          <iframe
+            src="https://www.youtube.com/embed/hoTiLBeS9sc"
+            className="video2"
+            style={{
+              aspectRatio: 16 / 9,
+              border: "5px solid white",
+              borderRadius: "30px",
+              flex: 1,
+              boxShadow:
+                "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)",
+            }}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
+
         <p className="paragraph">
           Buddi are ready to race as soon as they are born. <br />
           Players enter Buddis into individual races or tournaments to win prize
