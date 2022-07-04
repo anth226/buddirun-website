@@ -133,7 +133,9 @@ export default function Demo() {
   };
 
   const closeModal = () => {
-    resetGame();
+    const selectBuddi = ReactDOM.findDOMNode(selectBuddiRef.current);
+    selectBuddi.scrollIntoView({ block: "start", behavior: "smooth" });
+
     setOpenEndGameWinModal(false);
     setOpenEndGameLoseModal(false);
   };
@@ -239,8 +241,7 @@ export default function Demo() {
           }
         }
 
-        const selectBuddi = ReactDOM.findDOMNode(selectBuddiRef.current);
-        selectBuddi.scrollIntoView({ block: "start", behavior: "smooth" });
+        resetGame();
       }, 10000);
     },
     [selectedRace]
