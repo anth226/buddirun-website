@@ -989,7 +989,7 @@ select.form-control {
     top: 70vh;
   }
 }
-@media (max-height: 548px) {
+@media (max-width: 576px) and (max-height: 548px) {
   .navbar-nav.navbar-list {
     gap: 1vh;
     padding-bottom: 2vh;
