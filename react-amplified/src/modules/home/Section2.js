@@ -44,9 +44,7 @@ export default function Section2() {
       </div>
       <div className="background">
         <div className="position-relative">
-          <img src="img/furboy_item_31_32_quarter 1.png" />
-          <img src="img/SL.png" className="type" />
-          <img src="img/Ресурс 2.png" />
+          <img src="img/DNA_Printer.png" />
         </div>
       </div>
     </section>

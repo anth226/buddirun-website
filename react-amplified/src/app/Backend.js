@@ -1,32 +1,27 @@
-import { Auth } from "aws-amplify";
+import { getToken } from "./Auth";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const CORS_MODE = ''; // defaults to 'cors'
 
-async function getUserInfo() {
-  const user = await Auth.currentAuthenticatedUser();
-  return user.attributes;
-}
-
-async function getToken() {
-  const session = await Auth.currentSession(),
-        token = session.getAccessToken();
-  return token.getJwtToken();
-}
-
 const getAuthHeader = async () => {
   const token = await getToken();
+  if (!token) {
+    return null;
+  }
   return {
     'Authorization': `Bearer ${token}`
   }
 }
 
 const getProfile = async () => {
-  const authHeader = await getAuthHeader(),
-        queryOptions = {
-          headers: {
-            ...authHeader,
-          },
-        };
+  const authHeader = await getAuthHeader();
+  if (!authHeader) {
+    return null;
+  }
+  const queryOptions = {
+    headers: {
+      ...authHeader,
+    },
+  };
   if (CORS_MODE) {
     queryOptions.mode = CORS_MODE;
   }
@@ -35,7 +30,7 @@ const getProfile = async () => {
     if (profileRes.ok) {
       return profileRes.json();
     }
-    console.error('API call did not fail but was not 200', {
+    console.error('API call did not fail but was not 200\n', {
       status: profileRes.status,
       statusCode: profileRes.statusCode,
       statusMessage: profileRes.statusMessage,
@@ -43,7 +38,7 @@ const getProfile = async () => {
     });
     return {};
   } catch (err) {
-    console.error('GetProfile failed', err);
+    console.error('GetProfile failed\n', err);
     return {};
   }
 }
@@ -71,7 +66,7 @@ const updateProfile = async (attrs) => {
     if (profileRes.ok) {
       return profileRes.json();
     }
-    console.error('API call did not fail but was not 200', {
+    console.error('API call did not fail but was not 200\n', {
       status: profileRes.status,
       statusCode: profileRes.statusCode,
       statusMessage: profileRes.statusMessage,
@@ -79,13 +74,12 @@ const updateProfile = async (attrs) => {
     });
     return {};
   } catch (err) {
-    console.error('UpdateProfile failed', err);
+    console.error('UpdateProfile failed\n', err);
     return {};
   }
 }
 
 export {
-  getUserInfo,
   getProfile,
   updateProfile,
 }

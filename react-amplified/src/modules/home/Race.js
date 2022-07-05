@@ -2,6 +2,28 @@ import React, { useEffect, useState } from "react";
 
 export default function Race() {
   const [element, setElement] = useState("breed");
+  // List of the Gameplay elements
+  const elementsList = ["breed", "wearables", "bond", "generate"];
+  // Initial element to start the loop (from elementsList)
+  let initElement = 0;
+
+  useEffect(() => {
+    const gamePlayElAnimInterval = setInterval(() => {
+      setElement(elementsList[initElement]);
+      if (elementsList[initElement + 1] != null) {
+        initElement = initElement + 1;
+      } else {
+        initElement = 0;
+      }
+    }, 3000);
+
+    // eslint-disable-next-line no-global-assign
+    return (stop = (e) => {
+      const gameElID = e?.currentTarget.dataset.id;
+      clearInterval(gamePlayElAnimInterval);
+      setElement(gameElID);
+    });
+  }, [setInterval, clearInterval, setElement]);
 
   return (
     <section className="race">
@@ -10,100 +32,79 @@ export default function Race() {
         <div className="race-img text-center">
           <img src="img/RACE.png" />
         </div>
-        <div className="slider d-none d-sm-flex position-relative align-items-center justify-content-center">
-          <div className="pre-btn">
-            <img src="img/Asset 3 1.png" />
-          </div>
-          <div className="previous">
-            <img src="img/Asset 1 8.png" />
-          </div>
-          <div className="center">
-            <img src="img/spinning wheels obstacles 1.png" />
-          </div>
-          <div className="next">
-            <img src="img/Asset 1 8.png" />
-          </div>
-          <div className="next-btn">
-            <img src="img/Asset 2 1.png" />
-          </div>
-          <div className="play-btn">
-            <svg
-              width="87"
-              height="106"
-              viewBox="0 0 87 106"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
-                fill="white"
-              />
-            </svg>
-          </div>
+        <div
+          className="text-center video-container"
+          style={{
+            marginTop: "-20px",
+            position: "relative",
+            display: "flex",
+            gap: "7rem",
+            justifyContent: "space-between",
+          }}
+        >
+          <iframe
+            src="https://www.youtube.com/embed/dfWVx6HW2EQ"
+            className="video1"
+            style={{
+              aspectRatio: 16 / 9,
+              border: "5px solid white",
+              borderRadius: "30px",
+              flex: 1,
+              boxShadow:
+                "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)",
+            }}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          <iframe
+            src="https://www.youtube.com/embed/hoTiLBeS9sc"
+            className="video2"
+            style={{
+              aspectRatio: 16 / 9,
+              border: "5px solid white",
+              borderRadius: "30px",
+              flex: 1,
+              boxShadow:
+                "0 40px 40px 0 rgba(0, 0, 0, 0.5), 0 20px 20px 0 rgba(0, 0, 0, 0.19)",
+            }}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
-        <div className="slider-responsive d-block d-sm-none">
-          <div className="position-relative">
-            <div className="center">
-              <img src="img/spinning wheels obstacles 1.png" />
-            </div>
-            <div className="play-btn">
-              <svg
-                width="87"
-                height="106"
-                viewBox="0 0 87 106"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.18156e-06 53L7.26637e-06 5.30496C7.42507e-06 1.67439 3.981 -0.550166 7.073 1.35261L84.5774 49.0476C87.5222 50.8598 87.5222 55.1402 84.5774 56.9524L7.07299 104.647C3.98099 106.55 2.93804e-06 104.326 3.09674e-06 100.695L5.18156e-06 53Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-          </div>
-          <div className="slide-bar d-flex">
-            <div className="slide-item"></div>
-            <div className="slide-item center"></div>
-            <div className="slide-item"></div>
-          </div>
-        </div>
+
         <p className="paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit nisi
-          sapien leo lorem etiam sed facilisi. Pharetra, orci hendrerit maecenas
-          amet tortor tempus. Pellentesque et ornare nunc ac leo. Сonsectetur
-          adipiscing elit. Blandit nisi sapien leo lorem etiam sed facilisi.
-          Pharetra, orci hendrerit
+          Buddi are ready to race as soon as they are born. <br />
+          Players enter Buddis into individual races or tournaments to win prize
+          pools of Race Entry Tickets or Energy Cells.
         </p>
-        <h1>GAME PLAY ELEMENTS</h1>
+        <h1 className="section-h1">GAME PLAY ELEMENTS</h1>
         <div className="row mx-auto">
-          <div
-            className="col-12 col-lg-5 position-relative"
-          >
+          <div className="col-12 col-lg-5 position-relative">
             <div className="gameplay-box mx-auto">
               <div className="row row-cols-2 w-100 h-100 mx-0">
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("generate");
-                  }}
+                  data-id={"generate"}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("breed");
-                  }}
+                  data-id={"breed"}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("bond");
-                  }}
+                  data-id={"bond"}
+                  onClick={stop}
                 ></div>
                 <div
                   className="gameplay-item"
-                  onMouseOver={() => {
-                    setElement("wearables");
-                  }}
+                  data-id={"wearables"}
+                  onClick={stop}
                 ></div>
               </div>
             </div>
@@ -113,10 +114,7 @@ export default function Race() {
               }`}
             >
               <div className="gameplay-img">
-                <img
-                  src="img/Frame 72.png"
-                  className="elementImage"
-                />
+                <img src="img/Frame 72.png" className="elementImage" />
               </div>
             </div>
             <div
@@ -210,7 +208,7 @@ export default function Race() {
                 <p>
                   Wearable NFT items add or enhance a skill of the Buddi wearing
                   it. Items can be bought in the shop, traded on the market and
-                  crafted when a player's Buddi(s) have collected enough
+                  crafted when a player&apos;s Buddi(s) have collected enough
                   materials.
                 </p>
               </div>

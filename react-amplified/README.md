@@ -1,3 +1,44 @@
+# Buddi Run
+
+## Setup
+1. Clone project & download Amplify CLI
+```
+git clone <git_project_url>
+cd <git_project_path>
+npm install -g @aws-amplify/cli
+```
+3. Login to AWS console and retrieve the local setup instructions from the `dev` environment of the Amplify app (Backend environments). After running the command, you'll be given a login id that you'll paste in Amplify CLI then you'll be able to finish your local Amplify configuration.
+**Local Amplify setup**
+```
+default editor: <your choice>
+type of app: javascript
+framework: react
+source directory: react-amplified/src 
+build directory: react-amplified/build
+build command: <default>
+start command: <default>
+```
+3. Go to `react-amplified` directory and install dependencies
+```
+cd react-amplified
+npm i
+```
+
+4. Setup environment variables (they are automatically setup in DEV and PROD environments)
+> For the WebGL files, you can download them from S3 or ask any project manager
+
+| key | value |
+|---|---|
+| REACT_APP_AUTH_DOMAIN | `auth.dev.buddirun.com` |
+| REACT_APP_BACKEND_URL | `https://buddirun.dev/api/v1/` |
+| REACT_WEBGL_FILES_URL | `unity-webgl-game/` |
+
+5. Run the app
+```
+npm run start
+```
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
