@@ -720,6 +720,7 @@ export default function Demo() {
             style={{
               aspectRatio: 16 / 9,
               margin: "auto",
+              maxWidth: "960px",
             }}
           >
             <div
@@ -753,7 +754,7 @@ export default function Demo() {
                   visibility: isLoaded ? "visible" : "hidden",
                   position: "relative",
                   width: "100%",
-                  aspectRatio: 16 / 9,
+                  aspectRatio: 16 / 9
                 }}
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
