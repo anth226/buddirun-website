@@ -145,6 +145,10 @@ export default function Demo() {
   };
 
   const handleBuddiSelection = (e) => {
+    if (isGameStarted) {
+      console.warn("Can't select Buddi, Unity is already running");
+      return false;
+    }
     const selectedBuddiID = e.currentTarget.dataset.id;
     const prevSelectedBuddiID = selectedBuddi ? selectedBuddi.id : "";
     if (prevSelectedBuddiID === selectedBuddiID) {
@@ -163,6 +167,10 @@ export default function Demo() {
   };
 
   const handleRaceSelection = (e) => {
+    if (isGameStarted) {
+      console.warn("Can't select Race, Unity is already running");
+      return false;
+    }
     const selectedRaceID = e.currentTarget.dataset.id;
     const prevSelectedRaceID = selectedRace ? selectedRace.id : "";
     if (prevSelectedRaceID === selectedRaceID) {
@@ -175,22 +183,37 @@ export default function Demo() {
     }
   };
 
-  const handleStartGame = () => {
+  const handleStartGame = (evt) => {
     console.log("START GAME", isLoaded);
     if (!isLoaded) {
       console.warn("Can't start game, Unity is not loaded");
       return false;
     }
+    if (isGameStarted) {
+      console.warn("Can't start game, Unity is already running");
+      return false;
+    }
+    // Add loading spinner on confirm button until the startGame timeout rund
+    const confirmRaceBtn = evt.currentTarget;
+    confirmRaceBtn.classList.add('loading');
+    // Disable all other race buttons
+    const raceBtns = document.querySelectorAll('.enter-a-race .primary-btn:not(.active):not(:disabled):not(.loading)');
+    for(const raceBtn of raceBtns) {
+      raceBtn.disabled = true;
+    }
     const gameParams = {
       playerID: selectedBuddi.id, // ID of the selected Buddi
       // race: selectedRace,
     };
-    console.log("TEST GAME PARAMS", gameParams);
-    sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
-    setIsGameStarted(true);
+    // Wait 2.5 sec to make sure Unity game is loaded
+    setTimeout(() => {
+      confirmRaceBtn.classList.remove('loading');
+      sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
+      setIsGameStarted(true);
 
-    const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
-    canvas.scrollIntoView({ block: "start", behavior: "smooth" });
+      const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+      canvas.scrollIntoView({block: "start", behavior: "smooth"});
+    }, 2500);
   };
 
   const handleEndGame = useCallback(
@@ -509,7 +532,7 @@ export default function Demo() {
                       buddiStats = buddi.stats;
                     return (
                       <div
-                        className="col-6 col-xxl-4"
+                        className="col-6 col-xxl-4 buddi-btn"
                         key={buddiUIKey}
                         data-id={buddi.id}
                         onClick={handleBuddiSelection}

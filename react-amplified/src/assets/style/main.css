@@ -3515,6 +3515,38 @@ section.enter-a-race .primary-btn:disabled {
   opacity: 0.45;
   background: linear-gradient(180deg, #f2f9fc 0%, #93b8c6 100%);
 }
+section.enter-a-race .primary-btn.loading {
+  position: relative;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+section.enter-a-race .primary-btn.loading:before {
+  content: "";
+  background: linear-gradient(180deg, #f2f9fc 0%, #93b8c6 100%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  opacity: 0.93;
+}
+section.enter-a-race .primary-btn.loading:after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  margin-left: -13px;
+  border-radius: 50%;
+  border: 3px solid #93b8c6;
+  border-top-color: #00008a;
+  animation: spinner .6s linear infinite;
+}
 
 @media (max-width: 768px) {
   section.enter-a-race {
