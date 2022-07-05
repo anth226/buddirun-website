@@ -982,7 +982,7 @@ select.form-control {
   }
   .navbar-nav.navbar-list {
     gap: 4vh;
-    padding-bottom: 10vh;
+    padding-bottom: 5vh;
   }
   .close-auth-toggle {
     right: 5%;
