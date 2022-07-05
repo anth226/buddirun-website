@@ -138,6 +138,7 @@ export default function Demo() {
 
     setOpenEndGameWinModal(false);
     setOpenEndGameLoseModal(false);
+    resetGame();
   };
 
   const hideSignupReminder = () => {
@@ -236,6 +237,7 @@ export default function Demo() {
 
       console.log("REWARD ?", reward);
       setTimeout(() => {
+        requestFullscreen(false);
         if (!reward) {
           setOpenEndGameLoseModal(true);
         } else {
@@ -263,8 +265,6 @@ export default function Demo() {
             updateUserStock(stockData);
           }
         }
-
-        resetGame();
       }, 10000);
     },
     [selectedRace]
