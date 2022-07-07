@@ -1,16 +1,16 @@
 {
-  "dev": {
+  "prod": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-buddirunv1-dev-132825-authRole",
-      "UnauthRoleArn": "arn:aws:iam::699512428618:role/amplify-buddirunv1-dev-132825-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::699512428618:role/amplify-buddirunv1-dev-132825-authRole",
+      "AuthRoleName": "amplify-buddirunv1-prod-220025-authRole",
+      "UnauthRoleArn": "arn:aws:iam::699512428618:role/amplify-buddirunv1-prod-220025-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::699512428618:role/amplify-buddirunv1-prod-220025-authRole",
       "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-buddirunv1-dev-132825-deployment",
-      "UnauthRoleName": "amplify-buddirunv1-dev-132825-unauthRole",
-      "StackName": "amplify-buddirunv1-dev-132825",
-      "StackId": "arn:aws:cloudformation:us-west-1:699512428618:stack/amplify-buddirunv1-dev-132825/449a1620-d3ab-11ec-b20d-021cf8d7bb5f",
+      "DeploymentBucketName": "amplify-buddirunv1-prod-220025-deployment",
+      "UnauthRoleName": "amplify-buddirunv1-prod-220025-unauthRole",
+      "StackName": "amplify-buddirunv1-prod-220025",
+      "StackId": "arn:aws:cloudformation:us-west-1:699512428618:stack/amplify-buddirunv1-prod-220025/42542880-d3d1-11ec-8113-0215b38e4ac7",
       "AmplifyAppId": "djcv2r1grofe8",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-buddirunv1-dev-132825-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-buddirunv1-prod-220025-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -22,9 +22,9 @@
       },
       "function": {
         "buddirunv166e6c49aPostConfirmation": {
-          "GROUP": "user",
-          "deploymentBucketName": "amplify-buddirunv1-dev-132825-deployment",
-          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-3143596a5344527a6843-build.zip"
+          "deploymentBucketName": "amplify-buddirunv1-prod-220025-deployment",
+          "s3Key": "amplify-builds/buddirunv166e6c49aPostConfirmation-3143596a5344527a6843-build.zip",
+          "GROUP": "user"
         }
       },
       "storage": {
@@ -33,7 +33,7 @@
           "region": "us-west-1"
         },
         "buddirunv168b3b992": {
-          "bucketName": "buddirun-dev-v1-public-bucket",
+          "bucketName": "buddirun-prod-v1-public-bucket",
           "region": "us-west-1"
         }
       }
