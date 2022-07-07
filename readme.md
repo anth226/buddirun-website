@@ -38,6 +38,18 @@ npm i
 npm run start
 ```
 
+### Development
+https://docs.amplify.aws/cli/teams/sandbox/
+
+### NOTES
+- `cli.json` can be modified manually (https://docs.amplify.aws/cli/reference/files/#clijson & https://docs.amplify.aws/cli/reference/feature-flags/)
+
+
+
+
+
+
+
 
 # Getting Started with Create React App
 
