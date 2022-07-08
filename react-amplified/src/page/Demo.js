@@ -105,7 +105,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "webgl_dt_test1";
+  const fileName = "webgl_final";
 
   // NOTE: Blocking Unity loader until optimized
   const {
@@ -198,7 +198,7 @@ export default function Demo() {
     const confirmRaceBtn = evt.currentTarget;
     confirmRaceBtn.classList.add('loading');
     // Disable all other race buttons
-    const raceBtns = document.querySelectorAll('.enter-a-race .primary-btn:not(.active):not(:disabled):not(.loading)');
+    const raceBtns = document.querySelectorAll('.enter-a-race .race-btn:not(.active):not(:disabled):not(.loading)');
     for(const raceBtn of raceBtns) {
       raceBtn.disabled = true;
     }
@@ -209,6 +209,7 @@ export default function Demo() {
     // Wait 2.5 sec to make sure Unity game is loaded
     setTimeout(() => {
       confirmRaceBtn.classList.remove('loading');
+      confirmRaceBtn.classList.add('active');
       sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
       setIsGameStarted(true);
 
@@ -337,7 +338,7 @@ export default function Demo() {
           and you win {playerRewardText}!
         </p>
         <button className={`primary-btn active`} onClick={closeModal}>
-          Thanks
+          Continue
         </button>
       </ReactModal>
       <ReactModal
@@ -370,6 +371,34 @@ export default function Demo() {
           <Header />
           <div className="wrap">
             <h1>Race a Buddi</h1>
+            <div className="description d-sm-flex flex-sm-row justify-content-sm-between align-items-sm-stretch">
+              <div className="text-md-start">
+                <p>
+                  Welcome to the Buddi Run Race demonstration. Before the full game website launches and players own Buddis, we wanted to give curious fans the ability to experience the excitement of entering a Buddi into a race with the chance to win in-game currencies and resources.
+                </p>
+                <p className="note">
+                  <span className="d-block">Please Note:</span>
+                  The quality of the demo race video is substantially lower than it will be in the final game.
+                </p>
+              </div>
+              <div id="how-to-race">
+                <h6 className="text-sm-start">How to Race A Buddi</h6>
+                <div className="d-flex flex-column">
+                  <div className="d-flex">
+                    <span className="marker">1</span>
+                    <span className="list-item">Select a Buddi</span>
+                  </div>
+                  <div className="d-flex">
+                    <span className="marker">2</span>
+                    <span className="list-item">Enter & Confirm a race</span>
+                  </div>
+                  <div className="d-flex">
+                    <span className="marker">3</span>
+                    <span className="list-item">Watch where your Buddi places</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="position-absolute social-links-float">
             <div
@@ -587,7 +616,7 @@ export default function Demo() {
             <hr />
           </div>
           <div className="content">
-            <table className="table d-none d-sm-table w-100">
+            <table className="table d-none d-sm-table w-100 table-striped">
               <thead>
                 <tr>
                   <th scope="col"></th>
@@ -627,7 +656,7 @@ export default function Demo() {
                       <td>{`${currentEntrantsQty}/${maxEntrants}`}</td>
                       <td style={{ textAlign: "center" }}>
                         <button
-                          className={`primary-btn${
+                          className={`race-btn enter-btn${
                             raceIsSelected ? " active" : ""
                           }`}
                           aria-pressed={raceIsSelected}
@@ -641,7 +670,9 @@ export default function Demo() {
                       </td>
                       <td style={{ textAlign: "center" }}>
                         <button
-                          className="primary-btn"
+                          className={`race-btn confirm-btn${
+                            isGameStarted && raceIsSelected ? " active" : ""
+                          }`}
                           disabled={!raceIsSelected}
                           onClick={handleStartGame}
                         >
@@ -682,7 +713,7 @@ export default function Demo() {
                   <div className="row">
                     <div className="col-6">
                       <button
-                        className={`primary-btn${
+                        className={`race-btn enter-btn${
                           raceIsSelected ? " active" : ""
                         }`}
                         aria-pressed={raceIsSelected}
@@ -696,7 +727,9 @@ export default function Demo() {
                     </div>
                     <div className="col-6">
                       <button
-                        className="primary-btn"
+                        className={`race-btn confirm-btn${
+                          isGameStarted && raceIsSelected ? " active" : ""
+                        }`}
                         disabled={!raceIsSelected}
                         onClick={handleStartGame}
                       >
