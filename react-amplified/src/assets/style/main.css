@@ -3418,19 +3418,20 @@ section.select-a-buddi .back {
 section.select-a-buddi .back img {
   width: 100%;
 }
-section.select-a-buddi .buddi-btn:nth-child(1) .box {
+/* NOTE: We use the descending order to follow the reversed display */
+section.select-a-buddi .buddi-btn:nth-child(5) .box {
   background-image: url('../img/bg-buddis/pink.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(2) .box {
+section.select-a-buddi .buddi-btn:nth-child(4) .box {
   background-image: url('../img/bg-buddis/gold.png');
 }
 section.select-a-buddi .buddi-btn:nth-child(3) .box {
   background-image: url('../img/bg-buddis/blue.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(4) .box {
+section.select-a-buddi .buddi-btn:nth-child(2) .box {
   background-image: url('../img/bg-buddis/green.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(5) .box {
+section.select-a-buddi .buddi-btn:nth-child(1) .box {
   background-image: url('../img/bg-buddis/red.png');
 }
 
@@ -3532,6 +3533,22 @@ section.select-a-buddi .box .model img {
   }
   section.select-a-buddi .box {
     max-width: 73.7%;
+  }
+  /* RESET .buddi-btn BACKGROUND IMAGE*/
+  section.select-a-buddi .buddi-btn:nth-child(1) .box {
+    background-image: url('../img/bg-buddis/pink.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(2) .box {
+    background-image: url('../img/bg-buddis/gold.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(3) .box {
+    background-image: url('../img/bg-buddis/blue.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(4) .box {
+    background-image: url('../img/bg-buddis/green.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(5) .box {
+    background-image: url('../img/bg-buddis/red.png');
   }
   section.select-a-buddi .box h4 {
     font-size: 13px;

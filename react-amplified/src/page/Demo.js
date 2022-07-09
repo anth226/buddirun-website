@@ -130,7 +130,7 @@ export default function Demo() {
 
   const closeModal = () => {
     const selectBuddi = ReactDOM.findDOMNode(selectBuddiRef.current);
-    selectBuddi.scrollIntoView({ block: "start", behavior: "smooth" });
+    selectBuddi.scrollIntoView(true);
 
     setOpenEndGameWinModal(false);
     setOpenEndGameLoseModal(false);
@@ -202,15 +202,20 @@ export default function Demo() {
       playerID: selectedBuddi.id, // ID of the selected Buddi
       // race: selectedRace,
     };
+
+    const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+    console.log('TEST UNITY CANVAS', canvas);
+    if (canvas) {
+      canvas.scrollIntoView(true);
+    } else {
+      console.warn('No Unity canvas found');
+    }
     // Wait 2.5 sec to make sure Unity game is loaded
     setTimeout(() => {
       confirmRaceBtn.classList.remove('loading');
       confirmRaceBtn.classList.add('active');
       sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
       setIsGameStarted(true);
-
-      const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
-      canvas.scrollIntoView({block: "start", behavior: "smooth"});
     }, 2500);
   };
 
@@ -472,7 +477,7 @@ export default function Demo() {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center flex-wrap">
+          <div className="d-flex flex-row justify-content-center flex-wrap flex-lg-wrap-reverse flex-lg-row-reverse">
             {Array.from(buddiList, (buddi, buddiIndex) => {
               let boxClassName = "box";
               const selectedBuddiID = selectedBuddi
@@ -700,7 +705,7 @@ export default function Demo() {
             {/*
               TODO: It seems the Unity component causes the following issue: Maximum update depth exceeded.
             */}
-            <div className={`video-unity${isGameStarted ? " active" : ""}`}>
+            <div className={`video-unity${isGameStarted ? " active" : ""}`} ref={unityCanvasRef}>
               <Unity
                 style={{
                   visibility: isLoaded ? "visible" : "hidden",
@@ -711,7 +716,6 @@ export default function Demo() {
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
                 matchWebGLToCanvasSize={true}
-                ref={unityCanvasRef}
               />
               <img
                 className="unity-btn"
