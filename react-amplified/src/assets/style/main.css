@@ -2135,7 +2135,7 @@ section.race .race-box img {
     font-size: 12px;
     line-height: 26px;
   }
-  section.race iframe.video2 { 
+  section.race iframe.video2 {
     display: none;
   }
 }
@@ -2815,7 +2815,7 @@ section.team .team-members span {
 /* community */
 section.community {
   position: relative;
-  
+
 }
 
 section.community .background {
@@ -3714,12 +3714,10 @@ section.enter-a-race table tbody tr td.race-name {
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }
-
 .alert-warning {
   max-width: 900px;
   margin: 0 auto;
 }
-
 section.enter-a-race .race-btn.loading {
   position: relative;
 }
