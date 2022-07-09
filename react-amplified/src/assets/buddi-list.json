@@ -10,7 +10,7 @@
         "accel": 4,
         "jump": 0
       },
-      "imgUrl": "img/buddis/whale1-0.svg"
+      "imgUrl": "img/buddis/00-whale1.svg"
     },
     "whale2": {
       "id": "1",
@@ -22,7 +22,7 @@
         "accel": 7,
         "jump": 0
       },
-      "imgUrl": "img/buddis/whale2-1.svg"
+      "imgUrl": "img/buddis/01-whale2.svg"
     },
     "whale3": {
       "id": "2",
@@ -34,7 +34,7 @@
         "accel": 6,
         "jump": 0
       },
-      "imgUrl": "img/buddis/whale3-2.svg"
+      "imgUrl": "img/buddis/02-whale3.svg"
     }
   },
   "sloth": {
@@ -48,7 +48,7 @@
         "accel": 4,
         "jump": 0
       },
-      "imgUrl": "img/buddis/sloth1-3.svg"
+      "imgUrl": "img/buddis/03-sloth1.svg"
     },
     "sloth2": {
       "id": "4",
@@ -60,7 +60,7 @@
         "accel": 9,
         "jump": 0
       },
-      "imgUrl": "img/buddis/sloth2-4.svg"
+      "imgUrl": "img/buddis/04-sloth2.svg"
     },
     "sloth3": {
       "id": "5",
@@ -72,7 +72,7 @@
         "accel": 4,
         "jump": 0
       },
-      "imgUrl": "img/buddis/sloth3-5.svg"
+      "imgUrl": "img/buddis/05-sloth3.svg"
     }
   },
   "crocodile": {
@@ -86,7 +86,7 @@
         "accel": 4,
         "jump": 0
       },
-      "imgUrl": "img/buddis/croc1-6.svg"
+      "imgUrl": "img/buddis/06-croc1.svg"
     },
     "crocodile2": {
       "id": "7",
@@ -98,7 +98,7 @@
         "accel": 5,
         "jump": 0
       },
-      "imgUrl": "img/buddis/croc2-7.svg"
+      "imgUrl": "img/buddis/07-croc2.svg"
     },
     "crocodile3": {
       "id": "8",
@@ -110,7 +110,7 @@
         "accel": 9,
         "jump": 0
       },
-      "imgUrl": "img/buddis/croc3-8.svg"
+      "imgUrl": "img/buddis/08-croc3.svg"
     }
   },
   "spider": {
@@ -124,7 +124,7 @@
         "accel": 8,
         "jump": 0
       },
-      "imgUrl": "img/buddis/spider1-9.svg"
+      "imgUrl": "img/buddis/09-spider1.svg"
     },
     "spider2": {
       "id": "10",
@@ -136,7 +136,7 @@
         "accel": 7,
         "jump": 0
       },
-      "imgUrl": "img/buddis/spider2-10.svg"
+      "imgUrl": "img/buddis/10-spider2.svg"
     },
     "spider3": {
       "id": "11",
@@ -148,7 +148,7 @@
         "accel": 4,
         "jump": 0
       },
-      "imgUrl": "img/buddis/spider3-11.svg"
+      "imgUrl": "img/buddis/11-spider3.svg"
     }
   },
   "armadillo": {
@@ -162,7 +162,7 @@
         "accel": 8,
         "jump": 0
       },
-      "imgUrl": "img/buddis/arma1-12.svg"
+      "imgUrl": "img/buddis/12-arma1.svg"
     },
     "armadillo2": {
       "id": "13",
@@ -174,7 +174,7 @@
         "accel": 6,
         "jump": 0
       },
-      "imgUrl": "img/buddis/arma2-13.svg"
+      "imgUrl": "img/buddis/13-arma2.svg"
     },
     "armadillo3": {
       "id": "14",
@@ -186,7 +186,7 @@
         "accel": 5,
         "jump": 0
       },
-      "imgUrl": "img/buddis/arma3-14.svg"
+      "imgUrl": "img/buddis/14-arma3.svg"
     }
   }
 }

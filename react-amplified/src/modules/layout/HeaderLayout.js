@@ -173,6 +173,7 @@ export default function Header() {
                 </div>
               </div>
             )}
+            {/* TODO: navbar-nav needs to be reworked with flex instead of col */}
             <ul className="navbar-nav me-auto navbar-list">
               <li className="nav-item col-lg-3 h-100 p-0">
                 <Link
@@ -188,7 +189,7 @@ export default function Header() {
                   HOME
                 </Link>
               </li>
-              <li className="nav-item col-lg-2 h-100 p-0">
+              <li className="nav-item col-lg-3 h-100 p-0">
                 <Link
                   to={APP_ROUTES.Race.path}
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
@@ -201,7 +202,7 @@ export default function Header() {
                   RACE
                 </Link>
               </li>
-              <li className="nav-item col-lg-2 h-100 p-0 position-relative">
+              <li className="nav-item col-lg-3 h-100 p-0 position-relative">
                 <div className="d-none d-lg-block h-100">
                   <a
                     href="/documents"
@@ -261,7 +262,7 @@ export default function Header() {
                   </ul>
                 </div>
               </li>
-              <li className="nav-item col-lg-2 h-100 p-0">
+              {/*<li className="nav-item col-lg-2 h-100 p-0">
                 <Link
                   to="/mint"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
@@ -274,6 +275,7 @@ export default function Header() {
                   MINT
                 </Link>
               </li>
+              */}
               <li className="nav-item col-lg-3 h-100 p-0 position-relative">
                 <div className="d-none d-lg-block h-100">
                   <a
@@ -349,7 +351,7 @@ export default function Header() {
                   onClick={() => handleOpenAuth()}
                   disabled={datastoreStatus < DatastoreStatus.INIT}
                 >
-                  SIGN IN
+                  LOG IN
                 </button>
               ) : (
                 <ul className="navbar-nav ms-auto nav-profile d-none d-sm-flex">
