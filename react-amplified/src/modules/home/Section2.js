@@ -11,11 +11,7 @@ export default function Section2() {
             HALF ALIEN
           </h2>
           <p>
-            In early 2021, engineers at the mysterious Exo Laboratory completed
-            work on a revolutionary machine to create the first digital sentient
-            creatures ever, made by combining Alien DNA found on an asteroid
-            with the DNA of 5 unique animals: a whale, spider, sloth, armadillo,
-            and crocodile. They named them the Buddis.
+            Engineers at the mysterious Exo Laboratory completed work on a revolutionary machine to create the first digital sentient creatures, made by combining digitized Alien DNA found on an asteroid with the DNA of 5 animals: a whale, spider, sloth, armadillo, and crocodile. They named them the Buddis.
           </p>
           <div className="row mt-5">
             <div className="col-4 dna">

@@ -77,9 +77,7 @@ export default function Race() {
         </div>
 
         <p className="paragraph">
-          Buddi are ready to race as soon as they are born. <br />
-          Players enter Buddis into individual races or tournaments to win prize
-          pools of Race Entry Tickets or Energy Cells.
+          Buddis love to run, but they live to race. The autonomous little bi-podal digital creatures are very competitive and don’t require their owner’s help during a race. Races with 8 entrants or tournaments with 1,000 are all the same to a Buddi; a chance to be first across the finish line.
         </p>
         <h1 className="section-h1">GAME PLAY ELEMENTS</h1>
         <div className="row mx-auto">
@@ -141,7 +139,7 @@ export default function Race() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-7 position-relative">
+          <div className="col-12 col-lg-7 position-relative gameplay-boxes">
             <div
               className={`race-box d-flex flex-column ${
                 element === "generate" && "active"
@@ -216,6 +214,13 @@ export default function Race() {
             </div>
           </div>
         </div>
+        <p className="paragraph2">
+          EXO Labs is working to collect enough digitized DNA from the first 5 Origin Buddis to create 10,000 Origin BuddisNFTs with unique skill values and aesthetic textures.<br/>
+          <br/>
+          Shortly before the full Buddi Run game site is ready to launch, a public pre-sale of some BuddiNFT’s will be held to fund final development.<br/>
+          <br/>
+          While the Buddis race planet is being built, players who want to get onto the pre-sale whitelist and be eligible for daily drops of in-game items, will have a much higher chance if they’re active in the BR discord server and enter a few races daily.
+        </p>
       </div>
     </section>
   );

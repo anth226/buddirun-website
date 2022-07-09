@@ -14,11 +14,11 @@ export const APP_ROUTES = {
     devOnly: true,
     Component: Demo,
   },
-  Mint: {
-    path: "/mint",
-    protectedRoute: true,
-    Component: Mint,
-  },
+  // Mint: {
+  //   path: "/mint",
+  //   protectedRoute: true,
+  //   Component: Mint,
+  // },
   Profile: {
     path: "/profile",
     protectedRoute: true,
