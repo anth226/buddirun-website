@@ -591,12 +591,9 @@ select.form-control {
 }
 
 .section1-box {
-  /*left: 70%;
-  transform: translateX(-80%);*/
   margin-left: auto;
   margin-right: auto;
-  margin-top: 7%;
-  max-width: 736px;
+  margin-top: 10%;
   width: 100%;
   max-height: 437px;
   height: 100%;
@@ -613,6 +610,7 @@ select.form-control {
   font-size: 60px;
   line-height: 80px;
   color: #fff;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 .section1-box p {
@@ -620,6 +618,7 @@ select.form-control {
   font-size: 24px;
   line-height: 26px;
   color: #fff;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 .btn-playvideo {
@@ -723,17 +722,16 @@ select.form-control {
     margin-left: 5px;
   }
   .section1-box {
-    max-width: 500px;
     max-height: 270px;
-    padding-top: 20px;
+    margin-top: 3%;
   }
   .section1-box h2 {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 42px;
+    line-height: 73px;
   }
   .section1-box p {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 17px;
+    line-height: 44px;
   }
   .btn-playvideo {
     width: 240px;
@@ -962,6 +960,18 @@ select.form-control {
   .close-auth-toggle {
     right: 52%;
   }
+
+  .section1-box {
+    margin-top: 6%;
+  }
+  .section1-box h2 {
+    font-size: 34px;
+    line-height: 71px;
+  }
+  .section1-box p {
+    font-size: 13px;
+    line-height: 18px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -970,20 +980,19 @@ select.form-control {
     padding-left: 30px !important;
   }
   .section1-box {
-    /*left: 40%;
-    transform: translateX(-40%);*/
-    max-width: 489.25px;
     max-height: 290.49px;
-    padding: 35px 26.5px;
     border-radius: 29.9136px;
+    margin-top: 3%;
+    padding-top: 0;
   }
   .section1-box h2 {
-    font-size: 32px;
-    line-height: 54px;
+    font-size: 42px;
+    line-height: 68px;
+    padding: 0 6%;
   }
   .section1-box p {
-    font-size: 10px;
-    line-height: 17px;
+    font-size: 22px;
+    line-height: 42px;
   }
   .btn-playvideo {
     width: 250px;
@@ -1038,16 +1047,14 @@ select.form-control {
   }
 
   .section1-box {
-    /*top: 33%;*/
-    max-width: 100%;
     max-height: 283px;
     padding: 20px 18px;
     border-radius: 19.9321px;
-    margin-top: 80px;
   }
   .section1-box h2 {
-    font-size: 26px;
-    line-height: 35px;
+    font-size: 30px;
+    line-height: 42px;
+    padding: 0 2%;
   }
   .section1-box p {
     font-size: 12px;
