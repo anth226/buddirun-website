@@ -34,6 +34,7 @@ export default function Demo() {
       // TODO: Find proper naming for userStock to represent the user stock in rewards
       energyCell: 0,
     }),
+    [isIOS, setIsIOS] = useState(false),
     [isGameStarted, setIsGameStarted] = useState(false),
     [selectedBuddi, setSelectedBuddi] = useState(null),
     [selectedRace, setSelectedRace] = useState(null),
@@ -45,6 +46,18 @@ export default function Demo() {
   const unityCanvasRef = useRef(null);
   const selectBuddiRef = useRef(null);
   const selectRaceRef = useRef(null);
+
+  const setupIOS = () => {
+    const isIOS = [
+        'iPhone Simulator',
+        'iPhone',
+      ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+    if (isIOS) {
+      setIsIOS(true);
+    }
+  }
 
   const updateUserStock = (userStock) => {
     const appUserModel = AppUser.getInstance();
@@ -297,6 +310,7 @@ export default function Demo() {
         });
     }
     ReactModal.setAppElement("#root");
+    setupIOS();
     if (buddiList.length === 0) {
       fetchRandomBuddis();
     }
@@ -308,6 +322,7 @@ export default function Demo() {
       removeEventListener("onEndGame", handleEndGame);
     };
   }, [
+    setupIOS,
     fetchRandomBuddis,
     fetchRandomRaces,
     addEventListener,
@@ -672,9 +687,11 @@ export default function Demo() {
       </section>
       <section className="race-play">
         <div className="container-fluid">
-          <div className="alert alert-warning" role="alert">
-            Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
-          </div>
+          {isIOS &&
+            <div className="alert alert-warning" role="alert">
+              Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
+            </div>
+          }
           <div className="race-img text-center">
             <img src="img/RACE.png" />
           </div>
