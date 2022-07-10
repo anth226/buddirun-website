@@ -34,6 +34,7 @@ export default function Demo() {
       // TODO: Find proper naming for userStock to represent the user stock in rewards
       energyCell: 0,
     }),
+    [isIOS, setIsIOS] = useState(false),
     [isGameStarted, setIsGameStarted] = useState(false),
     [selectedBuddi, setSelectedBuddi] = useState(null),
     [selectedRace, setSelectedRace] = useState(null),
@@ -44,6 +45,19 @@ export default function Demo() {
     [showSignupReminder, setShowSignupReminder] = useState(false);
   const unityCanvasRef = useRef(null);
   const selectBuddiRef = useRef(null);
+  const selectRaceRef = useRef(null);
+
+  const setupIOS = () => {
+    const isIOS = [
+        'iPhone Simulator',
+        'iPhone',
+      ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+    if (isIOS) {
+      setIsIOS(true);
+    }
+  }
 
   const updateUserStock = (userStock) => {
     const appUserModel = AppUser.getInstance();
@@ -161,6 +175,9 @@ export default function Demo() {
         });
       setSelectedBuddi(buddiData);
     }
+    // Scroll to Race seclection section
+    // const selectRace = ReactDOM.findDOMNode(selectRaceRef.current);
+    // selectRace.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
   const handleRaceSelection = (e) => {
@@ -208,9 +225,16 @@ export default function Demo() {
       confirmRaceBtn.classList.add('active');
       sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
       setIsGameStarted(true);
-
-      const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
-      canvas.scrollIntoView({block: "start", behavior: "smooth"});
+      // NOTE:  We need to wait until the canvas element is ready in the DOM
+      //        Hardcoded fix for now with setTimeout(fn, 500);
+      setTimeout(() => {
+        const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+        if (canvas) {
+          canvas.scrollIntoView({ block: "start", behavior: "smooth" });
+        } else {
+          console.warn('No Unity canvas found');
+        }
+      }, 500);
     }, 2500);
   };
 
@@ -286,6 +310,7 @@ export default function Demo() {
         });
     }
     ReactModal.setAppElement("#root");
+    setupIOS();
     if (buddiList.length === 0) {
       fetchRandomBuddis();
     }
@@ -297,6 +322,7 @@ export default function Demo() {
       removeEventListener("onEndGame", handleEndGame);
     };
   }, [
+    setupIOS,
     fetchRandomBuddis,
     fetchRandomRaces,
     addEventListener,
@@ -472,7 +498,7 @@ export default function Demo() {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center flex-wrap">
+          <div className="d-flex flex-row justify-content-center flex-wrap flex-lg-wrap-reverse flex-lg-row-reverse">
             {Array.from(buddiList, (buddi, buddiIndex) => {
               let boxClassName = "box";
               const selectedBuddiID = selectedBuddi
@@ -524,7 +550,7 @@ export default function Demo() {
           </div>
         </div>
       </section>
-      <section className="enter-a-race">
+      <section ref={selectRaceRef} className="enter-a-race">
         <div className="wrap position-relative container-fluid">
           <div className="heading-wrap text-center">
             <hr />
@@ -661,9 +687,11 @@ export default function Demo() {
       </section>
       <section className="race-play">
         <div className="container-fluid">
-        <div className="alert alert-warning" role="alert">
-          Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
-        </div>
+          {isIOS &&
+            <div className="alert alert-warning" role="alert">
+              Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
+            </div>
+          }
           <div className="race-img text-center">
             <img src="img/RACE.png" />
           </div>
@@ -702,6 +730,7 @@ export default function Demo() {
             */}
             <div className={`video-unity${isGameStarted ? " active" : ""}`}>
               <Unity
+                ref={unityCanvasRef}
                 style={{
                   visibility: isLoaded ? "visible" : "hidden",
                   position: "relative",
@@ -711,7 +740,6 @@ export default function Demo() {
                 unityProvider={unityProvider}
                 devicePixelRatio={window.devicePixelRatio}
                 matchWebGLToCanvasSize={true}
-                ref={unityCanvasRef}
               />
               <img
                 className="unity-btn"

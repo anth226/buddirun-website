@@ -591,12 +591,9 @@ select.form-control {
 }
 
 .section1-box {
-  /*left: 70%;
-  transform: translateX(-80%);*/
   margin-left: auto;
   margin-right: auto;
-  margin-top: 7%;
-  max-width: 736px;
+  margin-top: 10%;
   width: 100%;
   max-height: 437px;
   height: 100%;
@@ -613,6 +610,7 @@ select.form-control {
   font-size: 60px;
   line-height: 80px;
   color: #fff;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 .section1-box p {
@@ -620,6 +618,7 @@ select.form-control {
   font-size: 24px;
   line-height: 26px;
   color: #fff;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 .btn-playvideo {
@@ -723,17 +722,16 @@ select.form-control {
     margin-left: 5px;
   }
   .section1-box {
-    max-width: 500px;
     max-height: 270px;
-    padding-top: 20px;
+    margin-top: 3%;
   }
   .section1-box h2 {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 42px;
+    line-height: 73px;
   }
   .section1-box p {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 17px;
+    line-height: 44px;
   }
   .btn-playvideo {
     width: 240px;
@@ -962,6 +960,18 @@ select.form-control {
   .close-auth-toggle {
     right: 52%;
   }
+
+  .section1-box {
+    margin-top: 6%;
+  }
+  .section1-box h2 {
+    font-size: 34px;
+    line-height: 71px;
+  }
+  .section1-box p {
+    font-size: 13px;
+    line-height: 18px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -970,20 +980,19 @@ select.form-control {
     padding-left: 30px !important;
   }
   .section1-box {
-    /*left: 40%;
-    transform: translateX(-40%);*/
-    max-width: 489.25px;
     max-height: 290.49px;
-    padding: 35px 26.5px;
     border-radius: 29.9136px;
+    margin-top: 3%;
+    padding-top: 0;
   }
   .section1-box h2 {
-    font-size: 32px;
-    line-height: 54px;
+    font-size: 42px;
+    line-height: 68px;
+    padding: 0 6%;
   }
   .section1-box p {
-    font-size: 10px;
-    line-height: 17px;
+    font-size: 22px;
+    line-height: 42px;
   }
   .btn-playvideo {
     width: 250px;
@@ -1038,16 +1047,14 @@ select.form-control {
   }
 
   .section1-box {
-    /*top: 33%;*/
-    max-width: 100%;
     max-height: 283px;
     padding: 20px 18px;
     border-radius: 19.9321px;
-    margin-top: 80px;
   }
   .section1-box h2 {
-    font-size: 26px;
-    line-height: 35px;
+    font-size: 30px;
+    line-height: 42px;
+    padding: 0 2%;
   }
   .section1-box p {
     font-size: 12px;
@@ -2366,7 +2373,6 @@ section.roadmap span.heading {
 }
 
 section.roadmap .milestones {
-  max-width: 420px;
   width: 100%;
   font-weight: 700;
   font-size: 20px;
@@ -2419,7 +2425,6 @@ section.roadmap .row.right {
     margin-top: 60px;
   }
   section.roadmap .milestones {
-    max-width: 260px;
     width: 100%;
     font-weight: 700;
     font-size: 12px;
@@ -3109,6 +3114,7 @@ section.race-a-buddi .wrap h1 {
   font-size: 200px;
   line-height: 218px;
   margin-top: 10%;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi .wrap h6 {
   font-size: 16px;
@@ -3120,6 +3126,7 @@ section.race-a-buddi .wrap p {
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi .wrap p.note {
   font-size: 16px;
@@ -3134,6 +3141,7 @@ section.race-a-buddi #how-to-race {
 }
 section.race-a-buddi #how-to-race h6 {
   padding: 0 39px;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi #how-to-race .flex-column {
   color: #00008A;
@@ -3205,7 +3213,7 @@ section.race-a-buddi #how-to-race .list-item {
 
 @media (max-width: 576px) {
   section.race-a-buddi .social-links-float {
-    margin-top: -9rem;
+    margin-top: -8rem;
   }
   section.race-a-buddi .wrap {
     padding-bottom: 40%;
@@ -3270,6 +3278,7 @@ section.teamHeader .wrap h1 {
   line-height: 218px;
   color: #ffffff;
   margin-top: 10%;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 @media (max-width: 1600px) {
@@ -3418,19 +3427,20 @@ section.select-a-buddi .back {
 section.select-a-buddi .back img {
   width: 100%;
 }
-section.select-a-buddi .buddi-btn:nth-child(1) .box {
+/* NOTE: We use the descending order to follow the reversed display */
+section.select-a-buddi .buddi-btn:nth-child(5) .box {
   background-image: url('../img/bg-buddis/pink.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(2) .box {
+section.select-a-buddi .buddi-btn:nth-child(4) .box {
   background-image: url('../img/bg-buddis/gold.png');
 }
 section.select-a-buddi .buddi-btn:nth-child(3) .box {
   background-image: url('../img/bg-buddis/blue.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(4) .box {
+section.select-a-buddi .buddi-btn:nth-child(2) .box {
   background-image: url('../img/bg-buddis/green.png');
 }
-section.select-a-buddi .buddi-btn:nth-child(5) .box {
+section.select-a-buddi .buddi-btn:nth-child(1) .box {
   background-image: url('../img/bg-buddis/red.png');
 }
 
@@ -3532,6 +3542,22 @@ section.select-a-buddi .box .model img {
   }
   section.select-a-buddi .box {
     max-width: 73.7%;
+  }
+  /* RESET .buddi-btn BACKGROUND IMAGE*/
+  section.select-a-buddi .buddi-btn:nth-child(1) .box {
+    background-image: url('../img/bg-buddis/pink.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(2) .box {
+    background-image: url('../img/bg-buddis/gold.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(3) .box {
+    background-image: url('../img/bg-buddis/blue.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(4) .box {
+    background-image: url('../img/bg-buddis/green.png');
+  }
+  section.select-a-buddi .buddi-btn:nth-child(5) .box {
+    background-image: url('../img/bg-buddis/red.png');
   }
   section.select-a-buddi .box h4 {
     font-size: 13px;
