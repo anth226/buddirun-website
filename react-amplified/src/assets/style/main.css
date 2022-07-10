@@ -3114,6 +3114,7 @@ section.race-a-buddi .wrap h1 {
   font-size: 200px;
   line-height: 218px;
   margin-top: 10%;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi .wrap h6 {
   font-size: 16px;
@@ -3125,6 +3126,7 @@ section.race-a-buddi .wrap p {
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi .wrap p.note {
   font-size: 16px;
@@ -3139,6 +3141,7 @@ section.race-a-buddi #how-to-race {
 }
 section.race-a-buddi #how-to-race h6 {
   padding: 0 39px;
+  text-shadow: 1px 1px 3px #333333;
 }
 section.race-a-buddi #how-to-race .flex-column {
   color: #00008A;
@@ -3275,6 +3278,7 @@ section.teamHeader .wrap h1 {
   line-height: 218px;
   color: #ffffff;
   margin-top: 10%;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 @media (max-width: 1600px) {
