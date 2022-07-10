@@ -2366,7 +2366,6 @@ section.roadmap span.heading {
 }
 
 section.roadmap .milestones {
-  max-width: 420px;
   width: 100%;
   font-weight: 700;
   font-size: 20px;
@@ -2419,7 +2418,6 @@ section.roadmap .row.right {
     margin-top: 60px;
   }
   section.roadmap .milestones {
-    max-width: 260px;
     width: 100%;
     font-weight: 700;
     font-size: 12px;
