@@ -212,14 +212,16 @@ export default function Demo() {
       confirmRaceBtn.classList.add('active');
       sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
       setIsGameStarted(true);
-        setTimeout(() => {
-          const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
-          if (canvas) {
-            canvas.scrollIntoView({ block: "start", behavior: "smooth" });
-          } else {
-            console.warn('No Unity canvas found');
-          }
-        }, 500);
+      // NOTE:  We need to wait until the canvas element is ready in the DOM
+      //        Hardcoded fix for now with setTimeout(fn, 500);
+      setTimeout(() => {
+        const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+        if (canvas) {
+          canvas.scrollIntoView({ block: "start", behavior: "smooth" });
+        } else {
+          console.warn('No Unity canvas found');
+        }
+      }, 500);
     }, 2500);
   };
 
