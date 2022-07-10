@@ -44,6 +44,7 @@ export default function Demo() {
     [showSignupReminder, setShowSignupReminder] = useState(false);
   const unityCanvasRef = useRef(null);
   const selectBuddiRef = useRef(null);
+  const selectRaceRef = useRef(null);
 
   const updateUserStock = (userStock) => {
     const appUserModel = AppUser.getInstance();
@@ -130,7 +131,7 @@ export default function Demo() {
 
   const closeModal = () => {
     const selectBuddi = ReactDOM.findDOMNode(selectBuddiRef.current);
-    selectBuddi.scrollIntoView(true);
+    selectBuddi.scrollIntoView({ block: "start", behavior: "smooth" });
 
     setOpenEndGameWinModal(false);
     setOpenEndGameLoseModal(false);
@@ -161,6 +162,9 @@ export default function Demo() {
         });
       setSelectedBuddi(buddiData);
     }
+    // Scroll to Race seclection section
+    // const selectRace = ReactDOM.findDOMNode(selectRaceRef.current);
+    // selectRace.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
   const handleRaceSelection = (e) => {
@@ -202,20 +206,20 @@ export default function Demo() {
       playerID: selectedBuddi.id, // ID of the selected Buddi
       // race: selectedRace,
     };
-
-    const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
-    console.log('TEST UNITY CANVAS', canvas);
-    if (canvas) {
-      canvas.scrollIntoView(true);
-    } else {
-      console.warn('No Unity canvas found');
-    }
     // Wait 2.5 sec to make sure Unity game is loaded
     setTimeout(() => {
       confirmRaceBtn.classList.remove('loading');
       confirmRaceBtn.classList.add('active');
       sendMessage("JavaScriptInterface", "StartGame", JSON.stringify(gameParams));
       setIsGameStarted(true);
+        setTimeout(() => {
+          const canvas = ReactDOM.findDOMNode(unityCanvasRef.current);
+          if (canvas) {
+            canvas.scrollIntoView({ block: "start", behavior: "smooth" });
+          } else {
+            console.warn('No Unity canvas found');
+          }
+        }, 500);
     }, 2500);
   };
 
@@ -529,7 +533,7 @@ export default function Demo() {
           </div>
         </div>
       </section>
-      <section className="enter-a-race">
+      <section ref={selectRaceRef} className="enter-a-race">
         <div className="wrap position-relative container-fluid">
           <div className="heading-wrap text-center">
             <hr />
@@ -666,9 +670,9 @@ export default function Demo() {
       </section>
       <section className="race-play">
         <div className="container-fluid">
-        <div className="alert alert-warning" role="alert">
-          Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
-        </div>
+          <div className="alert alert-warning" role="alert">
+            Please Be Aware: Race demo is unstable on iOS devices due to Apple undermining Unity WebGl.
+          </div>
           <div className="race-img text-center">
             <img src="img/RACE.png" />
           </div>
@@ -705,8 +709,9 @@ export default function Demo() {
             {/*
               TODO: It seems the Unity component causes the following issue: Maximum update depth exceeded.
             */}
-            <div className={`video-unity${isGameStarted ? " active" : ""}`} ref={unityCanvasRef}>
+            <div className={`video-unity${isGameStarted ? " active" : ""}`}>
               <Unity
+                ref={unityCanvasRef}
                 style={{
                   visibility: isLoaded ? "visible" : "hidden",
                   position: "relative",
