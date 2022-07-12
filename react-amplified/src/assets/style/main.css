@@ -3698,11 +3698,18 @@ section.enter-a-race::before {
   height: 100%;
   opacity: 0.5;
 }
-
+section.enter-a-race .loading-banner {
+  display: block;
+  text-align: center;
+  color: #F2742E;
+  margin-top: 1rem;
+}
 section.enter-a-race table {
   border-collapse: separate;
   border-spacing: 0px 12px;
-  margin-top: 60px;
+}
+section.enter-a-race table.loaded {
+  margin-top: 56px;
 }
 section.enter-a-race table.table>:not(caption)>*>* {
   background-color: #FFFFFF;
@@ -3802,6 +3809,12 @@ section.enter-a-race .enter-btn:disabled {
   opacity: 0.45;
   background: linear-gradient(90deg, #20D31D 0%, #03C900 100%);
 }
+section.enter-a-race .enter-btn.loading:disabled {
+  opacity: 1;
+}
+section.enter-a-race .enter-btn.loading:before {
+  background: linear-gradient(180deg, #20D31D 0%, #03C900 100%);
+}
 section.enter-a-race .confirm-btn.active {
   background: linear-gradient(0deg, #D35E1D, #D35E1D), linear-gradient(0deg, rgba(211, 94, 29, 0.5), rgba(211, 94, 29, 0.5));
   border: 2px solid #D35E1D;
@@ -3815,7 +3828,6 @@ section.enter-a-race .confirm-btn:disabled {
 }
 section.enter-a-race .confirm-btn.loading:before {
   background: linear-gradient(0deg, #D35E1D, #D35E1D), linear-gradient(0deg, rgba(211, 94, 29, 0.5), rgba(211, 94, 29, 0.5));
-  border: 2px solid #D35E1D;
   box-shadow: 0px 23px 80px rgba(55, 142, 182, 0.18), 0px 9.60885px 33.4221px rgba(55, 142, 182, 0.129394), 0px 5.13735px 17.869px rgba(55, 142, 182, 0.107299), 0px 2.87996px 10.0172px rgba(55, 142, 182, 0.09), 0px 1.52952px 5.32008px rgba(55, 142, 182, 0.0727007), 0px 0.636469px 2.21381px rgba(55, 142, 182, 0.0506062);
 }
 @media (max-width: 768px) {
