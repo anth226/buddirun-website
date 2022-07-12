@@ -566,7 +566,8 @@ select.form-control {
   right: 0;
   left: 0;
   /*background: url("../img/Asset 16 1.png");*/
-  background: url("../img/bg-section1-alt.png");
+  /*background: url("../img/bg-section1-alt.png");*/
+  background: url("../img/bg-home-section1-lg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -579,11 +580,11 @@ select.form-control {
   top: 0;
   right: 0;
   left: 0;
-  background: url("../img/Asset 15 1.png");
+  background: url("../img/bg-home-section1-overlay-lg.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
-  height: 100%;
+  background-position: top center;
+  height: 90%;
 }
 
 .section1 .section-wrap {
@@ -979,6 +980,16 @@ select.form-control {
     padding-right: 30px !important;
     padding-left: 30px !important;
   }
+  .navbar {
+    /* NOTE: Using `!important` to override Bootstrap's CSS */
+    padding-top: 0.75rem !important;
+  }
+  .section1::before {
+    background-image: url("../img/bg-home-section1-md.png");
+  }
+  .section1 > div::before {
+    background-image: url("../img/bg-home-section1-overlay-md.png");
+  }
   .section1-box {
     max-height: 290.49px;
     border-radius: 29.9136px;
@@ -1045,7 +1056,15 @@ select.form-control {
   .social-links-float .social-icon {
     margin: -20px 0px 10px 0px;
   }
-
+  .section1::before {
+    background-image: url("../img/bg-home-section1-md.png");
+    height: 105%;
+  }
+  .section1 > div::before {
+    background-image: url("../img/bg-home-section1-overlay-sm.png");
+    height: 105%;
+    background-size: 100% 100%;
+  }
   .section1-box {
     max-height: 283px;
     padding: 20px 18px;

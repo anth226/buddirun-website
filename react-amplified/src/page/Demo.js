@@ -115,7 +115,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "webgl_final";
+  const fileName = "webgl-v0_0_1";
 
   // NOTE: Blocking Unity loader until optimized
   const {
