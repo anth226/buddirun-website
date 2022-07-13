@@ -351,7 +351,7 @@ export default function Header() {
                   onClick={() => handleOpenAuth()}
                   disabled={datastoreStatus < DatastoreStatus.INIT}
                 >
-                  LOG IN
+                  Sign In<hr/>Sign Up
                 </button>
               ) : (
                 <ul className="navbar-nav ms-auto nav-profile d-none d-sm-flex">

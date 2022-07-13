@@ -400,13 +400,21 @@ select.form-control {
 
 .btn-signin {
   background: linear-gradient(90deg, #19C615 0%, #74BC18 100%);
-  border-radius: 40px !important;
-  padding: 16px 65px !important;
+  border-radius: 16px !important;
+  /*padding: 16px 65px !important; TODO: DELETE */
+  padding: 4.8px 8px !important;
   color: #fff !important;
   font-weight: 400 !important;
-  font-size: 22px !important;
+  /*font-size: 22px !important; TODO: DELETE */
+  font-size: 1rem;
   line-height: 24px !important;
   margin-left: 10px;
+  width: 100px;
+}
+.btn-signin hr {
+  margin: 3px 0;
+  height: 2px;
+  opacity: 0.75;
 }
 
 .nav-profile {
@@ -714,13 +722,13 @@ select.form-control {
   }
 
   .btn-signin {
-    padding: 10px 30px !important;
+    /*padding: 10px 30px !important; TODO: DELETE */
     margin-left: 2px;
-    font-size: 16px !important;
+    /*font-size: 16px !important; TODO: DELETE */
   }
   .btn-signin {
-    padding: 12px 40px !important;
-    margin-left: 5px;
+    /*padding: 12px 40px !important; TODO: DELETE */
+    /*margin-left: 5px; TODO: DELETE */
   }
   .section1-box {
     max-height: 270px;
@@ -899,10 +907,10 @@ select.form-control {
     text-transform: uppercase;
   }
   .btn-signin {
-    padding: 12px 34px !important;
-    margin: 0;
-    font-size: 18px !important;
-    line-height: 20px !important;
+    /*padding: 12px 34px !important; TODO: DELETE */
+    /*margin: 0; TODO: DELETE */
+    /*font-size: 18px !important; TODO: DELETE */
+    /*line-height: 20px !important; TODO: DELETE */
   }
   .btn-playvideo {
     width: 200px;
