@@ -400,13 +400,21 @@ select.form-control {
 
 .btn-signin {
   background: linear-gradient(90deg, #19C615 0%, #74BC18 100%);
-  border-radius: 40px !important;
-  padding: 16px 65px !important;
+  border-radius: 16px !important;
+  /*padding: 16px 65px !important; TODO: DELETE */
+  padding: 4.8px 8px !important;
   color: #fff !important;
   font-weight: 400 !important;
-  font-size: 22px !important;
+  /*font-size: 22px !important; TODO: DELETE */
+  font-size: 1rem;
   line-height: 24px !important;
   margin-left: 10px;
+  width: 100px;
+}
+.btn-signin hr {
+  margin: 3px 0;
+  height: 2px;
+  opacity: 0.75;
 }
 
 .nav-profile {
@@ -714,13 +722,13 @@ select.form-control {
   }
 
   .btn-signin {
-    padding: 10px 30px !important;
+    /*padding: 10px 30px !important; TODO: DELETE */
     margin-left: 2px;
-    font-size: 16px !important;
+    /*font-size: 16px !important; TODO: DELETE */
   }
   .btn-signin {
-    padding: 12px 40px !important;
-    margin-left: 5px;
+    /*padding: 12px 40px !important; TODO: DELETE */
+    /*margin-left: 5px; TODO: DELETE */
   }
   .section1-box {
     max-height: 270px;
@@ -890,33 +898,6 @@ select.form-control {
   .navbar-expand-lg .navbar-list .nav-item:last-child .nav-link{
     border-radius: unset;
   }
-  /* TODO: DELETE BELOW */
-  .navbar-collapse {
-    /*flex-basis: 100%;*/
-    /*flex-grow: 1;*/
-    /*align-items: center;*/
-    /*position: fixed;*/
-    /*height: 100% !important;*/
-    /*top: 0;*/
-    /*max-width: 50vw;*/
-    /*width: 100%;*/
-    /*right: -300px;*/
-    /*z-index: 999;*/
-    /*transition: all 0.3s linear;*/
-    /*background-color: #fff;*/
-    /*background: linear-gradient(
-        90deg,
-        rgba(35, 140, 255, 0.8) -6.72%,
-        #00c2ff 125.98%
-      ),
-      rgba(255, 255, 255, 0.5);*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: center;*/
-    /*background-size: cover;*/
-    /*filter: blur(0.2);*/
-    /*padding-top: 20vh;*/
-  }
-  /* EO DELETE BELOW */
 
   .nav-item .docs-item {
     text-decoration: none;
@@ -926,10 +907,10 @@ select.form-control {
     text-transform: uppercase;
   }
   .btn-signin {
-    padding: 12px 34px !important;
-    margin: 0;
-    font-size: 18px !important;
-    line-height: 20px !important;
+    /*padding: 12px 34px !important; TODO: DELETE */
+    /*margin: 0; TODO: DELETE */
+    /*font-size: 18px !important; TODO: DELETE */
+    /*line-height: 20px !important; TODO: DELETE */
   }
   .btn-playvideo {
     width: 200px;
@@ -2050,9 +2031,6 @@ section.race .race-box img {
 }
 
 @media (max-width: 992px) {
-  section.race {
-    /*height: 1500px; TODO: DELETE*/
-  }
   section.race .gameplay-boxes {
     min-height: 260px;
   }
@@ -2085,9 +2063,6 @@ section.race .race-box img {
 }
 
 @media (max-width: 768px) {
-  section.race {
-    /*height: 1200px; TODO: DELETE*/
-  }
   section.race h3 {
     font-size: 14px;
     line-height: 15px;
@@ -2167,9 +2142,6 @@ section.race .race-box img {
 }
 
 @media (max-width: 576px) {
-  section.race {
-    /*height: 1900px; TODO: DELETE */
-  }
   section.race .slider .pre-btn img,
   .next-btn img {
     width: 60px;
@@ -2406,9 +2378,6 @@ section.roadmap .row.right {
 }
 
 @media (max-width: 991px) {
-  section.roadmap {
-    /*margin-top: -80px; TODO: DELETE*/
-  }
   section.roadmap .background {
     height: 1650px;
     margin-bottom: -100px;
@@ -2421,9 +2390,6 @@ section.roadmap .row.right {
   }
   section.roadmap .roadmap-heading {
     margin-bottom: 50px;
-  }
-  section.roadmap .roadmap-wrap {
-    /*top: 500px; TODO: DELETE*/
   }
 }
 
@@ -2490,15 +2456,6 @@ section.roadmap .row.right {
 }
 
 @media (max-width: 576px) {
-  section.roadmap {
-    /*margin-top: -550px; TODO: DELETE */
-  }
-  section.roadmap .background {
-    /*height: 1200px; TODO: DELETE */
-  }
-  section.roadmap .roadmap-wrap {
-    /*top: 150px; TODO: DELETE */
-  }
   section.roadmap .container-fluid {
     padding-right: 15px !important;
     padding-left: 15px !important;
@@ -2525,9 +2482,6 @@ section.roadmap .row.right {
 }
 
 @media (max-width: 400px) {
-  section.roadmap {
-    /*margin-top: -650px; TODO: DELETE */
-  }
 }
 @media (min-width: 992px) {
   section.roadmap .box.left:after {
@@ -2950,9 +2904,6 @@ section.community .icon:hover {
 }
 
 @media (max-width: 576px) {
-  section.community {
-    /*margin-top: 300px; TODO: DELETE */
-  }
   section.community .background {
     height: 384px;
   }
@@ -3698,11 +3649,18 @@ section.enter-a-race::before {
   height: 100%;
   opacity: 0.5;
 }
-
+section.enter-a-race .loading-banner {
+  display: block;
+  text-align: center;
+  color: #F2742E;
+  margin-top: 1rem;
+}
 section.enter-a-race table {
   border-collapse: separate;
   border-spacing: 0px 12px;
-  margin-top: 60px;
+}
+section.enter-a-race table.loaded {
+  margin-top: 56px;
 }
 section.enter-a-race table.table>:not(caption)>*>* {
   background-color: #FFFFFF;
@@ -3802,6 +3760,12 @@ section.enter-a-race .enter-btn:disabled {
   opacity: 0.45;
   background: linear-gradient(90deg, #20D31D 0%, #03C900 100%);
 }
+section.enter-a-race .enter-btn.loading:disabled {
+  opacity: 1;
+}
+section.enter-a-race .enter-btn.loading:before {
+  background: linear-gradient(180deg, #20D31D 0%, #03C900 100%);
+}
 section.enter-a-race .confirm-btn.active {
   background: linear-gradient(0deg, #D35E1D, #D35E1D), linear-gradient(0deg, rgba(211, 94, 29, 0.5), rgba(211, 94, 29, 0.5));
   border: 2px solid #D35E1D;
@@ -3815,7 +3779,6 @@ section.enter-a-race .confirm-btn:disabled {
 }
 section.enter-a-race .confirm-btn.loading:before {
   background: linear-gradient(0deg, #D35E1D, #D35E1D), linear-gradient(0deg, rgba(211, 94, 29, 0.5), rgba(211, 94, 29, 0.5));
-  border: 2px solid #D35E1D;
   box-shadow: 0px 23px 80px rgba(55, 142, 182, 0.18), 0px 9.60885px 33.4221px rgba(55, 142, 182, 0.129394), 0px 5.13735px 17.869px rgba(55, 142, 182, 0.107299), 0px 2.87996px 10.0172px rgba(55, 142, 182, 0.09), 0px 1.52952px 5.32008px rgba(55, 142, 182, 0.0727007), 0px 0.636469px 2.21381px rgba(55, 142, 182, 0.0506062);
 }
 @media (max-width: 768px) {

@@ -557,8 +557,15 @@ export default function Demo() {
             <h3>ENTER A RACE</h3>
             <hr />
           </div>
+          { !isLoaded &&
+          <p className="loading-banner">
+            <span className="text-uppercase">Races are loading</span>...please be patient
+          </p>
+          }
           <div className="content">
-            <table className="table d-none d-sm-table w-100 table-striped">
+            <table className={`table d-none d-sm-table w-100 table-striped${
+              !isLoaded ? "" : " loaded"
+            }`}>
               <thead>
                 <tr>
                   <th scope="col"></th>
@@ -600,6 +607,8 @@ export default function Demo() {
                         <button
                           className={`race-btn enter-btn${
                             raceIsSelected ? " active" : ""
+                          }${
+                            !isLoaded ? " loading" : ""
                           }`}
                           aria-pressed={raceIsSelected}
                           data-bs-toggle="button"
@@ -657,6 +666,8 @@ export default function Demo() {
                       <button
                         className={`race-btn enter-btn${
                           raceIsSelected ? " active" : ""
+                        }${
+                          !isLoaded ? " loading" : ""
                         }`}
                         aria-pressed={raceIsSelected}
                         data-bs-toggle="button"
