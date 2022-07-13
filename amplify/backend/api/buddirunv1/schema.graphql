@@ -64,6 +64,6 @@ type DailyWins
     ]
   ) {
   owner: User! @hasOne
-  date: AWSDate! @primaryKey(sortKeyFields: ["owner"])
+  date: AWSDate! @primaryKey(sortKeyFields: ["ownerId"])
   totalEnergyCells: Int!
 }
