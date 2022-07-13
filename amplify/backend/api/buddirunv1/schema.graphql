@@ -63,8 +63,14 @@ type DailyWins
       { allow: public, operations: [read] }
     ]
   ) {
+  id: ID!
   ownerId: ID!
   owner: User @hasOne(fields: ["ownerId"])
-  date: AWSDate! @primaryKey(sortKeyFields: ["ownerId"])
+  date: AWSDate!
+    @index(
+      name: "byDate"
+      sortKeyFields: ["ownerId", "totalEnergyCells"]
+      queryField: "leaderboardByDate"
+    )
   totalEnergyCells: Int!
 }
