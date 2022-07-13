@@ -65,7 +65,7 @@ type DailyWins
   ) {
   id: ID!
   ownerId: ID!
-  owner: User @hasOne(fields: ["ownerId"])
+  owner: User @belongsTo(fields: ["ownerId"])
   date: AWSDate!
     @index(
       name: "byDate"
