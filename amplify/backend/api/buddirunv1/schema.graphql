@@ -63,8 +63,8 @@ type DailyWins
       { allow: public, operations: [read] }
     ]
   ) {
-  ownerId: ID! @hasOne
-  owner: User @connection(fields: ["ownerId"])
+  ownerId: ID!
+  owner: User @hasOne(fields: ["ownerId"])
   date: AWSDate! @primaryKey(sortKeyFields: ["ownerId"])
   totalEnergyCells: Int!
 }
