@@ -52,19 +52,18 @@ type User
   first_name: String
   last_name: String
   data: String
-  dailyWins: [DailyWins] @connection(name: "UserDailyWins")
+  dailyWins: [DailyWins] @hasMany
 }
 
 type DailyWins
   @model
-  @key(name: "byDate", fields: ["date", "totalEnergyCells"])
   @auth(
     rules: [
       { allow: owner, ownerField: "ownerId" }
       { allow: public, operations: [read] }
     ]
   ) {
-  owner: User! @connection(name: "UserDailyWins")
-  date: AWSDate!
+  owner: User! @hasOne
+  date: AWSDate! @primaryKey(sortKeyFields: ["owner"])
   totalEnergyCells: Int!
 }
