@@ -47,6 +47,7 @@ export default function Demo() {
   const selectBuddiRef = useRef(null);
   const selectRaceRef = useRef(null);
 
+  // TODO: Could probably be replaced by `react-device-detect` tools
   const setupIOS = () => {
     const isIOS = [
         'iPhone Simulator',
@@ -115,7 +116,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "webgl-v0_0_1";
+  const fileName = "webgl-v0_0_1-2K";
 
   // NOTE: Blocking Unity loader until optimized
   const {
