@@ -116,7 +116,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "webgl-v0_0_1-2k";
+  const fileName = "webgl_betting_2K_1minTimer";
 
   // NOTE: Blocking Unity loader until optimized
   const {
