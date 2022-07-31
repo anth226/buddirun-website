@@ -116,7 +116,7 @@ export default function Demo() {
 
   const datastoreStatus = useDatastoreContext();
 
-  const fileName = "webgl_betting_2K_namesPersistent";
+  const fileName = "buddirun_webgl_0.1.0";
 
   // NOTE: Blocking Unity loader until optimized
   const {
