@@ -260,13 +260,14 @@ export default function Demo() {
       console.log("REWARD ?", reward);
       setTimeout(() => {
         requestFullscreen(false);
+        const showResultsModal = process.env.REACT_APP_USER_BRANCH !== 'dev';
         if (!reward) {
-          setOpenEndGameLoseModal(true);
+          setOpenEndGameLoseModal(showResultsModal);
         } else {
           setPlayerRewardText(
             `${reward} ${formatPlural("Energy Cell", reward)}`
           );
-          setOpenEndGameWinModal(true);
+          setOpenEndGameWinModal(showResultsModal);
           let stockData = {};
           console.log("TEST CURRENT STOCK DATA", userStock);
           stockData = {
@@ -285,6 +286,10 @@ export default function Demo() {
           } else {
             console.log("UPDATE USER DATA AFTER WIN", stockData);
             updateUserStock(stockData);
+          }
+          // If we don't show the results modal, trigger the rest of the process
+          if(!showResultsModal) {
+            closeModal();
           }
         }
       }, 10000);
