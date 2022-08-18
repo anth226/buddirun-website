@@ -6,10 +6,13 @@ import AppRoutes from "./AppRoutes";
 import {Auth, DataStore, Hub} from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
+import { Web3ReactProvider } from '@web3-react/core'
+
 import { User } from "../models";
 import { updateAuth } from "./Auth";
 import AppUser from "../appModels/AppUser";
 import { DatastoreContext, DatastoreStatus } from "../lib/contextLib";
+import { getLibrary } from "../modules/wallet/web3Library";
 
 function App() {
   const [datastoreStatus, setDatastoreStatus] = useState(DatastoreStatus.INIT);
@@ -90,9 +93,11 @@ function App() {
   return (
     <Authenticator.Provider>
       <DatastoreContext.Provider value={datastoreStatus}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </Web3ReactProvider>
       </DatastoreContext.Provider>
     </Authenticator.Provider>
   );
