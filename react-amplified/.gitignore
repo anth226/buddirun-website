@@ -33,6 +33,7 @@ yarn-error.log*
 build/
 dist/
 node_modules/
+public/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
