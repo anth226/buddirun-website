@@ -7,12 +7,13 @@ import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
 import { injected } from "../wallet/connectors";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { Auth } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core"
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 import AppUser from "../../appModels/AppUser";
 import { getAvatar } from "../../assets/utils";
+import {updateUser} from "../../graphql/mutations";
 
 export default function Header() {
   const activePath = window.location.pathname;
@@ -135,8 +136,18 @@ export default function Header() {
               }
               const signature = result.result
 
-              console.log('address...........', active, signature);
-            })
+              console.log('address...........', active, walletMessage, signature, account);
+              const userDetails = {
+                id: curUser.userAttributes.sub,
+                email: email,
+                wallet_message: 'msg',
+                address: 'add',
+                signature: 'sig',
+              };
+              API.graphql(graphqlOperation(graphqlOperation(updateUser, {
+                input: userDetails
+              })))
+            });
           }
         })();
   }, [active])
