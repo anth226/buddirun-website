@@ -1,0 +1,78 @@
+[  
+  {
+    "id": "0",
+    "name": "spider3",
+    "imgUrl": "img/buddiList/11-spider3.png"
+  },
+  {
+    "id": "1",
+    "name": "armadillo1",
+    "imgUrl": "img/buddiList/12-arma1.png"
+  },
+  {
+    "id": "2",
+    "name": "whale3",
+    "imgUrl": "img/buddiList/02-whale3.png"
+  },
+  {
+    "id": "3",
+    "name": "crocodile3",
+    "imgUrl": "img/buddiList/08-croc3.png"
+  },
+  {
+    "id": "4",
+    "name": "sloth1",
+    "imgUrl": "img/buddiList/03-sloth1.png"
+  },
+  {
+    "id": "5",
+    "name": "spider1",
+    "imgUrl": "img/buddiList/09-spider1.png"
+  },
+  {
+    "id": "6",
+    "name": "armadillo3",
+    "imgUrl": "img/buddiList/14-arma3.png"
+  },
+  {
+    "id": "7",
+    "name": "whale2",
+    "imgUrl": "img/buddiList/01-whale2.png"
+  },
+  {
+    "id": "8",
+    "name": "crocodile2",
+    "imgUrl": "img/buddiList/07-croc2.png"
+  },
+  {
+    "id": "9",
+    "name": "sloth2",
+    "imgUrl": "img/buddiList/04-sloth2.png"
+  },
+  {
+    "id": "10",
+    "name": "spider2",
+    "imgUrl": "img/buddiList/10-spider2.png"
+  },
+  {
+    "id": "11",
+    "name": "armadillo2",
+    "imgUrl": "img/buddiList/13-arma2.png"
+  },
+  {
+    "id": "12",
+    "name": "whale1",
+    "imgUrl": "img/buddiList/00-whale1.png"
+  },
+  {
+    "id": "13",
+    "name": "crocodile1",
+    "imgUrl": "img/buddiList/06-croc1.png"
+  },
+  {
+    "id": "14",
+    "name": "sloth3",
+    "imgUrl": "img/buddiList/05-sloth3.png"
+  }
+]
+  

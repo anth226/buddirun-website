@@ -1,0 +1,15 @@
+projects:
+  buddirunv1:
+    schemaPath: react-amplified/src/graphql/schema.json
+    includes:
+      - react-amplified/src/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: react-amplified/src/graphql
+extensions:
+  amplify:
+    version: 3
