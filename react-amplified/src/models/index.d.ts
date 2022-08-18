@@ -23,6 +23,10 @@ type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type DailyWinsMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class Task {
   readonly id: string;
   readonly title: string;
@@ -62,8 +66,24 @@ export declare class User {
   readonly first_name?: string | null;
   readonly last_name?: string | null;
   readonly data?: string | null;
+  readonly wallet_message?: string | null;
+  readonly address?: string | null;
+  readonly signature?: string | null;
+  readonly dailyWins?: (DailyWins | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<User, UserMetaData>);
   static copyOf(source: User, mutator: (draft: MutableModel<User, UserMetaData>) => MutableModel<User, UserMetaData> | void): User;
+}
+
+export declare class DailyWins {
+  readonly id: string;
+  readonly owner?: User | null;
+  readonly date: string;
+  readonly totalEnergyCells: number;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly userDailyWinsId?: string | null;
+  constructor(init: ModelInit<DailyWins, DailyWinsMetaData>);
+  static copyOf(source: DailyWins, mutator: (draft: MutableModel<DailyWins, DailyWinsMetaData>) => MutableModel<DailyWins, DailyWinsMetaData> | void): DailyWins;
 }

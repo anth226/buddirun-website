@@ -7,12 +7,13 @@ const PostStatus = {
   "PUBLISHED": "PUBLISHED"
 };
 
-const { Task, Post, PrivateNote, User } = initSchema(schema);
+const { Task, Post, PrivateNote, User, DailyWins } = initSchema(schema);
 
 export {
   Task,
   Post,
   PrivateNote,
   User,
+  DailyWins,
   PostStatus
 };

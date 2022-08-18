@@ -417,6 +417,20 @@ select.form-control {
   opacity: 0.75;
 }
 
+.btn-metamask {
+  background: linear-gradient(90deg, #19C615 0%, #74BC18 100%);
+  border-radius: 16px !important;
+  /*padding: 16px 65px !important; TODO: DELETE */
+  padding: 4.8px 8px !important;
+  color: #fff !important;
+  font-weight: 400 !important;
+  /*font-size: 22px !important; TODO: DELETE */
+  font-size: 1rem;
+  line-height: 24px !important;
+  margin-left: 10px;
+  width: 160px;
+}
+
 .nav-profile {
   height: 100%;
 }
