@@ -13,7 +13,7 @@ import { useWeb3React } from "@web3-react/core"
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 import AppUser from "../../appModels/AppUser";
 import { getAvatar } from "../../assets/utils";
-import {updateUser} from "../../graphql/mutations";
+import { updateUser } from "../../graphql/mutations";
 
 export default function Header() {
   const activePath = window.location.pathname;
@@ -110,7 +110,6 @@ export default function Header() {
   // Todo if active true, hide connect metamask button
 
   useEffect(() => {
-    // Todo generate signature by message, account, api call to update user profile
         (async () => {
           const curUser = await Auth.currentAuthenticatedUser();
           const email = curUser?.attributes.email;
@@ -136,17 +135,19 @@ export default function Header() {
               }
               const signature = result.result
 
-              console.log('address...........', active, walletMessage, signature, account);
+              console.log('WALLET INFO...........', `walletMessage - ${walletMessage}`, `signature - ${signature}`, `address - ${address}`);
               const userDetails = {
-                id: curUser.userAttributes.sub,
+                id: curUser.attributes.sub,
                 email: email,
-                wallet_message: 'msg',
-                address: 'add',
-                signature: 'sig',
+                wallet_message: walletMessage,
+                address: address,
+                signature: signature,
               };
-              API.graphql(graphqlOperation(graphqlOperation(updateUser, {
+              API.graphql(graphqlOperation(updateUser, {
                 input: userDetails
-              })))
+              })).then((response) => {
+                console.log(response)
+              })
             });
           }
         })();
