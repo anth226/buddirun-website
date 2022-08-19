@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../modules/layout/HeaderLayout";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { getAvatar } from "../assets/utils";
+import AppUser from "../appModels/AppUser";
 
 export default function Profile() {
   const active = window.location.pathname;
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const [address] = React.useState("0x245v...984tb9adv");
   const [hasConnect, setHasConnect] = React.useState(false);
+  const [appUser, setAppUser] = React.useState(null);
 
   if (!user) return null;
 
@@ -18,6 +20,18 @@ export default function Profile() {
       user.attributes.family_name || ""
     }`;
   }
+
+  useEffect(() => {
+    const appUserModel = AppUser.getInstance();
+    appUserModel
+        .getOrCreateUser()
+        .then((appUser) => {
+          setAppUser(appUser);
+        })
+        .catch(() => {
+          setAppUser(null);
+        })
+  }, [user]);
 
   return (
     <div className="profile">
@@ -147,6 +161,18 @@ export default function Profile() {
                     <div className="info d-flex flex-column mb-4">
                       <h6 className="text-muted">Email</h6>
                       <input disabled value={user.attributes.email} />
+                    </div>
+                    <div className="info d-flex flex-column mb-4">
+                      <h6 className="text-muted">Wallet Address</h6>
+                      <input disabled value={appUser?.address || ""} />
+                    </div>
+                    <div className="info d-flex flex-column mb-4">
+                      <h6 className="text-muted">Wallet Message</h6>
+                      <input disabled value={appUser?.wallet_message || ""} />
+                    </div>
+                    <div className="info d-flex flex-column mb-4">
+                      <h6 className="text-muted">Signature</h6>
+                      <input disabled value={appUser?.signature || ""} />
                     </div>
 
                     {/* <div className="recieve-update d-flex flex-row align-items-center">

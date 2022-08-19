@@ -7,7 +7,7 @@ import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
 import { injected } from "../wallet/connectors";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { API, Auth, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core"
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
@@ -22,6 +22,7 @@ export default function Header() {
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("");
   const [userFullName, setUserFullName] = React.useState("");
+  const [metamaskClicked, setMetamaskClicked] = React.useState(false);
   const datastoreStatus = useDatastoreContext();
   const { active, account, library, connector, activate, deactivate } = useWeb3React()
 
@@ -101,57 +102,63 @@ export default function Header() {
 
   const handleMetamaskConnect = async () => {
     try {
-      await activate(injected)
+      await activate(injected);
+      setMetamaskClicked(true);
     } catch (error) {
       throw error
     }
   }
 
-  // Todo if active true, hide connect metamask button
-
   useEffect(() => {
-        (async () => {
-          const curUser = await Auth.currentAuthenticatedUser();
-          const email = curUser?.attributes.email;
-          const address = account;
-          if (address) {
-            const walletMessage = `buddirun${email}${Date.now()}`;
-            const web3 = new Web3(Web3.givenProvider);
-            const msgParams = [
-              {
-                type: 'string',      // Any valid solidity type
-                name: 'Message',     // Any string label you want
-                value: walletMessage  // The value to sign
-              },
-            ]
-            web3.currentProvider.sendAsync({
-              method: 'eth_signTypedData',
-              params: [msgParams, address],
-              from: address,
-            }, function (err, result) {
-              if (err) return console.error(err)
-              if (result.error) {
-                return console.error(result.error.message)
-              }
-              const signature = result.result
-
-              console.log('WALLET INFO...........', `walletMessage - ${walletMessage}`, `signature - ${signature}`, `address - ${address}`);
-              const userDetails = {
-                id: curUser.attributes.sub,
-                email: email,
-                wallet_message: walletMessage,
-                address: address,
-                signature: signature,
-              };
-              API.graphql(graphqlOperation(updateUser, {
-                input: userDetails
-              })).then((response) => {
-                console.log(response)
-              })
-            });
+    (() => {
+      if (!active || !metamaskClicked) return;
+      setMetamaskClicked(false)
+      const email = user?.attributes?.email;
+      const address = account;
+      if (address) {
+        const walletMessage = `buddirun${email}${Date.now()}`;
+        const web3 = new Web3(Web3.givenProvider);
+        const msgParams = [
+          {
+            type: 'string',      // Any valid solidity type
+            name: 'Message',     // Any string label you want
+            value: walletMessage  // The value to sign
+          },
+        ]
+        web3.currentProvider.sendAsync({
+          method: 'eth_signTypedData',
+          params: [msgParams, address],
+          from: address,
+        }, function (err, result) {
+          if (err) return console.error(err)
+          if (result.error) {
+            return result.error.message
           }
-        })();
-  }, [active])
+          const signature = result.result
+
+          console.log(`walletMessage - ${walletMessage}`);
+          console.log(`signature - ${signature}`);
+          console.log(`address - ${address}`);
+          const userDetails = {
+            id: user.attributes.sub,
+            email: email,
+            wallet_message: walletMessage,
+            address: address,
+            signature: signature,
+          };
+          const appUserModel = AppUser.getInstance();
+          appUserModel
+              .updateProfileData(userDetails)
+              .then((res) => {
+                console.log("USER PROFILE IS UPDATED", res);
+              })
+              .catch((err) => {
+                console.error("An error occurred while updating user profile\n", err);
+              });
+        });
+      }
+    })();
+  }, [active, metamaskClicked])
 
   // On render
   useEffect(() => {
@@ -416,13 +423,17 @@ export default function Header() {
                 </button>
               ) : (
                 <ul className="navbar-nav ms-auto nav-profile d-none d-sm-flex">
-                  <button
-                      className={`btn-metamask btn collapsed`}
-                      type="button"
-                      onClick={() => handleMetamaskConnect()}
-                  >
-                    Connect Metamask
-                  </button>
+                  {
+                    !active && (
+                        <button
+                            className={`btn-metamask btn collapsed`}
+                            type="button"
+                            onClick={() => handleMetamaskConnect()}
+                        >
+                          Connect Metamask
+                        </button>
+                    )
+                  }
                   &nbsp;&nbsp;
                   <li className="nav-item dropdown align-self-center">
                     <a
