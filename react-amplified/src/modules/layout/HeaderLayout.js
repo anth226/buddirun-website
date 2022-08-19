@@ -165,7 +165,7 @@ export default function Header() {
     console.log("LOAD HEADER LAYOUT", datastoreStatus);
     console.log("TEST LOCATION", location);
     const requireAuth = location.state ? location.state.requireAuth : false;
-    if (requireAuth) {
+    if (requireAuth && openAuth) {
       handleOpenAuth();
     }
     if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
@@ -193,6 +193,10 @@ export default function Header() {
         });
     }
   }, [datastoreStatus, setUserFullName]);
+
+  useEffect(() => {
+    if (user && openAuth) handleOpenAuth();
+  }, [user])
 
   return (
     <header>

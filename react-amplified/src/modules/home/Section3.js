@@ -14,8 +14,8 @@ export default function Section3() {
           <br/>
           <br/>
           <div className="flexContainer">
-            {BuddiListHome.map(budd => (
-              <div className="buddi flexItem">
+            {BuddiListHome.map((budd, key) => (
+              <div key={key} className="buddi flexItem">
                 <Buddi imgUrl={budd.imgUrl} />
               </div>
             ))}
