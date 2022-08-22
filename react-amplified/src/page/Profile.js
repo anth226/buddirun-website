@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import Header from "../modules/layout/HeaderLayout";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import Web3 from "web3";
+import { useWeb3React } from "@web3-react/core";
+import { injected } from "../modules/wallet/connectors";
 import { getAvatar } from "../assets/utils";
 import AppUser from "../appModels/AppUser";
 
 export default function Profile() {
-  const active = window.location.pathname;
+  const activePath = window.location.pathname;
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const [address] = React.useState("0x245v...984tb9adv");
   const [hasConnect, setHasConnect] = React.useState(false);
   const [appUser, setAppUser] = React.useState(null);
+  const [metamaskClicked, setMetamaskClicked] = React.useState(false);
+  const { active, account, library, connector, activate, deactivate } =
+      useWeb3React();
 
   if (!user) return null;
 
@@ -20,6 +26,72 @@ export default function Profile() {
       user.attributes.family_name || ""
     }`;
   }
+
+  const handleMetamaskConnect = async () => {
+    try {
+      await activate(injected);
+      setMetamaskClicked(true);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    (() => {
+      if (!active || !metamaskClicked) return;
+      setMetamaskClicked(false);
+      const email = user?.attributes?.email;
+      const address = account;
+      if (address) {
+        const walletMessage = `buddirun${email}${Date.now()}`;
+        const web3 = new Web3(Web3.givenProvider);
+        const msgParams = [
+          {
+            type: "string", // Any valid solidity type
+            name: "Message", // Any string label you want
+            value: walletMessage, // The value to sign
+          },
+        ];
+        web3.currentProvider.sendAsync(
+            {
+              method: "eth_signTypedData",
+              params: [msgParams, address],
+              from: address,
+            },
+            function (err, result) {
+              if (err) return console.error(err);
+              if (result.error) {
+                return result.error.message;
+              }
+              const signature = result.result;
+
+              console.log(`walletMessage - ${walletMessage}`);
+              console.log(`signature - ${signature}`);
+              console.log(`address - ${address}`);
+              const userDetails = {
+                id: user.attributes.sub,
+                email: email,
+                wallet_message: walletMessage,
+                address: address,
+                signature: signature,
+              };
+              const appUserModel = AppUser.getInstance();
+              appUserModel
+                  .updateProfileData(userDetails)
+                  .then((res) => {
+                    console.log("USER PROFILE IS UPDATED", res);
+                  })
+                  .catch((err) => {
+                    console.error(
+                        "An error occurred while updating user profile\n",
+                        err
+                    );
+                  });
+            }
+        );
+      }
+    })();
+  }, [active, metamaskClicked]);
 
   useEffect(() => {
     const appUserModel = AppUser.getInstance();
@@ -121,7 +193,7 @@ export default function Profile() {
                 <button
                   className="btn btn-outline profile-btn"
                   onClick={() => {
-                    active != "/logout" && signOut();
+                    activePath != "/logout" && signOut();
                   }}
                 >
                   Log out
@@ -181,6 +253,15 @@ export default function Profile() {
                       </div> */}
                   </div>
                 </div>
+                {!active && (
+                    <button
+                        className={`primary-btn`}
+                        type="button"
+                        onClick={() => handleMetamaskConnect()}
+                    >
+                      Connect MetaMask Wallet
+                    </button>
+                )}
                 {!hasConnect ? (
                   <>
                     {/* <button className="primary-btn">
