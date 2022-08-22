@@ -52,6 +52,9 @@ type User
   first_name: String
   last_name: String
   data: String
+  wallet_message: String
+  address: String
+  signature: String
   dailyWins: [DailyWins] @hasMany
 }
 

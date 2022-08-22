@@ -1,7 +1,6 @@
 import React from "react";
-import Buddi from "./Buddi"
-import BuddiListHome from "../../assets/buddi-list-home.json"
-
+import Buddi from "./Buddi";
+import BuddiListHome from "../../assets/buddi-list-home.json";
 
 export default function Section3() {
   return (
@@ -11,11 +10,11 @@ export default function Section3() {
 
       <div className="section3-content">
         <div className="container-fluid">
-          <br/>
-          <br/>
+          <br />
+          <br />
           <div className="flexContainer">
-            {BuddiListHome.map(budd => (
-              <div className="buddi flexItem">
+            {BuddiListHome.map((budd, key) => (
+              <div key={key} className="buddi flexItem">
                 <Buddi imgUrl={budd.imgUrl} />
               </div>
             ))}

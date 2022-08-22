@@ -1,6 +1,6 @@
 projects:
   buddirunv1:
-    schemaPath: react-amplified/src/graphql/schema.json
+    schemaPath: amplify/backend/api/buddirunv1/build/schema.graphql
     includes:
       - react-amplified/src/**/*.js
     excludes:
@@ -10,6 +10,9 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: react-amplified/src/graphql
+        region: us-west-1
+        apiId: null
+        maxDepth: 2
 extensions:
   amplify:
     version: 3

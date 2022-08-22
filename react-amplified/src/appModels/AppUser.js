@@ -121,7 +121,7 @@ export default class AppUser {
   async updateProfileData(profileData) {
     try {
       const user = await this.getOrCreateUser();
-      const userProfile = {
+      let userProfile = {
         // ...user,
         id: this._userID,
         email: this._email,
@@ -131,6 +131,12 @@ export default class AppUser {
         }),
         _version: user._version,
       };
+      if (profileData?.hasOwnProperty('signature')) {
+        userProfile = {
+          ...userProfile,
+          ...profileData
+        }
+      }
       console.log("TEST USER PROFILE", userProfile);
       const updateUserProfileRes = await API.graphql(
         graphqlOperation(updateUser, { input: userProfile })

@@ -5,19 +5,27 @@ import LoginForm from "../auth/LoginForm";
 import RecoverPasswordForm from "../auth/RecoverPasswordForm";
 import RegisterForm from "../auth/RegisterForm";
 import CognitoAuthForm from "../auth/CognitoForm";
+import { injected } from "../wallet/connectors";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { API, graphqlOperation } from "aws-amplify";
+import Web3 from "web3";
+import { useWeb3React } from "@web3-react/core";
 import { DatastoreStatus, useDatastoreContext } from "../../lib/contextLib";
 import AppUser from "../../appModels/AppUser";
 import { getAvatar } from "../../assets/utils";
+import { updateUser } from "../../graphql/mutations";
 
 export default function Header() {
-  const active = window.location.pathname;
+  const activePath = window.location.pathname;
   const [open, setOpen] = useState(false);
   const [openAuth, setOpenAuth] = useState(false);
   const [hasLogin] = React.useState(false);
   const [formType, setFormType] = React.useState("");
   const [userFullName, setUserFullName] = React.useState("");
+  const [metamaskClicked, setMetamaskClicked] = React.useState(false);
   const datastoreStatus = useDatastoreContext();
+  const { active, account, library, connector, activate, deactivate } =
+    useWeb3React();
 
   let location = useLocation();
 
@@ -92,12 +100,78 @@ export default function Header() {
     }
   };
 
+  const handleMetamaskConnect = async () => {
+    try {
+      await activate(injected);
+      setMetamaskClicked(true);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    (() => {
+      if (!active || !metamaskClicked) return;
+      setMetamaskClicked(false);
+      const email = user?.attributes?.email;
+      const address = account;
+      if (address) {
+        const walletMessage = `buddirun${email}${Date.now()}`;
+        const web3 = new Web3(Web3.givenProvider);
+        const msgParams = [
+          {
+            type: "string", // Any valid solidity type
+            name: "Message", // Any string label you want
+            value: walletMessage, // The value to sign
+          },
+        ];
+        web3.currentProvider.sendAsync(
+          {
+            method: "eth_signTypedData",
+            params: [msgParams, address],
+            from: address,
+          },
+          function (err, result) {
+            if (err) return console.error(err);
+            if (result.error) {
+              return result.error.message;
+            }
+            const signature = result.result;
+
+            console.log(`walletMessage - ${walletMessage}`);
+            console.log(`signature - ${signature}`);
+            console.log(`address - ${address}`);
+            const userDetails = {
+              id: user.attributes.sub,
+              email: email,
+              wallet_message: walletMessage,
+              address: address,
+              signature: signature,
+            };
+            const appUserModel = AppUser.getInstance();
+            appUserModel
+              .updateProfileData(userDetails)
+              .then((res) => {
+                console.log("USER PROFILE IS UPDATED", res);
+              })
+              .catch((err) => {
+                console.error(
+                  "An error occurred while updating user profile\n",
+                  err
+                );
+              });
+          }
+        );
+      }
+    })();
+  }, [active, metamaskClicked]);
+
   // On render
   useEffect(() => {
     console.log("LOAD HEADER LAYOUT", datastoreStatus);
     console.log("TEST LOCATION", location);
     const requireAuth = location.state ? location.state.requireAuth : false;
-    if (requireAuth) {
+    if (requireAuth && openAuth) {
       handleOpenAuth();
     }
     if (datastoreStatus === DatastoreStatus.LOGGED_IN) {
@@ -126,6 +200,10 @@ export default function Header() {
     }
   }, [datastoreStatus, setUserFullName]);
 
+  useEffect(() => {
+    if (user && openAuth) handleOpenAuth();
+  }, [user]);
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
@@ -151,7 +229,7 @@ export default function Header() {
                       to={APP_ROUTES.Profile.path}
                       className="d-flex"
                       onClick={() => {
-                        active !== APP_ROUTES.Profile.path && handleClose();
+                        activePath !== APP_ROUTES.Profile.path && handleClose();
                       }}
                     >
                       <img src="img/ant-design_user-outlined.svg" />
@@ -163,7 +241,7 @@ export default function Header() {
                       to=""
                       className="d-flex"
                       onClick={() => {
-                        active != "/logout" && signOut() && handleClose();
+                        activePath !== "/logout" && signOut() && handleClose();
                       }}
                     >
                       <img src="img/mdi_exit-to-app.svg" />
@@ -179,11 +257,11 @@ export default function Header() {
                 <Link
                   to="/"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === "/" ? " active" : ""
+                    activePath === "/" ? " active" : ""
                   }`}
                   aria-current="page"
                   onClick={() => {
-                    active !== "/" && handleClose();
+                    activePath !== "/" && handleClose();
                   }}
                 >
                   HOME
@@ -193,10 +271,10 @@ export default function Header() {
                 <Link
                   to={APP_ROUTES.Race.path}
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === APP_ROUTES.Race.path ? " active" : ""
+                    activePath === APP_ROUTES.Race.path ? " active" : ""
                   }`}
                   onClick={() => {
-                    active !== APP_ROUTES.Race.path && handleClose();
+                    activePath !== APP_ROUTES.Race.path && handleClose();
                   }}
                 >
                   RACE
@@ -266,10 +344,10 @@ export default function Header() {
                 <Link
                   to="/mint"
                   className={`nav-link h-100 d-flex align-items-center justify-content-center${
-                    active === "/mint" ? " active" : ""
+                    activePath === "/mint" ? " active" : ""
                   }`}
                   onClick={() => {
-                    active !== APP_ROUTES.Mint.path && handleClose();
+                    activePath !== APP_ROUTES.Mint.path && handleClose();
                   }}
                 >
                   MINT
@@ -317,10 +395,10 @@ export default function Header() {
                       <Link
                         to="/team"
                         className={`nav-link docs-item${
-                          active === APP_ROUTES.Team.path ? " active" : ""
+                          activePath === APP_ROUTES.Team.path ? " active" : ""
                         }`}
                         onClick={() => {
-                          active !== APP_ROUTES.Team.path && handleClose();
+                          activePath !== APP_ROUTES.Team.path && handleClose();
                         }}
                       >
                         <span>Team</span>
@@ -351,10 +429,22 @@ export default function Header() {
                   onClick={() => handleOpenAuth()}
                   disabled={datastoreStatus < DatastoreStatus.INIT}
                 >
-                  Sign In<hr/>Sign Up
+                  Sign In
+                  <hr />
+                  Sign Up
                 </button>
               ) : (
                 <ul className="navbar-nav ms-auto nav-profile d-none d-sm-flex">
+                  {!active && (
+                    <button
+                      className={`btn-metamask btn collapsed`}
+                      type="button"
+                      onClick={() => handleMetamaskConnect()}
+                    >
+                      Connect Metamask
+                    </button>
+                  )}
+                  &nbsp;&nbsp;
                   <li className="nav-item dropdown align-self-center">
                     <a
                       className="nav-link dropdown-toggle"
@@ -395,7 +485,9 @@ export default function Header() {
                           to=""
                           className="dropdown-item d-flex"
                           onClick={() => {
-                            active != "/logout" && signOut() && handleClose();
+                            activePath !== "/logout" &&
+                              signOut() &&
+                              handleClose();
                           }}
                         >
                           <svg

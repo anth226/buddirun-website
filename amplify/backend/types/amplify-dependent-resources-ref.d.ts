@@ -28,6 +28,7 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "buddirunv1": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
